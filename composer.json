@@ -1,0 +1,26 @@
+{
+    "name": "antoniputra/asmoyo",
+    "description": "",
+    "authors": [
+        {
+            "name": "Antoni Putra",
+            "email": "akiddcode@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "intervention/image": "2.*",
+        "intervention/imagecache": "2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/seeds"
+        ],
+        "psr-0": {
+            "Antoniputra\\Asmoyo\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

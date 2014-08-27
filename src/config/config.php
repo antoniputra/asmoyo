@@ -7,7 +7,7 @@ return array(
 	*/
 	'model'		=> array(
 
-		'user'		=> '',
+		'user'		=> 'Antoniputra\Asmoyo\Users\User',
 
 		// ...
 
@@ -32,22 +32,22 @@ return array(
 		/**
 		* where base upload path should be stored
 		*/
-		'path'			=> public_path('packages/antoniputra/asmoyo/uploads/'),
+		'path'			=> public_path('uploads/'),
 
 		/**
 		* where image upload path should be stored
 		*/
-		'path_image'	=> public_path('packages/antoniputra/asmoyo/uploads/images/'),
+		'path_image'	=> public_path('uploads/images/'),
 
 		/**
 		* where audio upload path should be stored
 		*/
-		'path_audio'	=> public_path('packages/antoniputra/asmoyo/uploads/audio/'),
+		'path_audio'	=> public_path('uploads/audio/'),
 
 		/**
 		* where video upload path should be stored
 		*/
-		'path_video'	=> public_path('packages/antoniputra/asmoyo/uploads/video/'),
+		'path_video'	=> public_path('uploads/video/'),
 
 	),
 

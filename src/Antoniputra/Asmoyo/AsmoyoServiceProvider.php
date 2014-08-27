@@ -20,7 +20,7 @@ class AsmoyoServiceProvider extends ServiceProvider {
 	{
 		$this->package('antoniputra/asmoyo');
 
-		include __DIR__ . '/../../function.php';
+		include __DIR__ . '/../../functions.php';
 		include __DIR__ . '/../../filters.php';
 		include __DIR__ . '/../../routes.php';
 	}

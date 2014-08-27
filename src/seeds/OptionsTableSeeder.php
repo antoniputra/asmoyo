@@ -114,6 +114,17 @@ class OptionsTableSeeder extends Seeder {
 				'value'			=> 'My Awesome Company Website who services Event Organizer, MC, and other...',
 				'type'			=> '',
 			],
+
+			[
+				'name'			=> 'web_theme',
+				'description'	=> 'Theme for this website',
+				'value'			=> json_encode([
+					'name'	=> 'standard',
+					'title'	=> 'Asmoyo Standard Theme',
+					'description' => 'This is Standard Theme starter for using this framework',
+				]),
+				'type'			=> 'json',
+			],
 			// End Web
 
 			

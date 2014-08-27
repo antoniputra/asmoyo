@@ -9,6 +9,10 @@ class OptionRepo extends Repository
 		$this->model = $model;
 	}
 
+	/**
+	 * Get all option by option name
+	 * @return array
+	 */
 	public function get($name = null)
 	{
 		$result = array();

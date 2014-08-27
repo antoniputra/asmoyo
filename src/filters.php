@@ -5,11 +5,11 @@
 */
 Route::filter('anonymous', function($route, $request, $value=null)
 {
-	$value = $value ?: 'admin.home.index';
+	$value = $value ?: admin_route('home.index');
 
 	if( Auth::check() )
 	{
-		return Redirect::route($value);
+		return Redirect::to($value);
 	}
 });
 
@@ -18,12 +18,12 @@ Route::filter('anonymous', function($route, $request, $value=null)
 */
 Route::filter('adminFilter', function()
 {
-	/*$user = app('Antoniputra\Asmoyo\Users\UserInterface')->auth();
+	$auth = Auth::user();
 
-	if( !$user ) return Redirect::route('admin.login');
+	if( !$auth ) return Redirect::to(admin_route('login'));
 
-	if( !isset($user['permissions']['superuser']) )
+	if( !isset($auth['permissions']['superuser']) )
 	{
 		return App::abort(403, 'you don\'t have permission');
-	}*/
+	}
 });

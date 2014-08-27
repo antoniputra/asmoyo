@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration {
 			$table->integer('order');
 			$table->string('mime_type');
 			$table->integer('size');
+			$table->text('options');
 			$table->string('title');
 			$table->string('slug');
 			$table->text('description');

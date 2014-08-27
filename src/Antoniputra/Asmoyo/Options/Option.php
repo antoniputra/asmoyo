@@ -1,19 +1,17 @@
 <?php namespace Antoniputra\Asmoyo\Options;
 
-class Option extends \Antoniputra\Asmoyo\Cores\EloquentBase {
+use Antoniputra\Asmoyo\Cores\Entity;
+
+class Option extends Entity {
 	
-	protected $table = 'options';
+	protected $table 		= 'options';
+	protected $fillable 	= [];
+	public $timestamps 		= false;
 
-	/**
-	* Disabled timestamps
-	*/
-	public $timestamps = false;
-
-	/**
-     * These are the mass-assignable keys
-     * @var array
-     */
-	protected $fillable = [];
+	protected $validationRules = [
+		'name'			=> 'required',
+		'description'	=> 'required',
+	];
 
 	public function getValueAttribute($value)
     {

@@ -17,7 +17,11 @@ return array(
 	* Admin Setting
 	*/
 	'admin'		=> array(
-		'url'		=> ''
+		
+		/**
+		 * Url prefix to admin page
+		 */
+		'prefix'	=> 'panel'
 	),
 
 	/**

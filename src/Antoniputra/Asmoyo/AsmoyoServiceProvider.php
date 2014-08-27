@@ -32,7 +32,13 @@ class AsmoyoServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		// get website current option
+		$this->app->bindShared('Asmoyo\Option', function()
+		{
+			return new \Antoniputra\Asmoyo\Options\OptionRepo(
+				new \Antoniputra\Asmoyo\Options\Option
+			);
+		});
 	}
 
 	/**

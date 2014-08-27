@@ -1,0 +1,43 @@
+.b { background:red; min-height:300px; }
+.c { background:blue; min-height:300px; }
+
+body {  }
+
+
+/* Responsive Setting */
+
+/* Extra small devices (phones, less than 768px) */
+@media (max-width: 767px) {
+	body { background:purple; }
+	.creashiftNavbar { position:relative; margin:0px; }
+	.creashiftNavbar .nav { text-align:center; margin-top:0px; padding:0px; }
+
+	.creashiftSideMenu { display:none }
+
+	.content { margin:10px 0px 0px 0px; }
+	.dashCover { margin:0px; }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+	body { background:green; }
+	.creashiftNavbar { position:relative; margin:0px; }
+	.creashiftNavbar .nav { text-align:center; margin-top:0px; padding:0px; }
+
+	.creashiftSideMenu { display:none }
+
+	.content { margin:10px 0px 0px 0px; }
+	.dashCover { margin:0px; }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199px) {
+	body { background:yellow; }
+	.side-wrapper { position:fixed; left:0px; width:16.66666667%; height:100%; }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+	 body { background:black; }
+	.side-wrapper { position:fixed; left:0px; width:16.66666667%; height:100%; }
+}

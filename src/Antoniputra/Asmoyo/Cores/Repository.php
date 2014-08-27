@@ -21,4 +21,19 @@ abstract class Repository
 	{
 		return $this->model;
 	}
+
+	public function getAll()
+    {
+        return $this->model->all();
+    }
+
+    public function getAllPaginated($count)
+    {
+        return $this->model->paginate($count);
+    }
+
+    public function getById($id)
+    {
+        return $this->model->find($id);
+    }
 }

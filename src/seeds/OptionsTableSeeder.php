@@ -158,22 +158,6 @@ class OptionsTableSeeder extends Seeder {
 				'type'			=> '',
 			],
 			// End Media
-
-
-			// Post
-			[
-				'name'			=> 'post_perPage',
-				'description'	=> 'default Post list per page',
-				'value'			=> 10,
-				'type'			=> '',
-			],
-			[
-				'name'			=> 'post_sortir',
-				'description'	=> 'default Post sortir',
-				'value'			=> 'new',
-				'type'			=> '',
-			],
-			// End Post
 		];
 
 		DB::table('options')->insert($options);

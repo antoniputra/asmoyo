@@ -30,9 +30,11 @@ abstract class Entity extends Eloquent
 
     public function save(array $options = array())
     {
+        // when saving, we should always check validation
         if ( ! $this->isValid()) {
             return false;
         }
+
         return parent::save($options);
     }
 

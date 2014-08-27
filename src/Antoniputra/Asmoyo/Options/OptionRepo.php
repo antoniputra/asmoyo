@@ -8,4 +8,14 @@ class OptionRepo extends Repository
 	{
 		$this->model = $model;
 	}
+
+	public function get($name = null)
+	{
+		$result = array();
+		foreach( $this->model->all() as $opt )
+		{
+			$result[$opt['name']]	= $opt['value'];
+		}
+		return ( !$name ) ? $result : $result[$name];
+	}
 }

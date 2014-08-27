@@ -70,7 +70,7 @@ abstract class Repository
         else
         {
             // return $model->touch();
-            return throw new Exception("Save in store object. there is not has change attributes", 1);            
+            throw new Exception("Save in store object. there is not has change attributes", 1);            
         }
     }
 

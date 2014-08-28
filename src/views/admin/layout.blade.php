@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    @section('header')
+    @section('head')
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,48 +14,49 @@
         </title>
 
         @section('stylesheets')
-            {{-- asmoyoAsset( 'css/bootstrap.min.css', 'admin') --}}
-            {{-- asmoyoAsset( 'css/bootstrap-theme.min.css', 'admin') --}}
-            {{-- asmoyoAsset( 'css/font-awesome.min.css', 'admin') --}}
-
-            {{HTML::style('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css')}}
-            {{HTML::style('//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css')}}
-            {{asmoyoAsset( 'css/admin-style.css', 'admin')}}
+            {{ HTML::style('packages/antoniputra/asmoyo/admin/css/bootstrap.min.css') }}
+            {{ HTML::style('packages/antoniputra/asmoyo/admin/css/font-awesome.min.css') }}
+            {{ HTML::style('packages/antoniputra/asmoyo/admin/css/admin-style.css') }}
         @show
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        [endif]-->
     @show
 </head>
 <body>
 
-    @section('navbar')
-        @include('asmoyo::admin.partials.navbar')
-    @show
+	<div class="container-fluid">
 
-    @yield('structure')
+	    <!-- Start Top -->
+	    @yield('before_header')
 
-    @section('footer')
+	    @section('header')
 
-        <div class="col-lg-12">
-            <div class="footer">
-                © Copyright 2014 All Right Reserved | 
-                <i> Powered by <a href="http://plensip.com"> plensip.com </a> </i>
-            </div>
-        </div>
+	    @show
 
-    @show
+	    @yield('after_header')
+	    <!-- End Top -->
+
+
+	    <!-- Start Body  -->
+	    @yield('before_body')
+
+	    @section('body')
+	    	{{$body}}
+	    @show
+
+	    @yield('after_body')
+	    <!-- End Body -->
+
+
+	    <!-- Start Body  -->
+	    @section('footer')
+
+	    @show
+	    <!-- End Body -->
+
+    </div>
 
     @section('javascripts')
-        {{-- asmoyoAsset( 'js/jquery.min.js', 'admin') --}}
-        {{-- asmoyoAsset( 'js/bootstrap.min.js', 'admin') --}}
-
-        {{HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js')}}
-        {{HTML::script('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js')}}
-        {{asmoyoAsset( 'js/asmoyo.js', 'admin')}}
+    	{{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js') }}
+    	{{ HTML::script('packages/antoniputra/asmoyo/admin/js/bootstrap.min.js') }}
     @show
 
 </body>

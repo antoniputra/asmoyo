@@ -1,0 +1,1 @@
+Ini adalah sidebar kiri di include dari function

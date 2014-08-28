@@ -16,15 +16,15 @@ class CreateCommentsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('post_id');
-			$table->integer('parent_id');
 			$table->integer('user_id')->nullable();
+			$table->integer('parent_id');
 		    $table->string('status');
 			$table->string('title');
 		    $table->text('content');
-		    $table->string('anonymous_name');
-		    $table->string('anonymous_email');
-		    $table->string('anonymous_url');
-		    $table->text('anonymous_agent');
+		    $table->string('anonymous_name')->nullable();
+		    $table->string('anonymous_email')->nullable();
+		    $table->string('anonymous_url')->nullable();
+		    $table->text('anonymous_agent')->nullable();
 			$table->timestamps();
 		});
 	}

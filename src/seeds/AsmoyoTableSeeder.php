@@ -20,6 +20,7 @@ class AsmoyoTableSeeder extends Seeder {
 		$this->call('TagsTableSeeder');
 		$this->call('PostsTableSeeder');
 		$this->call('PostTagTableSeeder');
+		$this->call('CommentsTableSeeder');
 		/*$this->call('PageTableSeeder');
 		$this->call('MediaTableSeeder');
 		$this->call('GalleryTableSeeder');

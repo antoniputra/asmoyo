@@ -19,7 +19,6 @@ class CreateOptionsTable extends Migration {
 			$table->text('description');
 			$table->text('value');
 			$table->string('type');
-			// $table->timestamps();
 		});
 	}
 
@@ -31,7 +30,7 @@ class CreateOptionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop( 'options' );
+		Schema::drop('options');
 	}
 
 }

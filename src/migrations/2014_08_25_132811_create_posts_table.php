@@ -15,23 +15,23 @@ class CreatePostsTable extends Migration {
 		Schema::create('posts', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('parent_id');
+			$table->integer('parent_id')->default(0);
 			$table->integer('user_id');
-			$table->integer('category_id');
-			$table->integer('photo_id');
+			$table->integer('category_id')->default(0);
+			$table->integer('photo_id')->default(0);
 			$table->string('status');
-			$table->string('comment_status');
+			$table->string('comment_status')->default(1);
 			$table->string('type');
-			$table->integer('order');
-			$table->string('mime_type');
-			$table->integer('size');
-			$table->text('options');
+			$table->integer('order')->default(0);
+			$table->string('mime_type')->default('text/html');
+			$table->integer('size')->default(200);
+			$table->text('options')->default(null);
 			$table->string('title');
 			$table->string('slug');
 			$table->text('description');
-			$table->text('body');
-			$table->text('meta_keywords');
-			$table->text('meta_description');
+			$table->text('content');
+			$table->text('meta_keywords')->default(null);
+			$table->text('meta_description')->default(null);
 			$table->timestamps();
 		});
 	}

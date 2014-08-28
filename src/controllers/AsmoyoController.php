@@ -16,7 +16,7 @@ abstract class AsmoyoController extends Controller
 	 */
 	protected $collumn = 'two_collumn';
 
-	public function adminView($body, $data = array(), $pseudo=true)
+	public function adminView($content, $data = array(), $pseudo=true)
 	{
 		// call global variable admin
 		$this->adminViewShare();
@@ -24,10 +24,10 @@ abstract class AsmoyoController extends Controller
 		$_path 		= 'asmoyo::admin.';
 		$layout 	= $_path . $this->layout;
 		$collumn 	= $_path . $this->collumn;
-		$body 		= $_path . $body;
+		$content 		= $_path . $content;
 
     	return View::make($collumn, $data)
-			->nest('body', $body, $data);
+			->nest('content', $content, $data);
 	}
 
 	
@@ -66,7 +66,7 @@ abstract class AsmoyoController extends Controller
         
         View::share(array(
         	'auth' 			=> $auth,
-        	'activePage' 	=> 1,
+        	'activePage' 	=> Request::segment(2),
 
         	'theme_path'	=> $_path,
         	'layout'		=> $layout,

@@ -10,7 +10,8 @@ class Admin_HomeController extends AsmoyoController {
 	 */
 	public function index()
 	{
-		return 'now you are logged in';
+		$data = array();
+		return $this->setCollumn('two_collumn')->adminView('content.home.index', $data);
 	}
 
 	/**

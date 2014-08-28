@@ -10,12 +10,12 @@ class User extends Entity implements UserInterface, RemindableInterface {
 	
 	use UserTrait, RemindableTrait;
 
-	protected $table 		= 'options';
+	protected $table 		= 'users';
 	protected $fillable 	= [];
 	protected $hidden 		= array('password', 'remember_token');
 	
 	protected $validationRules = [
-		''
+		'fullname'	=> 'required',
 	];
 
 	public function getPermissionsAttribute($value)

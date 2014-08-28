@@ -2,7 +2,22 @@
 
 use Antoniputra\Asmoyo\Cores\Exceptions\GlobalFunctionError;
 
-// $web 	= app('asmoyo.option')->get();
+$GLOBALS['options'] = app('asmoyo.option');
+
+/**
+* alias get option
+* @param $key
+*/
+function asmoyo_option($key = null)
+{
+	if( str_contains($key, '.') )
+	{
+		$options = array_dot($GLOBALS['options']);
+		return $options[$key];
+	}
+
+	return $GLOBALS['options'][$key];
+}
 
 /**
  * get admin route
@@ -18,5 +33,9 @@ function admin_route($routeName, $param = null)
 }
 
 /**
- * get path current template
+ * get assets current theme path
  */
+function theme_assets_path()
+{
+	// return public_path('asmoyo-theme/'. $option['web_template']['name']);
+}

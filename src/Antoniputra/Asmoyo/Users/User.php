@@ -15,7 +15,13 @@ class User extends Entity implements UserInterface, RemindableInterface {
 	protected $hidden 		= array('password', 'remember_token');
 	
 	protected $validationRules = [
-		'fullname'	=> 'required',
+		'email'			=> 'required|unique:users',
+		'password'		=> 'required|confirmed|min:6',
+		'username'		=> 'required|min:4',
+		'fullname'		=> 'required',
+		'birthday'      => 'required|date',
+        'gender'        => 'required|in:male,female',
+        'city'          => 'required',
 	];
 
 	public function getPermissionsAttribute($value)

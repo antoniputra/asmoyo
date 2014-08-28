@@ -42,7 +42,7 @@ abstract class Entity extends Eloquent
     {
         $newRules = [];
 
-        foreach ($rules as $key => $rule) {
+        foreach ($this->validationRules as $key => $rule) {
             if (str_contains($rule, '<id>'))
             {
                 $replacement = $this->exists ? $this->getAttribute($this->primaryKey) : '';

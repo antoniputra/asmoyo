@@ -5,23 +5,74 @@
 */
 abstract class AsmoyoController extends Controller
 {
-	public function adminView($content, $data = array(), $pseudo=true)
-	{
-		$web = app('asmoyo.option');
-		$base 	= 'asmoyo::.'. $web['web_adminTemplate']['name'] .'.';
-		return $base;
-		if ( ! $this->structure )
-		{
-			$this->structure = $base .'twoCollumn';
-		}
-		$content = $base . $content;
-		
-		$output = View::make($this->structure, $data)
-					->nest('content', $content, $data)
-					->render();
+	/**
+	 * layout template name
+	 */
+	protected $layout = 'layout';
 
-		return $output;
+	/**
+	 * collumn template name
+	 * the name should follow naming convention e.g : one_collumn, two_collumn
+	 */
+	protected $collumn = 'two_collumn';
+
+	public function adminView($body, $data = array(), $pseudo=true)
+	{
+		// call global variable admin
+		$this->adminViewShare();
+
+		$_path 		= 'asmoyo::admin.';
+		$layout 	= $_path . $this->layout;
+		$collumn 	= $_path . $this->collumn;
+		$body 		= $_path . $body;
+
+    	return View::make($collumn, $data)
+					->nest('body', $body, $data);
 	}
+
+	
+	/**
+	 * set collumn for body
+	 * @param $collum  should naming convention : (one_collumn, two_collumn)
+	 */
+	protected function setLayout($layout = 'layout')
+	{
+		$this->layout = $layout;
+		return $this;
+	}
+
+	
+	/**
+	 * set collumn for body
+	 * @param $collum  should naming convention : (one_collumn, two_collumn)
+	 */
+	protected function setCollumn($collumn = 'two_collumn')
+	{
+		$this->collumn = $collumn;
+		return $this;
+	}
+
+
+	/**
+	 * determine global variable for admin view
+	 */
+	protected function adminViewShare()
+	{
+		$auth = Auth::user();
+
+		$_path 		= 'asmoyo::admin.';
+		$layout 	= $_path . $this->layout;
+		$collumn 	= $_path . $this->collumn;
+        
+        View::share(array(
+        	'auth' 			=> $auth,
+        	'activePage' 	=> 1,
+
+        	'layout'		=> $layout,
+        	'collumn'		=> $collumn,
+    	));
+	}
+
 
 	/**
 	 * Redirect with alert
@@ -62,5 +113,5 @@ abstract class AsmoyoController extends Controller
 
 		// if nothing alert just do Redirect::route
 		return $redirect;
-	}	
+	}
 }

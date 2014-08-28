@@ -20,7 +20,7 @@ Route::filter('adminFilter', function()
 {
 	$auth = Auth::user();
 
-	if( !$auth ) return Redirect::to(admin_route('login'));
+	if( !$auth ) return Redirect::to(admin_route('getLogin'));
 
 	if( !isset($auth['permissions']['superuser']) )
 	{

@@ -20,13 +20,13 @@ Route::group(array('prefix' => $adminPrefix), function() use($adminPrefix)
 	));
 	Route::get('login', array(
 		'before'	=> 'anonymous',
-		'as' 		=> $adminPrefix .'.login',
-		'uses' 		=> 'Admin_UserController@getAdminLogin'
+		'as' 		=> $adminPrefix .'.getLogin',
+		'uses' 		=> 'Admin_UserController@getLogin'
 	));
 	Route::post('login', array(
 		'before'	=> 'anonymous',
 		'as' 		=> $adminPrefix .'.postLogin',
-		'uses' 		=> 'Admin_UserController@postAdminLogin'
+		'uses' 		=> 'Admin_UserController@postLogin'
 	));
 	Route::get('logout', array(
 		'as' 		=> $adminPrefix .'.logout',
@@ -52,7 +52,15 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	));
 
 	// User
-	Route::resource('user', 'Admin_UserController');
+	Route::get('change-password', array(
+		'as' 		=> $adminPrefix .'.user.getChangePassword',
+		'uses' 		=> 'Admin_UserController@getChangePassword'
+	));
+
+	Route::post('change-password', array(
+		'as' 		=> $adminPrefix .'.user.postChangePassword',
+		'uses' 		=> 'Admin_UserController@postChangePassword'
+	));
 
 	// Post
 	Route::resource('post', 'Admin_PostController');

@@ -18,44 +18,49 @@
             {{ HTML::style('packages/antoniputra/asmoyo/admin/css/font-awesome.min.css') }}
             {{ HTML::style('packages/antoniputra/asmoyo/admin/css/admin-style.css') }}
         @show
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<!-- Favicons -->
+		<link rel="shortcut icon" href="/favicon.ico">
     @show
 </head>
 <body>
+    <!-- Start Top -->
+    @yield('before_header')
 
-	<div class="container-fluid">
+    @section('header')
+    	@include($theme_path .'partial.header')
+    @show
 
-	    <!-- Start Top -->
-	    @yield('before_header')
-
-	    @section('header')
-
-	    @show
-
-	    @yield('after_header')
-	    <!-- End Top -->
+    @yield('after_header')
+    <!-- End Top -->
 
 
-	    <!-- Start Body  -->
-	    @yield('before_body')
+    <!-- Start Body  -->
+    @yield('before_body')
 
-	    @section('body')
-	    	{{$body}}
-	    @show
+    @section('body')
+    	
+    @show
 
-	    @yield('after_body')
-	    <!-- End Body -->
+    @yield('after_body')
+    <!-- End Body -->
 
 
-	    <!-- Start Body  -->
-	    @section('footer')
-
-	    @show
-	    <!-- End Body -->
-
-    </div>
+    <!-- Start Body  -->
+    @section('footer')
+    	@include($theme_path .'partial.footer')
+    @show
+    <!-- End Body -->
 
     @section('javascripts')
-    	{{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js') }}
+    	{{-- HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js') --}}
+    	{{ HTML::script('packages/antoniputra/asmoyo/admin/js/jquery.min.js') }}
     	{{ HTML::script('packages/antoniputra/asmoyo/admin/js/bootstrap.min.js') }}
     @show
 

@@ -70,6 +70,14 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	Route::resource('post', 'Admin_PostController');
 	// End Post
 
+	// Page
+	Route::resource('page', 'Admin_PageController');
+	// End Page
+
+	// Media
+	Route::resource('media', 'Admin_MediaController');
+	// End Media
+
 	// Category
 	Route::resource('category', 'Admin_CategoryController');
 	// End Category

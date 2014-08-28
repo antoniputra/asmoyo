@@ -1,6 +1,7 @@
 <?php namespace Antoniputra\Asmoyo;
 
 use Illuminate\Support\ServiceProvider;
+use Config;
 
 class AsmoyoServiceProvider extends ServiceProvider {
 
@@ -19,6 +20,9 @@ class AsmoyoServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('antoniputra/asmoyo');
+
+		// set Auth model
+		Config::set('auth.model', Config::get('asmoyo::model.user'));
 
 		include __DIR__ . '/../../functions.php';
 		include __DIR__ . '/../../filters.php';

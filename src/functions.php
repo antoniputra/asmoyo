@@ -2,7 +2,8 @@
 
 use Antoniputra\Asmoyo\Cores\Exceptions\GlobalFunctionError;
 
-$GLOBALS['options'] = app('asmoyo.option');
+$GLOBALS['options'] 	= app('asmoyo.option');
+$GLOBALS['theme_dir'] 	= 'asmoyo-theme';
 
 /**
 * alias get option
@@ -10,6 +11,8 @@ $GLOBALS['options'] = app('asmoyo.option');
 */
 function asmoyo_option($key = null)
 {
+	if ( ! $key ) return $GLOBALS['options'];
+
 	if( str_contains($key, '.') )
 	{
 		$options = array_dot($GLOBALS['options']);
@@ -33,9 +36,25 @@ function admin_route($routeName, $param = null)
 }
 
 /**
- * get assets current theme path
+ * get current theme assets root path
  */
-function theme_assets_path()
+function theme_asset_path($file = null)
 {
-	// return public_path('asmoyo-theme/'. $option['web_template']['name']);
+	return public_path( $GLOBALS['theme_dir'] .'/'. asmoyo_option('web_theme.name') .'/'. $file);
+}
+
+/**
+ * get current theme view root path
+ */
+function theme_view_path($view = null)
+{
+	return app_path('views/'. $GLOBALS['theme_dir'] .'/'. asmoyo_option('web_theme.name') .'/'. $view);
+}
+
+/**
+ * get theme file from current active theme, used in template engine
+ */
+function tpl_get($view = null)
+{
+	return $GLOBALS['theme_dir'] .'.'. asmoyo_option('web_theme.name') .'.'. $view;
 }

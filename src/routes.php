@@ -16,7 +16,7 @@ Route::group(array('prefix' => $adminPrefix), function() use($adminPrefix)
 	Route::get('/', array(
 		'before'	=> 'anonymous',
 		'as' 		=> $adminPrefix,
-		'uses' 		=> 'Admin_UserController@getAdmin'
+		'uses' 		=> 'Admin_UserController@admin'
 	));
 	Route::get('login', array(
 		'before'	=> 'anonymous',
@@ -28,41 +28,58 @@ Route::group(array('prefix' => $adminPrefix), function() use($adminPrefix)
 		'as' 		=> $adminPrefix .'.postLogin',
 		'uses' 		=> 'Admin_UserController@postLogin'
 	));
-	Route::get('logout', array(
-		'as' 		=> $adminPrefix .'.logout',
-		'uses' 		=> 'Admin_UserController@adminLogout'
-	));
 });
+
+Route::get($adminPrefix .'/logout', array(
+	'as' 		=> $adminPrefix .'.logout',
+	'uses' 		=> 'Admin_UserController@logout'
+));
 /* End Admin Authentication */
 
 
 /* Admin Page */
 Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), function() use($adminPrefix)
 {
-	// Option
-	Route::get('option', array(
-		'as'	=> $adminPrefix.'.option.index',
-		'uses' 	=> 'Admin_OptionController@index'
-	));
-
 	// Home
 	Route::get('home', array(
 		'as'	=> $adminPrefix.'.home.index',
 		'uses' 	=> 'Admin_HomeController@index'
 	));
+	// End Home
+
+	// Option
+	Route::get('option', array(
+		'as'	=> $adminPrefix.'.option.index',
+		'uses' 	=> 'Admin_OptionController@index'
+	));
+	// End Option
 
 	// User
 	Route::get('change-password', array(
 		'as' 		=> $adminPrefix .'.user.getChangePassword',
 		'uses' 		=> 'Admin_UserController@getChangePassword'
 	));
-
-	Route::post('change-password', array(
-		'as' 		=> $adminPrefix .'.user.postChangePassword',
-		'uses' 		=> 'Admin_UserController@postChangePassword'
+	Route::put('change-password', array(
+		'as' 		=> $adminPrefix .'.user.putChangePassword',
+		'uses' 		=> 'Admin_UserController@putChangePassword'
 	));
+	Route::resource('user', 'Admin_UserController');
+	// End User
 
 	// Post
 	Route::resource('post', 'Admin_PostController');
+	// End Post
+
+	// Category
+	Route::resource('category', 'Admin_CategoryController');
+	// End Category
+
+	// Tag
+	Route::resource('tag', 'Admin_TagController');
+	// End Tag
+
+	// Comment
+	Route::resource('comment', 'Admin_CommentController');
+	// End Comment
 });
 /* End Admin Page */

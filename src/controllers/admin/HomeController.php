@@ -10,7 +10,7 @@ class Admin_HomeController extends AsmoyoController {
 	 */
 	public function index()
 	{
-		return 'halo';
+		return 'now you are logged in';
 	}
 
 	/**

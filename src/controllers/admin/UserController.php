@@ -10,28 +10,43 @@ class Admin_UserController extends AsmoyoController {
 	}
 
 	/**
-	 * 
+	 * base url for admin
+	 * this used for check auth admin
 	 */
-	public function getAdmin()
+	public function admin()
 	{
-		return 'check admin auth';
+		return Redirect::to(admin_route('getLogin'));
 	}
 
 	/**
 	 * 
 	 */
-	public function getAdminLogin()
+	public function getLogin()
 	{
 		$data = array();
-		return $this->adminView('user.login', $data);
+		return $this->setCollumn('two_collumn')->adminView('content.user.login', $data);
 	}
 
 	/**
-	 * 
+	 * @return Redirect
 	 */
-	public function postAdminLogin()
+	public function postLogin()
 	{
-		return 'here is Post Admin Login';
+		if ($this->user->login(Input::all()))
+		{
+		    return Redirect::intended(admin_route('home.index'));
+		}
+
+		return $this->redirectAlert(false, 'danger', 'Gagal !!', '');
+	}
+
+	/**
+	* @return Redirect
+	*/
+	public function logout()
+	{
+		$this->user->logout();
+		return Redirect::to(admin_route('getLogin'));
 	}
 
 

@@ -27,7 +27,7 @@ abstract class AsmoyoController extends Controller
 		$body 		= $_path . $body;
 
     	return View::make($collumn, $data)
-					->nest('body', $body, $data);
+			->nest('body', $body, $data);
 	}
 
 	
@@ -68,6 +68,7 @@ abstract class AsmoyoController extends Controller
         	'auth' 			=> $auth,
         	'activePage' 	=> 1,
 
+        	'theme_path'	=> $_path,
         	'layout'		=> $layout,
         	'collumn'		=> $collumn,
     	));

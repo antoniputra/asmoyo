@@ -10,7 +10,6 @@ class PostsTableSeeder extends Seeder {
 			
 			/**
 			* For Media
-			* Field : user_id, category_id, status, comment_status, type, mime_type, size, title, slug, description, content, meta_keywords, meta_description
 			*/
 			array(
 				'parent_id'				=> 0,
@@ -36,7 +35,6 @@ class PostsTableSeeder extends Seeder {
 
 			/**
 			* For Page
-			* Field : user_id parent_id category_id photo_id status comment_status type order mime_type size options title slug description content meta_keywords meta_description
 			*/
 			array(
 				'parent_id'				=> 0,
@@ -67,7 +65,6 @@ class PostsTableSeeder extends Seeder {
 
 			/**
 			* For Thread
-			* Field : user_id category_id photo_id status comment_status type mime_type size options title slug description content meta_keywords meta_description
 			*/
 			array(
 				'parent_id'				=> 0,

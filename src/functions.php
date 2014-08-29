@@ -59,6 +59,36 @@ function tpl_get($view = null)
 	return $GLOBALS['theme_dir'] .'.'. asmoyo_option('web_theme.name') .'.'. $view;
 }
 
+/**
+ * make data as dropdown
+ * @param array data
+ * @param bool  withDefault
+ * @param array option
+ */
+function asDropdown(array $data, $withDefault = false, $option = [])
+{
+    if ( $withDefault )
+        $result[0] = 'Tidak ada';
+    else
+        $result = [];
+
+    // this is multi dimensional array
+    if (is_array($data[0]))
+    {
+        foreach ($data as $d) {
+            $result[$d['id']] = $d['title'];
+        }
+    }
+    else
+    {
+        foreach ($data as $d) {
+            $result[$d] = $d;
+        }
+    }
+
+    return $result;
+}
+
 
 /**
 * ===============

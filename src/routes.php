@@ -6,9 +6,11 @@ Route::pattern('slug', '[A-Za-z0-9-_]+');
 Route::pattern('username', '[A-Za-z0-9-_]+');
 /* End Route Pattern */
 
+
 /* Variable */
 $adminPrefix = Config::get('asmoyo::admin.prefix');
 /* End Variable */
+
 
 /* Admin Authentication */
 Route::group(array('prefix' => $adminPrefix), function() use($adminPrefix)
@@ -91,3 +93,8 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// End Comment
 });
 /* End Admin Page */
+
+
+/* Public Page */
+Route::resource('category', 'CategoryController');
+/* End Public Page */

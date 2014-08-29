@@ -12,6 +12,9 @@
 			<div class="content">
 				@yield('before_content')
 				
+				<!-- alert -->
+				@include($theme_path .'partial.alert')
+				
 				{{$content}}
 
 				@yield('after_content')

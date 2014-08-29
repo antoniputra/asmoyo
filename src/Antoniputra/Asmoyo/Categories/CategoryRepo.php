@@ -10,11 +10,19 @@ class CategoryRepo extends Repository
 		$this->model = $model;
 	}
 
-	public function browse($sortir = null, $limit = null, $status = null)
+	/**
+	 * get parent category
+	 * @param forgetId integer
+	 */
+	public function getParent($forgetId = null)
 	{
-		return $this->setQuery($sortir, $limit, $status, function($q) {
-				return $q->get();
-		})->getQuery();
+		$parent = $this->model->where('parent_id', 0);
+
+		if($forgetId) {
+			$parent = $parent->where('id', '!=', $forgetId);
+		}
+
+		return $parent->get()->toArray();
 	}
 
 }

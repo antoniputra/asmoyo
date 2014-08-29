@@ -42,13 +42,19 @@
 
 
     <!-- Start Body  -->
-    @yield('before_body')
+    <div class="container-fluid asmoyo-container">
+        <div class="row">
+            <div class="col-md-12">
+                @yield('before_body')
 
-    @section('body')
-    	
-    @show
+                @section('body')
+                	
+                @show
 
-    @yield('after_body')
+                @yield('after_body')
+            </div>
+        </div>
+    </div>
     <!-- End Body -->
 
 

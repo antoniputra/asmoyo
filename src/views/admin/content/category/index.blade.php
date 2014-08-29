@@ -1,5 +1,9 @@
 @section('title') Daftar Kategori @stop
 
+@section('before_content')
+	@include($theme_path .'content.category._menu')
+@stop
+
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-tag"></i>

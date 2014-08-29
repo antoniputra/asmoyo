@@ -8,10 +8,10 @@ use DB, Eloquent, Closure;
 */
 abstract class Repository
 {
-	/**
-	* The Model
-	*/
-	protected $model;
+    /**
+    * The Model
+    */
+    protected $model;
 
 	public function __construct($model = null)
 	{
@@ -23,40 +23,6 @@ abstract class Repository
 		return $this->model;
 	}
 
-    /**
-     * Create query for list manipulation
-     * @param limit
-     * @param sortir
-     * @param status
-     * @param closure
-     * @return self
-     */
-    public function prepareQuery($sortir = null, $limit = null, Closure $closure = null)
-    {
-        $query = new $this->model;
-
-        switch ($sortir) {
-            case 'new':
-                $query = $query->orderBy('id', 'desc');
-            break;
-            
-            case 'old':
-                $query = $query->orderBy('id', 'asc');
-            break;
-        }
-
-        if ( $limit AND is_numeric($limit) ) {
-            $query = $query->limit($limit);
-        }
-
-        if ( $closure ) {
-            $query = $closure($query);
-        }
-
-        $this->query = $query;
-        return $this;
-    }
-
 	public function getAll($limit = null, $sortir = null)
     {
         return $this->model->all();
@@ -65,6 +31,61 @@ abstract class Repository
     public function getAllPaginated($limit = null, $sortir = null)
     {
         return $this->model->paginate($limit);
+    }
+
+    /**
+     * Get Paginated Cache with sortir and status setting
+     * @param perPage
+     * @param sortir
+     * @param status
+     * @return array
+     */
+    public function getPaginatedCache($perPage = null, $sortir = null, $status = null)
+    {
+        // prepare conf variable
+        $page = \Input::get('page', 1);
+        $data = array(
+            'perPage'   => $perPage ?: 10,
+            'page'      => is_numeric($page) ? $page : 1,
+            'sortir'    => $sortir ?: 'new',
+            'status'    => $status ?: 'all',
+        );
+
+        $cache_key  = __FUNCTION__ . implode($data);
+        if( $cached = $this->getCache($cache_key) ) return $cached;
+
+        $query  = $this->model;
+
+        switch ($data['sortir']) {
+            case 'new':
+                $query = $query->orderBy('id', 'desc');
+            break;
+            case 'old':
+                $query = $query->orderBy('id', 'asc');
+            break;
+            case 'title-ascending':
+                $query = $query->orderBy('title', 'asc');
+            break;
+            case 'title-descending':
+                $query = $query->orderBy('title', 'desc');
+            break;
+        }
+
+        if ( $data['status'] AND $data['status'] != 'all' ) {
+            $query = $query->where('status', $data['status']);
+        }
+
+        // perform total data before calc perPage
+        $data['total'] = $query->count();
+
+        if ( $data['perPage'] AND is_numeric($data['perPage']) ) {
+            $query = $query->limit($data['perPage']);
+        }
+
+        $data['items'] = $query->skip( $data['perPage'] * ($data['page']-1) )
+                    ->take($data['perPage'])
+                    ->get();
+        return $this->setCache($cache_key, $data);
     }
 
     public function getById($id)
@@ -112,5 +133,40 @@ abstract class Repository
     {
         $model = $this->getNewInstance($data);
         return $this->storeObject($model);
+    }
+
+    /**
+    * Create tags cache. tags key by called class repo
+    * @return Cache
+    */
+    public function cache()
+    {
+        $tags_keys = array( 'asmoyo_cache', class_basename(get_called_class()) );
+        return \Cache::tags($tags_keys);
+    }
+
+    /**
+    * Set Tagged Cache
+    * @return value
+    */
+    public function setCache($key, $value)
+    {
+        if ($value) {
+            $this->cache()->forever($key, $value);
+        }
+        return $value;
+    }
+
+    /**
+    * Get Tagged Cached by key
+    * @return mix
+    */
+    public function getCache($key)
+    {
+        if ( $this->cache()->has($key) )
+        {
+            return $this->cache()->get($key);
+        }
+        return false;
     }
 }

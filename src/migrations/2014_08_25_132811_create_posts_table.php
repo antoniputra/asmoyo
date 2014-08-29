@@ -33,6 +33,7 @@ class CreatePostsTable extends Migration {
 			$table->text('meta_keywords')->default(null);
 			$table->text('meta_description')->default(null);
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

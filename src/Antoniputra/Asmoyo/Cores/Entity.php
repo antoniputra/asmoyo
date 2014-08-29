@@ -21,6 +21,19 @@ abstract class Entity extends Eloquent
      */
     public $statusList = ['publish', 'private'];
 
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function($category)
+        {
+            if ( $slug = $category->getAttribute('slug') ) {
+                $category->slug = \Str::slug($slug);
+            }
+        });
+    }
+
     public function isValid()
     {
         if ( ! isset($this->validationRules)) {

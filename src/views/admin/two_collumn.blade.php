@@ -12,7 +12,7 @@
 
 			<div class="col-md-11">
 				<div class="content">
-					{{$content}}				
+					{{$content}}
 				</div>
 			</div>
 

@@ -24,7 +24,7 @@ abstract class AsmoyoController extends Controller
 		$_path 		= 'asmoyo::admin.';
 		$layout 	= $_path . $this->layout;
 		$collumn 	= $_path . $this->collumn;
-		$content 		= $_path . $content;
+		$content 	= $_path . $content;
 
     	return View::make($collumn, $data)
 			->nest('content', $content, $data);

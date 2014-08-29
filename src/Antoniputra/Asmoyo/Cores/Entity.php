@@ -6,8 +6,20 @@ use Antoniputra\Asmoyo\Cores\Exceptions\NoValidatorInstantiated;
 
 abstract class Entity extends Eloquent
 {
+    /**
+     * Default Validation Rules
+     */
 	protected $validationRules = [];
+    
+    /**
+     * Validator Class
+     */
     protected $validator;
+
+    /**
+     * contain default status list
+     */
+    public $statusList = ['publish', 'private'];
 
     public function isValid()
     {

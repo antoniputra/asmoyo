@@ -1,7 +1,7 @@
 <?php namespace Antoniputra\Asmoyo\Cores;
 
 use Illuminate\Database\Eloquent\Model;
-use DB, Eloquent;
+use DB, Eloquent, Closure;
 
 /**
 * Handle base repo
@@ -23,14 +23,48 @@ abstract class Repository
 		return $this->model;
 	}
 
-	public function getAll()
+    /**
+     * Create query for list manipulation
+     * @param limit
+     * @param sortir
+     * @param status
+     * @param closure
+     * @return self
+     */
+    public function prepareQuery($sortir = null, $limit = null, Closure $closure = null)
+    {
+        $query = new $this->model;
+
+        switch ($sortir) {
+            case 'new':
+                $query = $query->orderBy('id', 'desc');
+            break;
+            
+            case 'old':
+                $query = $query->orderBy('id', 'asc');
+            break;
+        }
+
+        if ( $limit AND is_numeric($limit) ) {
+            $query = $query->limit($limit);
+        }
+
+        if ( $closure ) {
+            $query = $closure($query);
+        }
+
+        $this->query = $query;
+        return $this;
+    }
+
+	public function getAll($limit = null, $sortir = null)
     {
         return $this->model->all();
     }
 
-    public function getAllPaginated($count)
+    public function getAllPaginated($limit = null, $sortir = null)
     {
-        return $this->model->paginate($count);
+        return $this->model->paginate($limit);
     }
 
     public function getById($id)

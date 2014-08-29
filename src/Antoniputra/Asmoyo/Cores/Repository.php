@@ -1,7 +1,7 @@
 <?php namespace Antoniputra\Asmoyo\Cores;
 
 use Illuminate\Database\Eloquent\Model;
-use DB, Eloquent, Closure;
+use DB, Eloquent, Closure, Input, Config;
 
 /**
 * Handle base repo
@@ -93,8 +93,26 @@ abstract class Repository
         return $this->model->find($id);
     }
 
+    public function getByIdCache($id)
+    {
+        $key = __FUNCTION__ . $id;
+        return $this->modelCache($key)->find($id);
+    }
+
+    public function getBySlug($slug)
+    {
+        return $this->model->where('slug', $slug)->first();
+    }
+
+    public function getBySlugCache($slug)
+    {
+        $key = __FUNCTION__ . $slug;
+        return $this->modelCache($key)->where('slug', $slug)->first();
+    }
+
     public function getNewInstance($attributes = array())
     {
+        $attributes = $attributes ?: $this->getInputOnlyFillable() ;
         return $this->model->newInstance($attributes);
     }
 
@@ -125,7 +143,7 @@ abstract class Repository
         else
         {
             // return $model->touch();
-            throw new Exception("Save in store object. there is not has change attributes", 1);            
+            throw new \Exception("Save in store object. there is not has change attributes. Please check your Input Request", 1);
         }
     }
 
@@ -133,6 +151,30 @@ abstract class Repository
     {
         $model = $this->getNewInstance($data);
         return $this->storeObject($model);
+    }
+
+    public function getStatusList()
+    {
+        return $this->model->statusList;
+    }
+
+    /**
+     * get based fillable model
+    * @return Input
+     */
+    public function getInputOnlyFillable()
+    {
+        return Input::only( $this->model->getFillable() );
+    }
+
+    /**
+     * Perform Model/Eloquent Cache
+     * @return Model/Eloquent with cache declared
+     */
+    public function modelCache($key)
+    {
+        $tags_keys = array( 'asmoyo_cache', class_basename(get_called_class()) );
+        return $this->model->cacheTags($tags_keys)->rememberForever($key);
     }
 
     /**
@@ -147,7 +189,7 @@ abstract class Repository
 
     /**
     * Set Tagged Cache
-    * @return value
+    * @return mix
     */
     public function setCache($key, $value)
     {

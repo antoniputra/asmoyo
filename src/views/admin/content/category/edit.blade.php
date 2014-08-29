@@ -1,4 +1,4 @@
-@section('title') Buat Kategori @stop
+@section('title') Edit Kategori {{ $category['title'] }} @stop
 
 @section('before_content')
 	@include($theme_path .'content.category._menu')
@@ -7,11 +7,11 @@
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-tag"></i>
-		Buat Kategori
+		Edit Kategori {{ $category['title'] }}
 	</h3>
 	<div class="box-content">
 
-		{{Form::open(array('url' => admin_route('category.store'), 'class' => 'form-horizontal'))}}
+		{{Form::model($category, array('method' => 'PUT', 'url' => admin_route('category.update', $category['id']), 'class' => 'form-horizontal'))}}
 
 			<div class="form-group">
 				<label for="media_id" class="col-sm-2 control-label">

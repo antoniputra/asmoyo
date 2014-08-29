@@ -4,6 +4,8 @@ use Antoniputra\Asmoyo\Categories\CategoryRepo;
 
 class Admin_CategoryController extends AsmoyoController {
 
+	protected $collumn = 'three_collumn';
+
 	public function __construct(CategoryRepo $category)
 	{
 		$this->category = $category;
@@ -21,8 +23,7 @@ class Admin_CategoryController extends AsmoyoController {
 		$data = array(
 			'categories'	=> Paginator::make($cats, $cats['total'], $cats['perPage']),
 		);
-		// return $data['categories']['items'];
-		return $this->setCollumn('three_collumn')->adminView('content.category.index', $data);
+		return $this->adminView('content.category.index', $data);
 	}
 
 	/**
@@ -33,18 +34,27 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function create()
 	{
-		//
+		$data = array(
+			'parentList'	=> $this->category->getParent(),
+			'statusList'	=> $this->category->getModel()->statusList,
+		);
+		return $this->adminView('content.category.create', $data);
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /category
 	 *
-	 * @return Response
+	 * @return Redirect
 	 */
 	public function store()
 	{
-		//
+		$category = $this->category->getNewInstance();
+		if ( $this->category->save($category) )
+		{
+			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil dibuat !!');
+		}
+		return $this->redirectAlert(false, 'danger', 'Gagal !!', $category->getErrors());
 	}
 
 	/**
@@ -56,7 +66,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function show($id)
 	{
-		//
+		$cats = $this->category->getBySlugCache();
 	}
 
 	/**
@@ -66,9 +76,15 @@ class Admin_CategoryController extends AsmoyoController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($slug)
 	{
-		//
+		$cat = $this->category->getBySlugCache($slug);
+		$data = array(
+			'category'		=> $cat,
+			'parentList'	=> $this->category->getParent(),
+			'statusList'	=> $this->category->getModel()->statusList,
+		);
+		return $this->adminView('content.category.edit', $data);
 	}
 
 	/**
@@ -80,7 +96,13 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		//
+		$category = $this->category->getById($id);
+		$category->fill( $this->category->getInputOnlyFillable() );
+		if ( $this->category->save($category) )
+		{
+			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil diperbarui !!');
+		}
+		return $this->redirectAlert(false, 'danger', 'Gagal !!', $category->getErrors());
 	}
 
 	/**

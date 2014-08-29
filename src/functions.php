@@ -58,3 +58,40 @@ function tpl_get($view = null)
 {
 	return $GLOBALS['theme_dir'] .'.'. asmoyo_option('web_theme.name') .'.'. $view;
 }
+
+
+/**
+* ===============
+* Register Macros
+*/
+Form::macro('link', function($text, $method, $action, $attr = array(), $confirm_message=null)
+{
+    // attribute for form
+    $formAttr = array('method' => $method, 'url' => $action, 'style' => 'display:inline-block;');
+
+    // append onSubmit
+    if($confirm_message) $formAttr = array_merge( $formAttr, array('onsubmit' => 'return confirm("'.$confirm_message.'");') );
+
+    $output = Form::open($formAttr);
+
+    $output .= '<button type="submit"';
+        // give attributes
+        if (!empty($attr) AND is_array($attr)) {
+            foreach ($attr as $key => $value) {
+                if ($key != 'icon') {
+                    $output .= ' '.$key.'="'. $value .'" ';
+                }
+            }
+        }
+    $output .= '>';
+
+    if(isset($attr['icon'])) {
+        $output .= '<i class="'.$attr['icon'].'"></i> ';
+    }
+    
+    $output .= $text .'</button>';
+
+    $output .= Form::close();
+    
+    return $output;
+});

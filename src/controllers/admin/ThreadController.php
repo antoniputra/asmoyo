@@ -1,6 +1,13 @@
 <?php
 
-class Admin_PostController extends AsmoyoController {
+use Antoniputra\Asmoyo\Posts\PostRepo;
+
+class Admin_ThreadController extends AsmoyoController {
+
+	public function __construct(PostRepo $model)
+	{
+		$this->model = $model;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -10,9 +17,10 @@ class Admin_PostController extends AsmoyoController {
 	 */
 	public function index()
 	{
-		return app('asmoyo.option');
-		// $this->adminView('adf');
-		return 'halo';
+		Antoniputra\Asmoyo\Categories\Category::with('posts')->find(1);
+		// Antoniputra\Asmoyo\Tags\Tag::with('posts')->find(1);
+		return 'adf';
+		// return $this->model->getModel()->with('category', 'tags')->find(1);
 	}
 
 	/**

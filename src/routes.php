@@ -67,7 +67,7 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// End User
 
 	// Post
-	Route::resource('post', 'Admin_PostController');
+	Route::resource('thread', 'Admin_ThreadController');
 	// End Post
 
 	// Page

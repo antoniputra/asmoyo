@@ -8,25 +8,15 @@ class Category extends Entity {
 	protected $fillable 	= ['photo_id', 'parent_id', 'title', 'slug', 'status', 'description'];
 	protected $softDelete 	= true;
 
-	protected $validationRules = [
-        'title'		=> 'required',
-        'slug'		=> 'required',
+    protected $validationRules = [
+        'title'     => 'required|unique:categories',
+        'slug'      => 'required|unique:categories',
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saved(function($category)
-        {
-            \Cache::tags('CategoryRepo')->flush();
-        });
-
-        static::deleted(function($category)
-        {
-            \Cache::tags('CategoryRepo')->flush();
-        });
-    }
+	protected $validationEditRules = [
+        'title'		=> 'required|unique:categories,<id>',
+        'slug'		=> 'required|unique:categories,<id>',
+    ];
 
     public function posts()
     {

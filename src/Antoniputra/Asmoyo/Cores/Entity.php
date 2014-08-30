@@ -1,13 +1,13 @@
 <?php namespace Antoniputra\Asmoyo\Cores;
 
-use Validator, DB, Eloquent;
+use Validator, DB, Eloquent, Cache;
 use Antoniputra\Asmoyo\Cores\Exceptions\NoValidationRules;
 use Antoniputra\Asmoyo\Cores\Exceptions\NoValidatorInstantiated;
 
 abstract class Entity extends Eloquent
 {
     /**
-     * Default Validation Rules
+     * Base Validation Rules
      */
 	protected $validationRules = [];
     
@@ -26,11 +26,21 @@ abstract class Entity extends Eloquent
     {
         parent::boot();
 
-        static::saving(function($category)
+        static::saving(function($model)
         {
-            if ( $slug = $category->getAttribute('slug') ) {
-                $category->slug = \Str::slug($slug);
+            if ( $slug = $model->getAttribute('slug') ) {
+                $model->slug = \Str::slug($slug);
             }
+        });
+
+        static::saved(function($model)
+        {
+            Cache::tags( $model->getTable() )->flush();
+        });
+
+        static::deleted(function($model)
+        {
+            Cache::tags( $model->getTable() )->flush();
         });
     }
 
@@ -42,6 +52,19 @@ abstract class Entity extends Eloquent
         $this->validator = Validator::make($this->getAttributes(), $this->getPreparedRules());
 
         return $this->validator->passes();
+    }
+
+    public function setRules($rules = array())
+    {
+        $this->validationRules = $rules;
+    }
+
+    public function getRules($rules_name = null)
+    {
+        if ($rules_name) {
+            return $this->$rules_name;
+        }
+        return $this->validationRules;
     }
 
     public function getErrors()

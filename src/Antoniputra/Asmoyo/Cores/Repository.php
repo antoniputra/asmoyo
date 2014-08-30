@@ -116,17 +116,21 @@ abstract class Repository
         return $this->model->newInstance($attributes);
     }
 
-    public function save($newData)
+    public function save($newData, $validation = array())
     {
-    	// if instance of model. store as object
+        // if newData is array, set as new instance
+        if (is_array($newData)) {
+            $newData = $this->getNewInstance($newData);
+        }
+
+        // new data should be instance of model
         if ($newData instanceOf Model)
         {
+            if ($validation) {
+                $this->model->setRules($validation);
+            }
+
             return $this->storeObject($newData);
-        }
-        // is not, set as object first
-        elseif (is_array($newData))
-        {
-            return $this->storeArray($newData);
         }
     }
 
@@ -142,15 +146,22 @@ abstract class Repository
         // if not changed store as exception
         else
         {
-            // return $model->touch();
-            throw new \Exception("Save in store object. there is not has change attributes. Please check your Input Request", 1);
+            return $model->touch();
         }
     }
 
-    protected function storeArray($data)
+    /*protected function storeArray($data)
     {
         $model = $this->getNewInstance($data);
         return $this->storeObject($model);
+    }*/
+
+    /**
+     * Handle Delete
+     */
+    public function delete($model)
+    {
+        return $model->delete();
     }
 
     public function getStatusList()
@@ -169,21 +180,23 @@ abstract class Repository
 
     /**
      * Perform Model/Eloquent Cache
+     * Save model by their table name
      * @return Model/Eloquent with cache declared
      */
     public function modelCache($key)
     {
-        $tags_keys = array( 'asmoyo_cache', class_basename(get_called_class()) );
+        $tags_keys = array( 'asmoyo_cache', $this->model->getTable() );
         return $this->model->cacheTags($tags_keys)->rememberForever($key);
     }
 
     /**
     * Create tags cache. tags key by called class repo
+    * Save model by their table name
     * @return Cache
     */
     public function cache()
     {
-        $tags_keys = array( 'asmoyo_cache', class_basename(get_called_class()) );
+        $tags_keys = array( 'asmoyo_cache', $this->model->getTable() );
         return \Cache::tags($tags_keys);
     }
 

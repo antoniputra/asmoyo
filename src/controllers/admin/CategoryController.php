@@ -59,14 +59,14 @@ class Admin_CategoryController extends AsmoyoController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /category/{id}
+	 * GET /category/{slug}
 	 *
-	 * @param  int  $id
+	 * @param  string  $slug
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-		$cats = $this->category->getBySlugCache();
+		$cats = $this->category->getBySlugCache($slug);
 	}
 
 	/**
@@ -96,9 +96,10 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		$category = $this->category->getById($id);
+		$editRules 	= $this->category->getModel()->getRules('validationEditRules');
+		$category 	= $this->category->getById($id);
 		$category->fill( $this->category->getInputOnlyFillable() );
-		if ( $this->category->save($category) )
+		if ( $this->category->save($category, $editRules) )
 		{
 			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil diperbarui !!');
 		}

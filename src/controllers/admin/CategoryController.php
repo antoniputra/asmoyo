@@ -73,8 +73,6 @@ class Admin_CategoryController extends AsmoyoController {
 			'cat'	=> $cat,
 		);
 
-		return $cat;
-
 		return $this->adminView('content.category.show', $data);
 	}
 

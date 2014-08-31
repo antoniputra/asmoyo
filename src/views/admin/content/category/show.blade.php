@@ -7,26 +7,17 @@
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-tag"></i>
-		Kategori {{$cat['title']}}
+		Kategori : {{$cat['title']}}
 	</h3>
 	<div class="box-content">
-
-		<table class="table table-hover">
-			<tbody>
-				<tr>
-					<th>Gambar</th>
-					<td> {{$cat['photo']}} </td>
-				</tr>
-				<tr>
-					<th>Title</th>
-					<td> {{$cat['title']}} </td>
-				</tr>
-				<tr>
-					<th>Description</th>
-					<td> {{$cat['description']}} </td>
-				</tr>
-			</tbody>
-		</table>
-
+		<div class="media">
+			<a class="pull-left thumbnail" href="#">
+				<img class="media-object" src="/holder.js/150x150">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">{{$cat['title']}}</h4>
+				<p>{{$cat['description']}}</p>
+			</div>
+		</div>
 	</div>
 </div>

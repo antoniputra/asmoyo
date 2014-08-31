@@ -7,7 +7,7 @@
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-tag"></i>
-		Edit Kategori {{ $category['title'] }}
+		Edit Kategori : {{ $category['title'] }}
 	</h3>
 	<div class="box-content">
 

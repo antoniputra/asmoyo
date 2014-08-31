@@ -68,6 +68,7 @@
     	{{-- HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js') --}}
     	{{ HTML::script('packages/antoniputra/asmoyo/admin/js/jquery.min.js') }}
     	{{ HTML::script('packages/antoniputra/asmoyo/admin/js/bootstrap.min.js') }}
+        {{ HTML::script('holder.js') }}
     @show
 
 </body>

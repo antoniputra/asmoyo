@@ -142,6 +142,12 @@ abstract class Repository
         return $newRules;
     }
 
+    /**
+     * Handle save with new instance and custom validation
+     * @param array|object \Model newData
+     * @param array newValidation
+     * @return Model --> storeObject
+     */
     public function save($newData, $newValidation = array())
     {
         // if newData is array, set as new instance
@@ -179,12 +185,18 @@ abstract class Repository
 
     /**
      * Handle Delete
+     * @param \Model model
+     * @return bool
      */
     public function delete($model)
     {
         return $model->delete();
     }
 
+    /**
+     * Get available status list from model
+     * @return array
+     */
     public function getStatusList()
     {
         if( isset($this->model->statusList) )
@@ -195,7 +207,7 @@ abstract class Repository
     }
 
     /**
-     * get based fillable model
+     * get fillable model
     * @return Input
      */
     public function getInputOnlyFillable()

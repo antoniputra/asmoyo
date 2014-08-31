@@ -16,6 +16,11 @@ abstract class Entity extends Eloquent
      */
     protected $validator;
 
+    /**
+     * Global entity events
+     * we used this for reset caching
+     * @return void
+     */
     public static function boot()
     {
         parent::boot();
@@ -39,6 +44,10 @@ abstract class Entity extends Eloquent
         });
     }
 
+    /**
+     * check validation
+     * @return bool
+     */
     public function isValid()
     {
         if ( ! isset($this->validationRules)) {
@@ -49,6 +58,10 @@ abstract class Entity extends Eloquent
         return $this->validator->passes();
     }
 
+    /**
+     * Get errors from validation
+     * @return array
+     */
     public function getErrors()
     {
         if ( ! $this->validator) {
@@ -58,6 +71,11 @@ abstract class Entity extends Eloquent
         return $this->validator->errors();
     }
 
+    /**
+     * Set new rules, used in validation
+     * @param array rules
+     * @return this
+     */
     public function setRules($rules = array())
     {
         if ( ! is_array($rules) ) {
@@ -67,6 +85,9 @@ abstract class Entity extends Eloquent
         return $this;
     }
 
+    /**
+     * Save we will do validation from validationRules property
+     */
     public function save(array $options = array())
     {
         // when saving, we should always check validation
@@ -77,6 +98,10 @@ abstract class Entity extends Eloquent
         return parent::save($options);
     }
 
+    /**
+     * translate validation
+     * @return array
+     */
     protected function getPreparedRules()
     {
         $newRules = [];

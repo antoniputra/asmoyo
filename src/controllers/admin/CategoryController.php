@@ -96,10 +96,9 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		$editRules 	= $this->category->getModel()->getRules('validationEditRules');
 		$category 	= $this->category->getById($id);
 		$category->fill( $this->category->getInputOnlyFillable() );
-		if ( $this->category->save($category, $editRules) )
+		if ( $this->category->save( $category, $this->category->getRules('validationEditRules') ) )
 		{
 			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil diperbarui !!');
 		}

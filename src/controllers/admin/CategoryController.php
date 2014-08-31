@@ -54,7 +54,7 @@ class Admin_CategoryController extends AsmoyoController {
 		{
 			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil dibuat !!');
 		}
-		return $this->redirectAlert(false, 'danger', 'Gagal !!', $category->getErrors());
+		return $this->redirectAlert(false, 'danger', 'Gagal dibuat !!', $category->getErrors());
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Admin_CategoryController extends AsmoyoController {
 		{
 			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil diperbarui !!');
 		}
-		return $this->redirectAlert(false, 'danger', 'Gagal !!', $category->getErrors());
+		return $this->redirectAlert(false, 'danger', 'Gagal diperbarui !!', $category->getErrors());
 	}
 
 	/**
@@ -114,7 +114,12 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$category 	= $this->category->getById($id);
+		if( $category->delete() )
+		{
+			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil dihapus !!');
+		}
+		return $this->redirectAlert(false, 'danger', 'Gagal dihapus !!');
 	}
 
 }

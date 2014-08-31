@@ -187,7 +187,11 @@ abstract class Repository
 
     public function getStatusList()
     {
-        return $this->model->statusList;
+        if( isset($this->model->statusList) )
+        {
+            return $this->model->statusList;
+        }
+        throw new \Exception("property 'statusList' not defined, maybe this model haven't 'status' field", 1);
     }
 
     /**

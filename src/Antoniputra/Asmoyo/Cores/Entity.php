@@ -16,12 +16,6 @@ abstract class Entity extends Eloquent
      */
     protected $validator;
 
-    /**
-     * contain default status list
-     */
-    public $statusList = ['publish', 'private'];
-
-
     public static function boot()
     {
         parent::boot();

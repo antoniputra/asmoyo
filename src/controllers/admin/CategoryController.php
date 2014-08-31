@@ -19,7 +19,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function index()
 	{
-		$cats = $this->category->getPaginatedCache();
+		$cats = $this->category->getRepoPaginatedCache();
 		$data = array(
 			'categories'	=> Paginator::make($cats, $cats['total'], $cats['perPage']),
 		);
@@ -36,7 +36,7 @@ class Admin_CategoryController extends AsmoyoController {
 	{
 		$data = array(
 			'parentList'	=> $this->category->getParent(),
-			'statusList'	=> $this->category->getModel()->statusList,
+			'statusList'	=> $this->category->getStatusList(),
 		);
 		return $this->adminView('content.category.create', $data);
 	}
@@ -66,7 +66,14 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function show($slug)
 	{
-		$cats = $this->category->getBySlugCache($slug);
+		$cat = $this->category->getBySlugCache($slug);
+		if ( ! $cat ) return App::abort(404);
+
+		$data = array(
+			'cat'	=> $cat,
+		);
+
+		return $this->adminView('content.category.show', $data);
 	}
 
 	/**
@@ -79,10 +86,12 @@ class Admin_CategoryController extends AsmoyoController {
 	public function edit($slug)
 	{
 		$cat = $this->category->getBySlugCache($slug);
+		if ( ! $cat ) return App::abort(404);
+
 		$data = array(
 			'category'		=> $cat,
 			'parentList'	=> $this->category->getParent(),
-			'statusList'	=> $this->category->getModel()->statusList,
+			'statusList'	=> $this->category->getStatusList(),
 		);
 		return $this->adminView('content.category.edit', $data);
 	}
@@ -96,7 +105,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		$category 	= $this->category->getById($id);
+		$category 	= $this->category->getRepoById($id);
 		$category->fill( $this->category->getInputOnlyFillable() );
 		if ( $this->category->save( $category, $this->category->getRules('validationEditRules') ) )
 		{
@@ -114,7 +123,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function destroy($id)
 	{
-		$category 	= $this->category->getById($id);
+		$category 	= $this->category->getRepoById($id);
 		if( $category->delete() )
 		{
 			return $this->redirectWithAlert(admin_route('category.index'), 'success', 'Berhasil dihapus !!');

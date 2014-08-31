@@ -30,4 +30,16 @@ class CategoryRepo extends Repository
 		return $parent->get()->toArray();
 	}
 
+	/**
+	 * 
+	 */
+	public function getBySlugCache($slug)
+	{
+		$key = __FUNCTION__.$slug;
+		return $this->cache()->rememberForever($key, function() use($slug)
+		{
+			return $this->model->with('photo')->where('slug', $slug)->first();
+		});
+	}
+
 }

@@ -36,6 +36,19 @@ function admin_route($routeName, $param = null)
 }
 
 /**
+ * get upload route
+ */
+function upload_route($filename, $type = 'images')
+{
+    return route('upload', array($type, $filename));
+}
+
+function thumb_route($filename)
+{
+    return route('upload.thumb', $filename);
+}
+
+/**
  * get current theme assets root path
  */
 function theme_asset_path($file = null)

@@ -98,3 +98,20 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 /* Public Page */
 Route::resource('category', 'CategoryController');
 /* End Public Page */
+
+
+/* Upload */
+
+// get original image
+Route::get('upload/{type}/{file}', array(
+	'as' 		=> 'upload',
+	'uses' 		=> 'AssetController@getUpload'
+));
+
+// get image manipulation
+Route::get('thumb/{file}', array(
+	'as' 		=> 'upload.thumb',
+	'uses' 		=> 'AssetController@getThumb'
+));
+
+/* End Upload*/

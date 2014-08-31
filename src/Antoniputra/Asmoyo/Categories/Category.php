@@ -11,10 +11,23 @@ class Category extends Entity {
 	protected $fillable 	= ['photo_id', 'parent_id', 'title', 'slug', 'status', 'description'];
     protected $dates        = ['deleted_at'];
 
+    /**
+     * Available status list
+     */
+    public $statusList = ['publish', 'private'];
+
+    /**
+     * Default Validation Rules
+     */
     protected $validationRules = [
         'title'     => 'required|unique:categories',
         'slug'      => 'required|unique:categories',
     ];
+
+    public function photo()
+    {
+        return $this->hasOne('Antoniputra\Asmoyo\Posts\Post', 'id', 'photo_id')->where('type', 'media');
+    }
 
     public function posts()
     {

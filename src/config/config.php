@@ -35,6 +35,11 @@ return array(
 		'path'			=> public_path('uploads/'),
 
 		/**
+		 * what is the base url for access uploads
+		 */
+		'url'			=> $_SERVER['SERVER_NAME'],
+
+		/**
 		* where image upload path should be stored
 		*/
 		'path_image'	=> public_path('uploads/images/'),

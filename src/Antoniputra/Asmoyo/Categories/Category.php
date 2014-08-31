@@ -24,6 +24,23 @@ class Category extends Entity {
         'slug'      => 'required|unique:categories',
     ];
 
+    /**
+    * set photos attribute to json array
+    */
+    public function setPhotosAttribute($value)
+    {
+        $photos_array = explode(',', str_replace(' ', '', $value));
+        $this->attributes['photos'] = json_encode($photos_array);
+    }
+
+    /**
+    * get photos attribute decode from json
+    */
+    public function getPhotosAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
     public function posts()
     {
         return $this->hasMany('Antoniputra\Asmoyo\Posts\Post');

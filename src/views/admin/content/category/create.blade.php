@@ -19,6 +19,7 @@
 				</label>
 				<div class="col-sm-10">
 					{{Form::text('photo', null, array('id' => 'photo', 'class'=>'form-control'))}}
+					{{Form::text('photos', null, array('id' => 'photo', 'class'=>'form-control'))}}
 					
 					<!-- here is for image -->
 				</div>

@@ -50,14 +50,21 @@ class Admin_MediaController extends AsmoyoController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /post/{id}
+	 * GET /post/{slug}
 	 *
-	 * @param  int  $id
+	 * @param  int  $slug
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-		//
+		$media = $this->media->getRepoBySlugCache($slug);
+		if ( ! $media ) return App::abort(404);
+
+		$data = array(
+			'media'	=> $media,
+		);
+
+		return $this->adminView('content.media.show', $data);
 	}
 
 	/**

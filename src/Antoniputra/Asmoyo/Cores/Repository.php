@@ -35,9 +35,9 @@ abstract class Repository
 
     /**
      * Get Paginated Cache with sortir and status setting
-     * @param perPage
-     * @param sortir
-     * @param status
+     * @param integer   perPage
+     * @param string    sortir
+     * @param string    status
      * @return array
      */
     public function getRepoPaginatedCache($perPage = null, $sortir = null, $status = null)
@@ -96,7 +96,10 @@ abstract class Repository
     public function getRepoByIdCache($id)
     {
         $key = __FUNCTION__ . $id;
-        return $this->modelCache($key)->find($id);
+        return $this->cache()->rememberForever($key, function() use($id)
+        {
+            return $this->model->find($id);
+        });
     }
 
     public function getRepoBySlug($slug)
@@ -107,7 +110,10 @@ abstract class Repository
     public function getRepoBySlugCache($slug)
     {
         $key = __FUNCTION__ . $slug;
-        return $this->modelCache($key)->where('slug', $slug)->first();
+        return $this->cache()->rememberForever($key, function() use($slug)
+        {
+            return $this->model->where('slug', $slug)->first();
+        });
     }
 
     public function getNewInstance($attributes = array())
@@ -194,17 +200,6 @@ abstract class Repository
     }
 
     /**
-     * Perform Model/Eloquent Cache
-     * Save model by their table name
-     * @return Model/Eloquent with cache declared
-     */
-    public function modelCache($key)
-    {
-        $tags_keys = array( 'asmoyo_cache', $this->model->getTable() );
-        return $this->model->cacheTags($tags_keys)->rememberForever($key);
-    }
-
-    /**
     * Create tags cache. tags key by called class repo
     * Save model by their table name
     * @return Cache
@@ -216,7 +211,7 @@ abstract class Repository
     }
 
     /**
-    * Set Tagged Cache
+    * Stroing value into tagged cache
     * @return mix
     */
     public function setCache($key, $value)
@@ -228,7 +223,7 @@ abstract class Repository
     }
 
     /**
-    * Get Tagged Cached by key
+    * Get value from Tagged Cached by key
     * @return mix
     */
     public function getCache($key)

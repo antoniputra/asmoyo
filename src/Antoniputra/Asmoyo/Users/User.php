@@ -13,6 +13,11 @@ class User extends Entity implements UserInterface, RemindableInterface {
 	protected $table 		= 'users';
 	protected $fillable 	= [];
 	protected $hidden 		= array('password', 'remember_token');
+
+	/**
+     * used for caching tags
+     */
+    protected $cache_name   = 'asmoyo_users';
 	
 	protected $validationRules = [
 		'email'			=> 'required|unique:users',

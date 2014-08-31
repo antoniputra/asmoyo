@@ -22,7 +22,7 @@ class CreatePostsTable extends Migration {
 			$table->string('photo')->nullable();
 			$table->string('photos')->nullable();
 			$table->string('status');
-			$table->string('comment_status')->default(1);
+			$table->boolean('comment_status')->default(1);
 			$table->string('type');
 			$table->integer('order')->default(0);
 			$table->string('mime_type')->default('text/html');

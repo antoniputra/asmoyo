@@ -1,7 +1,7 @@
 <?php namespace Antoniputra\Asmoyo\Cores;
 
 use Illuminate\Database\Eloquent\Model;
-use DB, Eloquent, Closure, Input, Config;
+use DB, Eloquent, Closure, Input, Config, Cache;
 
 /**
 * Handle base repo
@@ -45,8 +45,8 @@ abstract class Repository
         // prepare conf variable
         $page = \Input::get('page', 1);
         $data = array(
-            'perPage'   => $perPage ?: 10,
             'page'      => is_numeric($page) ? $page : 1,
+            'perPage'   => $perPage ?: 10,
             'sortir'    => $sortir ?: 'new',
             'status'    => $status ?: 'all',
         );
@@ -222,8 +222,8 @@ abstract class Repository
     */
     public function cache()
     {
-        $tags_keys = array( 'asmoyo_cache', $this->model->getTable() );
-        return \Cache::tags($tags_keys);
+        $tags_keys = array( 'asmoyo_cache', $this->model->getCacheName() );
+        return Cache::tags($tags_keys);
     }
 
     /**

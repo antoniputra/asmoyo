@@ -12,9 +12,14 @@ class Category extends Entity {
     protected $dates        = ['deleted_at'];
 
     /**
+     * used for caching tags
+     */
+    protected $cache_name   = 'asmoyo_categories';
+
+    /**
      * Available status list
      */
-    public $statusList = ['publish', 'private'];
+    protected $statusList = ['publish', 'private'];
 
     /**
      * Default Validation Rules

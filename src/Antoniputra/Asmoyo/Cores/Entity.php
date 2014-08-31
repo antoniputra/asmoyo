@@ -35,12 +35,12 @@ abstract class Entity extends Eloquent
 
         static::saved(function($model)
         {
-            Cache::tags( $model->getTable() )->flush();
+            Cache::tags( $model->getCacheName() )->flush();
         });
 
         static::deleted(function($model)
         {
-            Cache::tags( $model->getTable() )->flush();
+            Cache::tags( $model->getCacheName() )->flush();
         });
     }
 
@@ -69,6 +69,11 @@ abstract class Entity extends Eloquent
         }
 
         return $this->validator->errors();
+    }
+
+    public function getCacheName()
+    {
+        return $this->cache_name;
     }
 
     /**

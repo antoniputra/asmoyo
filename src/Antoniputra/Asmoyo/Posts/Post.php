@@ -4,21 +4,17 @@ use Antoniputra\Asmoyo\Cores\Entity;
 
 class Post extends Entity {
 	
+    use \SoftDeletingTrait;
+
 	protected $table      	= 'posts';
 	protected $fillable 	= [];
-	protected $softDelete 	= true;
+    protected $dates        = ['deleted_at'];
 
 	protected $validationRules = [
-        'title'    	=> 'required|unique:tags',
-        'slug'		=> 'required|unique:tags',
+        'title'    	=> 'required|unique:posts',
+        'slug'		=> 'required|unique:posts',
         'content'	=> 'required',
     ];
-
-    /**
-     * default posting type
-     * probably can update.
-     */
-    protected $types = ['thread', 'page', 'media'];
 
     /**
      * get category

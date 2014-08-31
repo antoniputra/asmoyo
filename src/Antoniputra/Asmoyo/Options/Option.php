@@ -8,6 +8,11 @@ class Option extends Entity {
 	protected $fillable 	= [];
 	public $timestamps 		= false;
 
+	/**
+     * used for caching tags
+     */
+    protected $cache_name   = 'asmoyo_options';
+
 	protected $validationRules = [
 		'name'			=> 'required',
 		'description'	=> 'required',

@@ -116,7 +116,27 @@ abstract class Repository
         return $this->model->newInstance($attributes);
     }
 
-    public function save($newData, $validation = array())
+    /**
+     * @param mix $rules
+     * @return array newRules
+     */
+    public function getRules($rules)
+    {
+        if ( $rules AND is_array($rules) ) {
+            $newRules = $rules;
+        }
+
+        elseif ($rules) {
+            if ( isset($this->$rules) ) {
+                $newRules = $this->$rules;
+            } else {
+                throw new Exception("Undefined property $rules in __CLASS__", 1);
+            }
+        }
+        return $newRules;
+    }
+
+    public function save($newData, $newValidation = array())
     {
         // if newData is array, set as new instance
         if (is_array($newData)) {
@@ -126,18 +146,19 @@ abstract class Repository
         // new data should be instance of model
         if ($newData instanceOf Model)
         {
-            if ($validation) {
-                $this->model->setRules($validation);
-            }
-
-            return $this->storeObject($newData);
+            return $this->storeObject($newData, $newValidation);
+        } else {
+            throw new Exception("Model should be instanceof Model", 1);
         }
     }
 
-    protected function storeObject($model)
+    protected function storeObject($model, $newValidation = array())
     {
-    	// if the model attributes has changed
-    	// we will save
+        if ( $newValidation AND is_array($newValidation) ) {
+            $model = $model->setRules($newValidation);
+        }
+
+    	// if the model attributes has changed, we will save
         if ($model->getDirty())
         {
             return $model->save();
@@ -149,12 +170,6 @@ abstract class Repository
             return $model->touch();
         }
     }
-
-    /*protected function storeArray($data)
-    {
-        $model = $this->getNewInstance($data);
-        return $this->storeObject($model);
-    }*/
 
     /**
      * Handle Delete

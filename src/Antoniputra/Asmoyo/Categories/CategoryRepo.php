@@ -5,6 +5,11 @@ use Input;
 
 class CategoryRepo extends Repository
 {
+	protected $validationEditRules = [
+        'title'     => 'required|unique:categories,title,{id}',
+        'slug'      => 'required|unique:categories,slug,{id}',
+    ];
+
 	public function __construct(Category $model)
 	{
 		$this->model = $model;

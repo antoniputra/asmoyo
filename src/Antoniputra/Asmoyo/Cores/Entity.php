@@ -54,19 +54,6 @@ abstract class Entity extends Eloquent
         return $this->validator->passes();
     }
 
-    public function setRules($rules = array())
-    {
-        $this->validationRules = $rules;
-    }
-
-    public function getRules($rules_name = null)
-    {
-        if ($rules_name) {
-            return $this->$rules_name;
-        }
-        return $this->validationRules;
-    }
-
     public function getErrors()
     {
         if ( ! $this->validator) {
@@ -74,6 +61,15 @@ abstract class Entity extends Eloquent
         }
 
         return $this->validator->errors();
+    }
+
+    public function setRules($rules = array())
+    {
+        if ( ! is_array($rules) ) {
+            throw new \Exception("$rules should be array, string given", 1);
+        }
+        $this->validationRules = $rules;
+        return $this;
     }
 
     public function save(array $options = array())
@@ -91,10 +87,10 @@ abstract class Entity extends Eloquent
         $newRules = [];
 
         foreach ($this->validationRules as $key => $rule) {
-            if (str_contains($rule, '<id>'))
+            if (str_contains($rule, '{id}'))
             {
-                $replacement = $this->exists ? $this->getAttribute($this->primaryKey) : '';
-                $rule = str_replace('<id>', $replacement, $rule);
+                $replacement = $this->exists ? $this->getAttribute($this->primaryKey) : 1;
+                $rule = str_replace('{id}', $replacement, $rule);
             }
             array_set($newRules, $key, $rule);
         }

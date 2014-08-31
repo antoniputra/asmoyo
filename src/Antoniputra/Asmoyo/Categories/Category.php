@@ -13,11 +13,6 @@ class Category extends Entity {
         'slug'      => 'required|unique:categories',
     ];
 
-	protected $validationEditRules = [
-        'title'		=> 'required|unique:categories,<id>',
-        'slug'		=> 'required|unique:categories,<id>',
-    ];
-
     public function posts()
     {
         return $this->hasMany('Antoniputra\Asmoyo\Posts\Post');

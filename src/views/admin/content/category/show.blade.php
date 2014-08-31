@@ -15,7 +15,7 @@
 			<tbody>
 				<tr>
 					<th>Gambar</th>
-					<td> {{$cat['photo']['content']}} </td>
+					<td> {{$cat['photo']}} </td>
 				</tr>
 				<tr>
 					<th>Title</th>

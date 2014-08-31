@@ -31,14 +31,14 @@ class CategoryRepo extends Repository
 	}
 
 	/**
-	 * 
+	 * Get category with all relations
 	 */
-	public function getBySlugCache($slug)
+	public function getDetailBySlugCache($slug)
 	{
 		$key = __FUNCTION__.$slug;
 		return $this->cache()->rememberForever($key, function() use($slug)
 		{
-			return $this->model->with('photo')->where('slug', $slug)->first();
+			return $this->model->with('posts')->where('slug', $slug)->first();
 		});
 	}
 

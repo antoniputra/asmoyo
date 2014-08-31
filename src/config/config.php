@@ -36,8 +36,9 @@ return array(
 
 		/**
 		 * what is the base url for access uploads
+		 * you may register your cdn url here
 		 */
-		'url'			=> $_SERVER['SERVER_NAME'],
+		'url'			=> null,
 
 		/**
 		* where image upload path should be stored

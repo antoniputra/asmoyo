@@ -66,7 +66,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function show($slug)
 	{
-		$cat = $this->category->getBySlugCache($slug);
+		$cat = $this->category->getRepoBySlugCache($slug);
 		if ( ! $cat ) return App::abort(404);
 
 		$data = array(
@@ -85,7 +85,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function edit($slug)
 	{
-		$cat = $this->category->getBySlugCache($slug);
+		$cat = $this->category->getRepoBySlugCache($slug);
 		if ( ! $cat ) return App::abort(404);
 
 		$data = array(

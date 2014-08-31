@@ -8,7 +8,8 @@ class TagsTableSeeder extends Seeder {
 
 		$tags 	= array(
 			array(
-				'photo_id'		=> 0,
+				'photo'			=> null,
+				'photos'		=> json_encode(array()),
 				'status'		=> 'publish',
 				'title'			=> 'Tips and Trick',
 				'slug'			=> 'tips-and-trick',
@@ -17,7 +18,8 @@ class TagsTableSeeder extends Seeder {
 				'updated_at'	=> \Carbon\Carbon::now(),
 			),
 			array(
-				'photo_id'		=> 0,
+				'photo'			=> null,
+				'photos'		=> json_encode(array()),
 				'status'		=> 'publish',
 				'title'			=> 'Awesome',
 				'slug'			=> 'awesome',

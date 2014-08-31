@@ -8,7 +8,8 @@ class CategoriesTableSeeder extends Seeder {
 
 		$categories 	= array(
 			array(
-				'photo_id'		=> 0,
+				'photo'			=> null,
+				'photos'		=> json_encode(array()),
 				'parent_id'		=> 0,
 				'status'		=> 'publish',
 				'title'			=> 'Skills',
@@ -18,7 +19,8 @@ class CategoriesTableSeeder extends Seeder {
 				'updated_at'	=> \Carbon\Carbon::now(),
 			),
 			array(
-				'photo_id'		=> 0,
+				'photo'			=> null,
+				'photos'		=> json_encode(array()),
 				'parent_id'		=> 0,
 				'status'		=> 'publish',
 				'title'			=> 'Knowledge',

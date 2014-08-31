@@ -23,12 +23,12 @@ abstract class Repository
 		return $this->model;
 	}
 
-	public function getAll($limit = null, $sortir = null)
+	public function getRepoAll($limit = null, $sortir = null)
     {
         return $this->model->all();
     }
 
-    public function getAllPaginated($limit = null, $sortir = null)
+    public function getRepoAllPaginated($limit = null, $sortir = null)
     {
         return $this->model->paginate($limit);
     }
@@ -40,7 +40,7 @@ abstract class Repository
      * @param status
      * @return array
      */
-    public function getPaginatedCache($perPage = null, $sortir = null, $status = null)
+    public function getRepoPaginatedCache($perPage = null, $sortir = null, $status = null)
     {
         // prepare conf variable
         $page = \Input::get('page', 1);
@@ -88,23 +88,23 @@ abstract class Repository
         return $this->setCache($cache_key, $data);
     }
 
-    public function getById($id)
+    public function getRepoById($id)
     {
         return $this->model->find($id);
     }
 
-    public function getByIdCache($id)
+    public function getRepoByIdCache($id)
     {
         $key = __FUNCTION__ . $id;
         return $this->modelCache($key)->find($id);
     }
 
-    public function getBySlug($slug)
+    public function getRepoBySlug($slug)
     {
         return $this->model->where('slug', $slug)->first();
     }
 
-    public function getBySlugCache($slug)
+    public function getRepoBySlugCache($slug)
     {
         $key = __FUNCTION__ . $slug;
         return $this->modelCache($key)->where('slug', $slug)->first();

@@ -12,6 +12,12 @@ abstract class Repository
     * The Model
     */
     protected $model;
+    
+    /**
+    * set repo type
+    * used for repo query
+    */
+    protected $repo_type;
 
 	public function __construct($model = null)
 	{
@@ -23,14 +29,29 @@ abstract class Repository
 		return $this->model;
 	}
 
+    /**
+     * make query by repo_type
+     * @param \Model query
+     * @return \Model
+     */
+    private function queryRepo()
+    {
+        $query = $this->model;
+        if ( $repo_type = $this->repo_type )
+        {
+            $query = $query->where('type', $repo_type);
+        }
+        return $query;
+    }
+
 	public function getRepoAll($limit = null, $sortir = null)
     {
-        return $this->model->all();
+        return $this->queryRepo()->all();
     }
 
     public function getRepoAllPaginated($limit = null, $sortir = null)
     {
-        return $this->model->paginate($limit);
+        return $this->queryRepo()->paginate($limit);
     }
 
     /**
@@ -54,7 +75,7 @@ abstract class Repository
         $cache_key  = __FUNCTION__ . implode($data);
         if( $cached = $this->getCache($cache_key) ) return $cached;
 
-        $query  = $this->model;
+        $query  = $this->queryRepo();
 
         switch ($data['sortir']) {
             case 'new':
@@ -90,7 +111,7 @@ abstract class Repository
 
     public function getRepoById($id)
     {
-        return $this->model->find($id);
+        return $this->queryRepo()->find($id);
     }
 
     public function getRepoByIdCache($id)
@@ -98,13 +119,13 @@ abstract class Repository
         $key = __FUNCTION__ . $id;
         return $this->cache()->rememberForever($key, function() use($id)
         {
-            return $this->model->find($id);
+            return $this->queryRepo()->find($id);
         });
     }
 
     public function getRepoBySlug($slug)
     {
-        return $this->model->where('slug', $slug)->first();
+        return $this->queryRepo()->where('slug', $slug)->first();
     }
 
     public function getRepoBySlugCache($slug)
@@ -112,7 +133,7 @@ abstract class Repository
         $key = __FUNCTION__ . $slug;
         return $this->cache()->rememberForever($key, function() use($slug)
         {
-            return $this->model->where('slug', $slug)->first();
+            return $this->queryRepo()->where('slug', $slug)->first();
         });
     }
 

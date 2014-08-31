@@ -78,7 +78,7 @@ abstract class AsmoyoController extends Controller
 	/**
 	 * Redirect with alert
 	 */
-	protected function redirectAlert($to=null, $alertType='info', $alertTitle=null, $alertText=null)
+	protected function redirectWithAlert($to=null, $alertType='info', $alertTitle=null, $alertText=null)
 	{
 		if(filter_var($to, FILTER_VALIDATE_URL))
 		{

@@ -37,7 +37,7 @@ class Admin_UserController extends AsmoyoController {
 		    return Redirect::intended(admin_route('home.index'));
 		}
 
-		return $this->redirectAlert(false, 'danger', 'Gagal !!', '');
+		return $this->redirectWithAlert(false, 'danger', 'Gagal !!', '');
 	}
 
 	/**

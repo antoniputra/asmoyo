@@ -52,9 +52,9 @@ class Admin_CategoryController extends AsmoyoController {
 		$category = $this->category->getNewInstance();
 		if ( $this->category->save($category) )
 		{
-			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil dibuat !!');
+			return $this->redirectWithAlert(admin_route('category.index'), 'success', 'Berhasil dibuat !!');
 		}
-		return $this->redirectAlert(false, 'danger', 'Gagal dibuat !!', $category->getErrors());
+		return $this->redirectWithAlert(false, 'danger', 'Gagal dibuat !!', $category->getErrors());
 	}
 
 	/**
@@ -100,9 +100,9 @@ class Admin_CategoryController extends AsmoyoController {
 		$category->fill( $this->category->getInputOnlyFillable() );
 		if ( $this->category->save( $category, $this->category->getRules('validationEditRules') ) )
 		{
-			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil diperbarui !!');
+			return $this->redirectWithAlert(admin_route('category.index'), 'success', 'Berhasil diperbarui !!');
 		}
-		return $this->redirectAlert(false, 'danger', 'Gagal diperbarui !!', $category->getErrors());
+		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $category->getErrors());
 	}
 
 	/**
@@ -117,9 +117,9 @@ class Admin_CategoryController extends AsmoyoController {
 		$category 	= $this->category->getById($id);
 		if( $category->delete() )
 		{
-			return $this->redirectAlert(admin_route('category.index'), 'success', 'Berhasil dihapus !!');
+			return $this->redirectWithAlert(admin_route('category.index'), 'success', 'Berhasil dihapus !!');
 		}
-		return $this->redirectAlert(false, 'danger', 'Gagal dihapus !!');
+		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
 	}
 
 }

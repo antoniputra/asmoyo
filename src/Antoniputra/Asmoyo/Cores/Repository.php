@@ -232,9 +232,9 @@ abstract class Repository
      * @param \Model model
      * @return bool
      */
-    public function delete($model)
+    public function delete($model, $is_permanent = false)
     {
-        return $model->delete();
+        return $is_permanent ? $model->forceDelete() : $model->delete() ;
     }
 
     /**

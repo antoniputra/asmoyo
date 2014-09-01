@@ -28,8 +28,9 @@ abstract class Entity extends Eloquent
         static::saving(function($model)
         {
             // if the attribute has slug, make it slugable
-            if ( $slug = $model->getAttribute('slug') ) {
-                $model->slug = \Str::slug($slug);
+            if ( $model->getAttribute('slug') OR $model->getAttribute('title') ) {
+                $slugable       = $model->getAttribute('slug') ?: $model->getAttribute('title');
+                $model->slug    = \Str::slug($slugable);
             }
         });
 

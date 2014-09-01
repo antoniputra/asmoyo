@@ -23,46 +23,40 @@
 			</li>
 		</ul>
 
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th> Title </th>
-					<th> Status </th>
-					<th> Opsi </th>
-				</tr>
-			</thead>
-			<tbody>
-				@if($medias['items'])
-				@foreach($medias['items'] as $med)
-					<tr>
-						<td> {{$med['title']}} </td>
-						<td> {{$med['status']}} </td>
-						<td>
-							<a href="{{admin_route('media.show', $med['slug'])}}" class="btn btn-default btn-sm">
-								<i class="fa fa-pencil"></i> Lihat
-							</a>
-							<a href="{{admin_route('media.edit', $med['slug'])}}" class="btn btn-default btn-sm">
-								<i class="fa fa-pencil"></i> Edit
-							</a>
-							{{ Form::link('Hapus', 'DELETE', admin_route('media.destroy', $med['id']),
-								array(
-									'icon'	=> 'fa fa-trash-o',
-									'class'	=> 'btn btn-danger btn-sm'
-								),
-								'Apakah anda yakin ?'
-							) }}
-						</td>
-					</tr>
-				@endforeach
-				@else
-					<tr>
-						<td colspan="3">
-							<h4>Tidak ada data</h4>
-						</td>
-					</tr>
-				@endif
-			</tbody>
-		</table>
+		<div class="row">
+		@if($medias['items'])
+		@foreach($medias['items'] as $med)
+			<div class="col-sm-6 col-md-3">
+                <div class="thumbnail asmoyo-media">
+                    <div class="image" style="background-image:url('{{ getImage('test.jpg') }}');"> &nbsp; </div>
+                    <div class="caption hoverable">
+                        {{$med['title']}}
+                    </div>
+                    <div class="action hoverable">
+                        <a href="{{ admin_route('media.edit', $med['slug']) }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>
+                        {{ Form::link(
+                            ' Hapus',
+                            'DELETE',
+                            admin_route('media.destroy', $med['slug']),
+                            array(
+                                'class' => 'btn btn-danger btn-sm',
+                                'icon'  => 'fa fa-trash-o',
+                            ),
+                            'Apakah anda yakin ?'
+                        ) }}
+                    </div>
+                </div>
+            </div>
+		@endforeach
+		@else
+			<tr>
+				<td colspan="3">
+					<h4>Tidak ada data</h4>
+				</td>
+			</tr>
+		@endif
 
 		{{$medias->appends(array('sortir' => $medias['sortir'], 'status' => $medias['status']))->links()}}
 

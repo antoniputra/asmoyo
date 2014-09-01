@@ -26,23 +26,18 @@ class Media extends Entity {
      */
     protected $validationRules = [
         'title'     => 'required|unique:posts',
-        'slug'      => 'required|unique:posts',
+        'content'   => 'required'
     ];
 
-    /**
-    * set photos attribute to json array
-    */
-    public function setPhotosAttribute($value)
-    {
-        $photos_array = explode(',', str_replace(' ', '', $value));
-        $this->attributes['photos'] = json_encode($photos_array);
-    }
 
-    /**
-    * get photos attribute decode from json
-    */
-    public function getPhotosAttribute($value)
+    public static function boot()
     {
-        return json_decode($value, true);
+        parent::boot();
+
+        static::saving(function($model)
+        {
+            $model->user_id = \Auth::user()->id;
+            $model->type    = 'media';
+        });
     }
 }

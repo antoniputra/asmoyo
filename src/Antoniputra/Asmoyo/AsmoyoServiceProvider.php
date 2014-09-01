@@ -55,6 +55,16 @@ class AsmoyoServiceProvider extends ServiceProvider {
 			return $app['Asmoyo\Options\OptionInterface']->get();
 		});
 
+		/**
+		 * get all option
+		 */
+		$this->app->bindShared('asmoyo.category', function($app)
+		{
+			return new \Antoniputra\Asmoyo\Categories\CategoryRepo(
+				new \Antoniputra\Asmoyo\Categories\Category
+			);
+		});
+
 	}
 
 	/**

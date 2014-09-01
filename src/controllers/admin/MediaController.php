@@ -23,7 +23,7 @@ class Admin_MediaController extends AsmoyoController {
 		$data 	= array(
 			'medias'	=> Paginator::make($medias, $medias['total'], $medias['perPage']),
 		);
-		return $this->adminView('content.media.index', $data);
+		return $this->setCollumn('two_collumn')->adminView('content.media.index', $data);
 	}
 
 	/**
@@ -34,7 +34,12 @@ class Admin_MediaController extends AsmoyoController {
 	 */
 	public function create()
 	{
-		//
+		$categoryItems = app('asmoyo.category')->getRepoAll();
+		$data = array(
+			'statusList'	=> asDropdown($this->media->getStatusList()),
+			'categoryList'	=> asDropdown($categoryItems, true),
+		);
+		return $this->setCollumn('two_collumn')->adminView('content.media.create', $data);
 	}
 
 	/**
@@ -45,7 +50,13 @@ class Admin_MediaController extends AsmoyoController {
 	 */
 	public function store()
 	{
-		//
+		$media = $this->media->getNewInstance();
+		// return $media;
+		if ( $this->media->save($media) )
+		{
+			return $this->redirectWithAlert(admin_route('media.index'), 'success', 'Berhasil dibuat !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal dibuat !!', $media->getErrors());
 	}
 
 	/**

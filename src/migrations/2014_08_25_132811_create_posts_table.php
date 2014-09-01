@@ -21,9 +21,9 @@ class CreatePostsTable extends Migration {
 			$table->string('image')->nullable();
 			$table->text('images')->nullable();
 			$table->string('status');
-			$table->boolean('comment_status')->default(1);
+			$table->tinyInteger('comment_status')->nullable();
 			$table->string('type');
-			$table->integer('order')->default(0);
+			$table->tinyInteger('order')->default(0);
 			$table->string('mime_type')->default('text/html');
 			$table->integer('size')->default(200);
 			$table->text('options')->default(null);
@@ -31,8 +31,8 @@ class CreatePostsTable extends Migration {
 			$table->string('slug');
 			$table->text('description');
 			$table->text('content');
-			$table->text('meta_keywords')->default(null);
-			$table->text('meta_description')->default(null);
+			$table->text('meta_keywords')->nullable();
+			$table->text('meta_description')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

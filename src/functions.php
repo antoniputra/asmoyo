@@ -83,15 +83,15 @@ function tpl_get($view = null)
  * @param bool  withDefault
  * @param array option
  */
-function asDropdown(array $data, $withDefault = false, $option = [])
+function asDropdown($data, $withDefault = false, $option = [])
 {
     if ( $withDefault )
         $result[0] = 'Tidak ada';
     else
         $result = [];
 
-    // this is multi dimensional array
-    if (is_array($data[0]))
+    // if $data is object we will use id and title
+    if ( is_object($data) )
     {
         foreach ($data as $d) {
             $result[$d['id']] = $d['title'];

@@ -60,6 +60,20 @@ abstract class Entity extends Eloquent
     }
 
     /**
+     * Setting custom errors message
+     * @param array     error
+     * @return array
+     */
+    public function setErrors($messages = array())
+    {
+        if ( ! $this->validator) {
+            throw new NoValidatorInstantiated;
+        }
+        
+        return $this->validator->setCustomMessages($messages);
+    }
+
+    /**
      * Get errors from validation
      * @return array
      */
@@ -69,7 +83,7 @@ abstract class Entity extends Eloquent
             throw new NoValidatorInstantiated;
         }
 
-        return $this->validator->errors();
+        return $this->validator->messages();
     }
 
     public function getCacheName()

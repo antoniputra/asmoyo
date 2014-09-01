@@ -123,6 +123,16 @@ abstract class Repository
         });
     }
 
+    public function requireById($id)
+    {
+        return $this->getRepoById($id) ?: \App::abort(404);
+    }
+
+    public function requireByIdCache($id)
+    {
+        return $this->getRepoByIdCache($id) ?: \App::abort(404);
+    }
+
     public function getRepoBySlug($slug)
     {
         return $this->queryRepo()->where('slug', $slug)->first();
@@ -137,6 +147,19 @@ abstract class Repository
         });
     }
 
+    public function requireBySlug($slug)
+    {
+        return $this->getRepoBySlug($slug) ?: \App::abort(404);
+    }
+
+    public function requireBySlugCache($slug)
+    {
+        return $this->getRepoBySlugCache($slug) ?: \App::abort(404);
+    }
+
+    /**
+     * create new instance.
+     */
     public function getNewInstance($attributes = array())
     {
         $attributes = $attributes ?: $this->getInputOnlyFillable() ;

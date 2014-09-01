@@ -8,7 +8,7 @@ class Category extends Entity {
     use SoftDeletingTrait;
 
 	protected $table      	= 'categories';
-	protected $fillable 	= ['photo', 'photos', 'parent_id', 'title', 'slug', 'status', 'description'];
+	protected $fillable 	= ['image', 'images', 'parent_id', 'title', 'slug', 'status', 'description'];
     protected $dates        = ['deleted_at'];
 
     /**
@@ -30,18 +30,18 @@ class Category extends Entity {
     ];
 
     /**
-    * set photos attribute to json array
+    * set images attribute to json array
     */
-    public function setPhotosAttribute($value)
+    public function setImagesAttribute($value)
     {
-        $photos_array = explode(',', str_replace(' ', '', $value));
-        $this->attributes['photos'] = json_encode($photos_array);
+        $images_array = explode(',', str_replace(' ', '', $value));
+        $this->attributes['images'] = json_encode($images_array);
     }
 
     /**
-    * get photos attribute decode from json
+    * get images attribute decode from json
     */
-    public function getPhotosAttribute($value)
+    public function getImagesAttribute($value)
     {
         return json_decode($value, true);
     }

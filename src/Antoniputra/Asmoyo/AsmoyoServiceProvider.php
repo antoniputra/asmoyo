@@ -21,6 +21,8 @@ class AsmoyoServiceProvider extends ServiceProvider {
 	{
 		$this->package('antoniputra/asmoyo');
 
+		$this->app->register('Intervention\Image\ImageServiceProvider');
+
 		// set Auth model
 		Config::set('auth.model', Config::get('asmoyo::model.user'));
 

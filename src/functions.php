@@ -36,21 +36,38 @@ function admin_route($routeName, $param = null)
 }
 
 /**
- * get asset and upload storage
+ * get image cache using routing 
+ * @see Intervention Image Cache
+ * @return string|Route
  */
-function getImage($filename, $type = 'medium')
+function getImgCache($filename, $type = 'medium')
 {
     return route('imagecache', array($type, $filename));
 }
 
-function getThumb($filename, $size = null)
+/**
+ * get original image or manipulated orignal
+ * @param string    filename
+ * @param array     option
+ * @return string|Route
+ */
+function getImg($filename, $option = array())
 {
-    $setSize = array(
-        'w' => isset($size[0]) ? $size[0] : 300 ,
-        'h' => isset($size[1]) ? $size[1] : 300 ,
-    );
-    $param = '?'. http_build_query($setSize);
-    return route('upload.thumb', $filename) . $param;
+    $param = null;
+    if ($option)
+    {
+        $optioned = array(
+            'w' => isset($option['w']) ? $option['w'] : 300 ,
+            'h' => isset($option['h']) ? $option['h'] : 300 ,
+        );
+        $param = '?'. http_build_query($optioned);
+    }
+    return route('upload.image', $filename) . $param;
+}
+
+function getThumb($filename)
+{
+    return route('upload.thumb', $filename);
 }
 
 /**
@@ -105,6 +122,24 @@ function asDropdown($data, $withDefault = false, $option = [])
     }
 
     return $result;
+}
+
+// get mime type (used for response content type)
+function getMime($ext, $default='text/html')
+{
+    $mimes = array(
+        'css'   => 'text/css',
+        'js'    => 'text/javascript',
+        'jpg'   => 'image/jpg',
+        'jpeg'  => 'image/jpeg',
+        'png'   => 'image/png',
+        'gif'   => 'image/gif',
+        'woff'  => 'application/x-font-woff',
+    );
+
+    if ( ! array_key_exists($ext, $mimes)) return $default;
+
+    return $mimes[$ext];
 }
 
 

@@ -101,8 +101,15 @@ Route::resource('category', 'CategoryController');
 
 
 /* Upload */
-// get image manipulation
-Route::get('thumb/{file}', array(
+
+// get image
+Route::get('storage/images/{file}', array(
+	'as' 		=> 'upload.image',
+	'uses' 		=> 'AssetController@getImage'
+));
+
+// get image thumbnail
+Route::get('storage/thumbs/{file}', array(
 	'as' 		=> 'upload.thumb',
 	'uses' 		=> 'AssetController@getThumb'
 ));

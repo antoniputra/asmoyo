@@ -28,7 +28,7 @@
 		@foreach($medias['items'] as $med)
 			<div class="col-sm-6 col-md-3">
                 <div class="thumbnail asmoyo-media">
-                    <div class="image" style="background-image:url('{{ getImage('test.jpg') }}');"> &nbsp; </div>
+                    <div class="image" style="background-image:url('{{ getThumb($med['content']) }}');"> &nbsp; </div>
                     <div class="caption hoverable">
                         {{$med['title']}}
                     </div>

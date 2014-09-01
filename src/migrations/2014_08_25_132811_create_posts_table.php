@@ -18,9 +18,8 @@ class CreatePostsTable extends Migration {
 			$table->integer('parent_id')->default(0);
 			$table->integer('user_id');
 			$table->integer('category_id')->default(0);
-			// $table->integer('photo_id')->default(0);
-			$table->string('photo')->nullable();
-			$table->string('photos')->nullable();
+			$table->string('image')->nullable();
+			$table->text('images')->nullable();
 			$table->string('status');
 			$table->boolean('comment_status')->default(1);
 			$table->string('type');

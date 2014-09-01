@@ -36,16 +36,21 @@ function admin_route($routeName, $param = null)
 }
 
 /**
- * get upload route
+ * get asset and upload storage
  */
-function upload_route($filename, $type = 'images')
+function getImage($filename, $type = 'medium')
 {
-    return route('upload', array($type, $filename));
+    return route('imagecache', array($type, $filename));
 }
 
-function thumb_route($filename)
+function getThumb($filename, $size = null)
 {
-    return route('upload.thumb', $filename);
+    $setSize = array(
+        'w' => isset($size[0]) ? $size[0] : 300 ,
+        'h' => isset($size[1]) ? $size[1] : 300 ,
+    );
+    $param = '?'. http_build_query($setSize);
+    return route('upload.thumb', $filename) . $param;
 }
 
 /**

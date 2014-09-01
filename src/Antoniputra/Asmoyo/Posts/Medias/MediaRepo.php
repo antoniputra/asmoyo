@@ -9,8 +9,8 @@ use Input;
 class MediaRepo extends Repository
 {
 	protected $validationEditRules = [
-        'title'     => 'required|unique:posts,title,{id}',
-        'slug'      => 'required|unique:posts,slug,{id}',
+        'title'     => 'required',
+        'slug'      => 'required',
     ];
 
     protected $repo_type = 'media';
@@ -25,19 +25,43 @@ class MediaRepo extends Repository
 	 * @see Antoniputra\Asmoyo\Cores\Repository
 	 */
 	public function save($newData, $newValidation = array())
-	{
-		$file = $newData->content;
-		$imageLib = new ImageLib($file);
-		
-		if( ! $imageLib->withThumb()->run() ) {
-			return $imageLib->getErrors();
+	{		
+		if ( ! $newData->isValid() ) {
+			return false;
 		}
 
-		$image = $imageLib->getResult();
+		if (Input::hasFile('content')) {
+			$file 		= $newData->content;
+			$imageLib 	= new ImageLib($file, Input::get('content', null));
+			if( ! $imageLib->withThumb()->run() ) {
+				$newData->setErrors( $imageLib->getErrors() );
+				return false;
+			}
+			$newData = $this->fillUploadField( $newData, $imageLib->getResult() );
+		}
+
+		return parent::save($newData, $newValidation);
+	}
+
+	public function delete($model, $is_permanent = false)
+	{
+		// unlink/delete image
+		$imageLib 	= new ImageLib($model->content);
+		\File::delete( $imageLib->getPathFile(), $imageLib->getPathThumbFile() );
+		return parent::delete($model, $is_permanent);
+	}
+
+	/**
+	 * fill upload data
+	 * @param Model 	newData
+	 * @param image 	array
+	 * @return Model
+	 */
+	private function fillUploadField($newData, $image)
+	{
 		$newData->mime_type = $image['mimeType'];
 		$newData->size 		= $image['size'];
 		$newData->content 	= $image['fileName'];
-
-		return parent::save($newData);
+		return $newData;
 	}
 }

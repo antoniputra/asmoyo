@@ -51,7 +51,6 @@ class Admin_MediaController extends AsmoyoController {
 	public function store()
 	{
 		$media = $this->media->getNewInstance();
-		// return $media;
 		if ( $this->media->save($media) )
 		{
 			return $this->redirectWithAlert(admin_route('media.index'), 'success', 'Berhasil dibuat !!');
@@ -66,10 +65,9 @@ class Admin_MediaController extends AsmoyoController {
 	 * @param  int  $slug
 	 * @return Response
 	 */
-	public function show($slug)
+	public function show($id)
 	{
-		$media = $this->media->getRepoBySlugCache($slug);
-		if ( ! $media ) return App::abort(404);
+		$media = $this->media->requireByIdCache($id);
 
 		$data = array(
 			'media'	=> $media,
@@ -87,7 +85,16 @@ class Admin_MediaController extends AsmoyoController {
 	 */
 	public function edit($id)
 	{
-		//
+		$media = $this->media->requireByIdCache($id);
+		if ( ! $media ) return App::abort(404);
+
+		$categoryItems = app('asmoyo.category')->getRepoAll();
+		$data = array(
+			'media'			=> $media,
+			'statusList'	=> asDropdown($this->media->getStatusList()),
+			'categoryList'	=> asDropdown($categoryItems, true),
+		);
+		return $this->setCollumn('two_collumn')->adminView('content.media.edit', $data);
 	}
 
 	/**
@@ -99,7 +106,17 @@ class Admin_MediaController extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		//
+		$media 	= $this->media->requireByIdCache($id);
+
+		$input = $this->media->getInputOnlyFillable();
+		$input['content'] = Input::file('content') ?: Input::get('content');
+		$media->fill($input);
+
+		if ( $this->media->save($media) )
+		{
+			return $this->redirectWithAlert(admin_route('media.index'), 'success', 'Berhasil diperbarui !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $media->getErrors());
 	}
 
 	/**
@@ -111,7 +128,12 @@ class Admin_MediaController extends AsmoyoController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$media 	= $this->media->getRepoById($id);
+		if( $this->media->delete($media, true) )
+		{
+			return $this->redirectWithAlert(admin_route('media.index'), 'success', 'Berhasil dihapus !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
 	}
 
 }

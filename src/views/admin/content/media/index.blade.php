@@ -33,13 +33,13 @@
                         {{$med['title']}}
                     </div>
                     <div class="action hoverable">
-                        <a href="{{ admin_route('media.edit', $med['slug']) }}" class="btn btn-sm btn-primary">
+                        <a href="{{ admin_route('media.edit', $med['id']) }}" class="btn btn-sm btn-primary">
                             <i class="fa fa-pencil"></i> Edit
                         </a>
                         {{ Form::link(
                             ' Hapus',
                             'DELETE',
-                            admin_route('media.destroy', $med['slug']),
+                            admin_route('media.destroy', $med['id']),
                             array(
                                 'class' => 'btn btn-danger btn-sm',
                                 'icon'  => 'fa fa-trash-o',

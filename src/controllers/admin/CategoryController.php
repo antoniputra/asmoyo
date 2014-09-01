@@ -124,7 +124,7 @@ class Admin_CategoryController extends AsmoyoController {
 	public function destroy($id)
 	{
 		$category 	= $this->category->getRepoById($id);
-		if( $category->delete() )
+		if( $this->category->delete($category) )
 		{
 			return $this->redirectWithAlert(admin_route('category.index'), 'success', 'Berhasil dihapus !!');
 		}

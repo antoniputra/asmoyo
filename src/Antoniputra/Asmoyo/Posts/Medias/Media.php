@@ -25,7 +25,7 @@ class Media extends Entity {
      * Default Validation Rules
      */
     protected $validationRules = [
-        'title'     => 'required|unique:posts',
+        'title'     => 'required',
         'content'   => 'required'
     ];
 

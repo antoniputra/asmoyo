@@ -15,6 +15,11 @@ class ImageLib
 	protected $file;
 
 	/**
+	 * set filename
+	 */
+	protected $fileName;
+
+	/**
 	 * Path image will be stored
 	 */
 	protected $path;
@@ -37,12 +42,13 @@ class ImageLib
 	/**
 	 * Contain errors message
 	 */
-	protected $errors;
+	protected $errors = 'something went wrong when upload process, be sure the extension is jpg, jpeg, png, gif';
 
-	public function __construct($file)
+	public function __construct($file, $fileName = null)
 	{
-		$this->file = $file;
-		$this->path = str_finish(Config::get('asmoyo::uploads.path_image'), '/');
+		$this->file 	= $file;
+		$this->fileName = $fileName;
+		$this->path 	= str_finish(Config::get('asmoyo::uploads.path_image'), '/');
 		$this->path_thumb = str_finish($this->path, '/') .'thumb/';
 	}
 
@@ -55,7 +61,7 @@ class ImageLib
 		if ( ! $this->file->isValid())
 		    throw new \Exception("Your File is not valid", 1);
 
-		$image = $this->fileParam();
+		$image = $this->fileData();
 
 		// if thumbSize
 		if ($this->thumbSize)
@@ -141,16 +147,17 @@ class ImageLib
 	 * used for result
 	 * @return array
 	 */
-	protected function fileParam($file = array())
+	protected function fileData($file = array())
 	{
 		$file 		= $file ?: $this->file;
+		$fileName 	= $this->fileName ?: str_random(50) .'.'. $extension;
 		$extension 	= $file->getClientOriginalExtension();
 		return array(
 			'mimeType'		=> $file->getMimeType(),
 			'extension'		=> $extension,
 			'size'			=> $file->getSize(),
 			'realPath'		=> $file->getRealPath(),
-			'fileName'		=> str_random(50) .'.'. $extension,
+			'fileName'		=> $fileName,
 		);
 	}
 
@@ -174,5 +181,16 @@ class ImageLib
 		{
 			throw new \Exception("Error when make '$path_thumb', be sure your directory is writable", 1);
 		}
+	}
+
+
+	public function getPathFile()
+	{
+		return $this->path . $this->file;
+	}
+
+	public function getPathThumbFile()
+	{
+		return $this->path_thumb . $this->file;
 	}
 }

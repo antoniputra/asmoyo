@@ -15,7 +15,8 @@
 			removeClass: "btn btn-danger btn-block",
 			showCaption: false,
 			showRemove: false,
-			showUpload: false
+			showUpload: false,
+			maxFileSize: 2000
 		});
 	</script>
 @stop
@@ -53,8 +54,8 @@
 						{{Form::text('title', null, array('class' => 'form-control', 'title'))}}
 					</div>
 					<div class="col-md-6">
-						<label for="category_id">Category</label>
-						{{Form::select('category_id', $categoryList, null, array('class' => 'form-control', 'category_id'))}}
+						<label for="title">Description</label>
+						{{Form::textarea('description', null, array('class' => 'form-control', 'description', 'rows' => '3'))}}
 					</div>
 				</div>
 				<div class="form-group row">
@@ -63,8 +64,8 @@
 						{{Form::select('status', $statusList, null, array('class' => 'form-control', 'status'))}}
 					</div>
 					<div class="col-md-6">
-						<label for="title">Description</label>
-						{{Form::textarea('description', null, array('class' => 'form-control', 'description', 'rows' => '3'))}}
+						<label for="category_id">Category</label>
+						{{Form::select('category_id', $categoryList, null, array('class' => 'form-control', 'category_id'))}}
 					</div>
 				</div>
 

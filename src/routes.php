@@ -101,13 +101,6 @@ Route::resource('category', 'CategoryController');
 
 
 /* Upload */
-
-// get original image
-Route::get('upload/{type}/{file}', array(
-	'as' 		=> 'upload',
-	'uses' 		=> 'AssetController@getUpload'
-));
-
 // get image manipulation
 Route::get('thumb/{file}', array(
 	'as' 		=> 'upload.thumb',

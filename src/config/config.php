@@ -32,7 +32,7 @@ return array(
 		/**
 		* where base upload path should be stored
 		*/
-		'path'			=> public_path('uploads/'),
+		'path'			=> public_path('uploads'),
 
 		/**
 		 * what is the base url for access uploads
@@ -43,17 +43,17 @@ return array(
 		/**
 		* where image upload path should be stored
 		*/
-		'path_image'	=> public_path('uploads/images/'),
+		'path_image'	=> public_path('uploads/images'),
 
 		/**
 		* where audio upload path should be stored
 		*/
-		'path_audio'	=> public_path('uploads/audio/'),
+		'path_audio'	=> public_path('uploads/audio'),
 
 		/**
 		* where video upload path should be stored
 		*/
-		'path_video'	=> public_path('uploads/video/'),
+		'path_video'	=> public_path('uploads/video'),
 
 	),
 

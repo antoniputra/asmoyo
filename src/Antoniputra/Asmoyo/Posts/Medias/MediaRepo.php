@@ -29,7 +29,7 @@ class MediaRepo extends Repository
 		$file = $newData->content;
 		$imageLib = new ImageLib($file);
 		
-		if( ! $imageLib->run() ) {
+		if( ! $imageLib->withThumb()->run() ) {
 			return $imageLib->getErrors();
 		}
 

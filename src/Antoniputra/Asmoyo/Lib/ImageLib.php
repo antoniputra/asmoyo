@@ -1,6 +1,7 @@
 <?php namespace Antoniputra\Asmoyo\Lib;
 
 use Input, Config, File;
+use Intervention\Image\ImageManagerStatic as InterventionImage;
 
 /**
 * 
@@ -19,6 +20,16 @@ class ImageLib
 	protected $path;
 
 	/**
+	 * Path image thumb will be stored
+	 */
+	protected $path_thumb;
+
+	/**
+	 * with thumbnail
+	 */
+	protected $thumbSize;
+
+	/**
 	 * Contain result finished file upload
 	 */
 	protected $result;
@@ -32,6 +43,7 @@ class ImageLib
 	{
 		$this->file = $file;
 		$this->path = str_finish(Config::get('asmoyo::uploads.path_image'), '/');
+		$this->path_thumb = str_finish($this->path, '/') .'thumb/';
 	}
 
 	/**
@@ -41,11 +53,18 @@ class ImageLib
 	protected function single()
 	{
 		if ( ! $this->file->isValid())
-		    throw new Exception("Your File is not valid", 1);
+		    throw new \Exception("Your File is not valid", 1);
 
 		$image = $this->fileParam();
 
-		if ( $this->file->move($this->path, $image['fileName']) ) {
+		// if thumbSize
+		if ($this->thumbSize)
+		{
+			$this->generateThumb($image);
+		}
+
+		if ( $this->file->move($this->path, $image['fileName']) )
+		{
 			$this->result = $image;
 			return true;
 		}
@@ -60,7 +79,7 @@ class ImageLib
 	public function doUpload()
 	{
 		// check directory
-		$this->checkDir($this->path);
+		$this->checkDir();
 
 		// if the given file is multiple
 		if ( is_array($this->file) )
@@ -76,7 +95,27 @@ class ImageLib
 	}
 
 	/**
-	 * start from here
+	 * Set upload with generated Thumbnail by given size
+	 * @return this
+	 */
+	public function withThumb($w = 320, $h = 320)
+	{
+		$this->thumbSize = array('w' => $w, 'h' => $h);
+		return $this;
+	}
+
+	/**
+	 * generating by thumbSize property
+	 */
+	protected function generateThumb($image)
+	{
+		$size 	= $this->thumbSize;
+		$thumb 	= InterventionImage::make( $image['realPath'] )->fit($size['w']);
+		return $thumb->save( $this->path_thumb . $image['fileName'] );
+	}
+
+	/**
+	 * run image upload here
 	 * @return boolean
 	 */
 	public function run()
@@ -121,12 +160,19 @@ class ImageLib
 	 * @param string 	path
 	 * @return void
 	 */
-	private function checkDir($path)
+	private function checkDir()
 	{
-		if ( ! file_exists( $path )) {
-			if ( ! File::makeDirectory($path, 0777, true, true) ) {
-				throw new \Exception("Error when make directory, be sure your directory is writable", 1);
-			}
+		$path = $this->path;
+		if ( ! file_exists( $path ) AND ! File::makeDirectory($path, 0777, true, true) )
+		{
+			throw new \Exception("Error when make '$path', be sure your directory is writable", 1);
+		}
+
+		// create thumb directory
+		$path_thumb = $this->path_thumb;
+		if ( ! file_exists( $path_thumb ) AND ! File::makeDirectory($path_thumb, 0777, true, true) )
+		{
+			throw new \Exception("Error when make '$path_thumb', be sure your directory is writable", 1);
 		}
 	}
 }

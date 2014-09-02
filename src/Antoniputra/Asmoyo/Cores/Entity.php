@@ -17,6 +17,11 @@ abstract class Entity extends Eloquent
     protected $validator;
 
     /**
+     * Available status list
+     */
+    protected $statusList = [];
+
+    /**
      * Global entity events
      * we used this for reset caching
      * @return void
@@ -69,7 +74,7 @@ abstract class Entity extends Eloquent
         if ( ! $this->validator) {
             throw new NoValidatorInstantiated;
         }
-        
+
         return $this->validator->setCustomMessages($messages);
     }
 
@@ -136,5 +141,17 @@ abstract class Entity extends Eloquent
         }
 
         return $newRules;
+    }
+
+    /**
+     * get status list property from the model
+     */
+    public function getStatusList()
+    {
+        if( $statusList = $this->statusList )
+        {
+            return $statusList;
+        }
+        throw new \Exception("property 'statusList' not defined, maybe this model haven't 'status' field", 1);
     }
 }

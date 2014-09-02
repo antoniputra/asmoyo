@@ -19,6 +19,12 @@ abstract class Repository
     */
     protected $repo_type;
 
+    /**
+    * set repo fields
+    * used for repo query
+    */
+    protected $repo_fields;
+
 	public function __construct($model = null)
 	{
 		$this->model = $model;
@@ -34,13 +40,20 @@ abstract class Repository
      * @param \Model query
      * @return \Model
      */
-    private function queryRepo()
+    public function queryRepo()
     {
         $query = $this->model;
         if ( $repo_type = $this->repo_type )
         {
             $query = $query->where('type', $repo_type);
         }
+
+        if ( $repo_fields = $this->repo_fields )
+        {
+            $repo_fields = array_merge($repo_fields, array('created_at', 'updated_at', 'deleted_at'));
+            $query = $query->select($repo_fields);
+        }
+
         return $query;
     }
 
@@ -159,10 +172,20 @@ abstract class Repository
 
     /**
      * create new instance.
+     * if the given attributes is null, we will skip it.
      */
     public function getNewInstance($attributes = array())
     {
         $attributes = $attributes ?: $this->getInputOnlyFillable() ;
+
+        // filter attributes
+        $newAttributes = [];
+        foreach ($attributes as $key => $value)
+        {
+            $newAttributes[$key] = $value;
+        }
+        $attributes = $newAttributes;
+
         return $this->model->newInstance($attributes);
     }
 
@@ -243,11 +266,7 @@ abstract class Repository
      */
     public function getStatusList()
     {
-        if( isset($this->model->statusList) )
-        {
-            return $this->model->statusList;
-        }
-        throw new \Exception("property 'statusList' not defined, maybe this model haven't 'status' field", 1);
+        return $this->model->getStatusList();
     }
 
     /**

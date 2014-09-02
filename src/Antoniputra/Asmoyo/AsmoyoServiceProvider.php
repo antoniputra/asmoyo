@@ -56,12 +56,42 @@ class AsmoyoServiceProvider extends ServiceProvider {
 		});
 
 		/**
-		 * get all option
+		 * Binding Category
 		 */
 		$this->app->bind('asmoyo.category', function($app)
 		{
 			return new \Antoniputra\Asmoyo\Categories\CategoryRepo(
 				new \Antoniputra\Asmoyo\Categories\Category
+			);
+		});
+
+		/**
+		 * Binding Media
+		 */
+		$this->app->bind('asmoyo.media', function($app)
+		{
+			return new \Antoniputra\Asmoyo\Posts\Medias\MediaRepo(
+				new \Antoniputra\Asmoyo\Posts\Medias\Media
+			);
+		});
+
+		/**
+		 * Binding Page
+		 */
+		$this->app->bind('asmoyo.page', function($app)
+		{
+			return new \Antoniputra\Asmoyo\Posts\Pages\PageRepo(
+				new \Antoniputra\Asmoyo\Posts\Pages\Page
+			);
+		});
+
+		/**
+		 * Binding Blog
+		 */
+		$this->app->bind('asmoyo.blog', function($app)
+		{
+			return new \Antoniputra\Asmoyo\Posts\Blogs\BlogRepo(
+				new \Antoniputra\Asmoyo\Posts\Blogs\Blog
 			);
 		});
 

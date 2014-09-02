@@ -86,8 +86,6 @@ class Admin_MediaController extends AsmoyoController {
 	public function edit($id)
 	{
 		$media = $this->media->requireByIdCache($id);
-		if ( ! $media ) return App::abort(404);
-
 		$categoryItems = app('asmoyo.category')->getRepoAll();
 		$data = array(
 			'media'			=> $media,

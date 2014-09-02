@@ -182,7 +182,9 @@ abstract class Repository
         $newAttributes = [];
         foreach ($attributes as $key => $value)
         {
-            $newAttributes[$key] = $value;
+            if ( ! is_null($value) ) {
+                $newAttributes[$key] = $value;
+            }
         }
         $attributes = $newAttributes;
 

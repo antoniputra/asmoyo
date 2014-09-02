@@ -34,8 +34,10 @@ class Category extends Entity {
     */
     public function setImagesAttribute($value)
     {
-        $images_array = explode(',', str_replace(' ', '', $value));
-        $this->attributes['images'] = json_encode($images_array);
+        if ($value) {
+            $images_array = explode(',', str_replace(' ', '', $value));
+            $this->attributes['images'] = json_encode($images_array);
+        }
     }
 
     /**

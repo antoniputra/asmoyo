@@ -78,6 +78,10 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 
 	// Media
 	Route::resource('media', 'Admin_MediaController');
+	Route::delete('media/{id}', array(
+		'as'	=> $adminPrefix.'.media.forceDestroy',
+		'uses'	=> 'Admin_MediaController'
+	));
 	// End Media
 
 	// Category

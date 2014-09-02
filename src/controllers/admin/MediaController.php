@@ -129,6 +129,23 @@ class Admin_MediaController extends AsmoyoController {
 	public function destroy($id)
 	{
 		$media 	= $this->media->getRepoById($id);
+		if( $this->media->delete($media) )
+		{
+			return $this->redirectWithAlert(admin_route('media.index'), 'success', 'Berhasil dihapus !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
+	}
+
+	/**
+	 * Remove Permanent the specified resource from storage.
+	 * DELETE /post/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function forceDestroy($id)
+	{
+		$media 	= $this->media->getRepoById($id);
 		if( $this->media->delete($media, true) )
 		{
 			return $this->redirectWithAlert(admin_route('media.index'), 'success', 'Berhasil dihapus !!');

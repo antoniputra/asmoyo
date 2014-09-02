@@ -39,7 +39,7 @@
                         {{ Form::link(
                             ' Hapus',
                             'DELETE',
-                            admin_route('media.destroy', $med['id']),
+                            admin_route('media.forceDestroy', $med['id']),
                             array(
                                 'class' => 'btn btn-danger btn-sm',
                                 'icon'  => 'fa fa-trash-o',

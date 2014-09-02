@@ -31,4 +31,12 @@ class Blog extends Entity {
             $model->type    = 'blog';
         });
     }
+
+    /**
+     * get category
+     */
+    public function category()
+    {
+        return $this->belongsTo('Antoniputra\Asmoyo\Categories\Category', 'category_id');
+    }
 }

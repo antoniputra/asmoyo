@@ -18,4 +18,16 @@ class BlogRepo extends Repository
 		$this->model = $model;
 	}
 
+	/**
+	 * Get category with all relations
+	 */
+	public function getDetailBySlugCache($slug)
+	{
+		$key = __FUNCTION__.$slug;
+		return $this->cache()->rememberForever($key, function() use($slug)
+		{
+			return $this->model->with('category')->where('slug', $slug)->first();
+		});
+	}
+
 }

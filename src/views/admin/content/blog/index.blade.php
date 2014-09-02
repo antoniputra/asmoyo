@@ -6,7 +6,7 @@
 
 <div class="asmoyo-box">
 	<h3 class="box-header">
-		<i class="fa fa-files-o"></i>
+		<i class="fa fa-file-text-o"></i>
 		Daftar Blog
 	</h3>
 	<div class="box-content">

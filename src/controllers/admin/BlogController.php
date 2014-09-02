@@ -34,7 +34,12 @@ class Admin_BlogController extends AsmoyoController {
 	 */
 	public function create()
 	{
-		//
+		$categoryItems = app('asmoyo.category')->getRepoAll();
+		$data = array(
+			'statusList'	=> asDropdown($this->blog->getStatusList()),
+			'categoryList'	=> asDropdown($categoryItems, true),
+		);
+		return $this->adminView('content.blog.create', $data);
 	}
 
 	/**
@@ -45,31 +50,47 @@ class Admin_BlogController extends AsmoyoController {
 	 */
 	public function store()
 	{
-		//
+		$blog = $this->blog->getNewInstance();
+		if ( $this->blog->save($blog) )
+		{
+			return $this->redirectWithAlert(admin_route('blog.index'), 'success', 'Berhasil dibuat !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal dibuat !!', $blog->getErrors());
 	}
 
 	/**
 	 * Display the specified resource.
-	 * GET /post/{id}
+	 * GET /post/{slug}
 	 *
-	 * @param  int  $id
+	 * @param  int  $slug
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-		//
+		$data = array(
+			'blog'	=> $this->blog->getDetailBySlugCache($slug),
+		);
+		// return $data['blog'];
+		return $this->adminView('content.blog.show', $data);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /post/{id}/edit
+	 * GET /post/{slug}/edit
 	 *
-	 * @param  int  $id
+	 * @param  int  $slug
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($slug)
 	{
-		//
+		$blog = $this->blog->requireBySlugCache($slug);
+		$categoryItems = app('asmoyo.category')->getRepoAll();
+		$data = array(
+			'blog'			=> $blog,
+			'statusList'	=> asDropdown($this->blog->getStatusList()),
+			'categoryList'	=> asDropdown($categoryItems, true),
+		);
+		return $this->adminView('content.blog.edit', $data);
 	}
 
 	/**
@@ -81,7 +102,13 @@ class Admin_BlogController extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		//
+		$blog 	= $this->blog->requireById($id);
+		$blog->fill( $this->blog->getInputOnlyFillable() );
+		if ( $this->blog->save($blog) )
+		{
+			return $this->redirectWithAlert(admin_route('blog.index'), 'success', 'Berhasil diperbarui !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $blog->getErrors());
 	}
 
 	/**

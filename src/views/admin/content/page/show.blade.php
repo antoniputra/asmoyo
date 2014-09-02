@@ -1,32 +1,35 @@
-@section('title') Halaman {{$page['title']}} @stop
+@section('title') Halaman - {{$page['title']}} @stop
 
 @section('before_content')
-	@include($theme_path .'content.category._menu')
+	@include($theme_path .'content.page._menu')
 @stop
 
 <div class="asmoyo-box">
 	<h3 class="box-header">
-		<i class="fa fa-files-o"></i>
+		<i class="fa fa-file-text-o"></i>
 		Halaman : {{$page['title']}}
 	</h3>
 	<div class="box-content">
-		@if($page['description'])
-			<blockquote>{{$page['description']}}</blockquote>
-		@endif
-
+		<blockquote>
+			<p><b>Description</b></p>
+			{{$page['description']}}
+		</blockquote>
+		
+		<hr>
 		<div>
 			{{$page['content']}}
 		</div>
+		<hr>
 
 		<div class="well">
-			@if($page['meta_keywords'])
+			<div>
 				<h5><b>Meta Keywords</b></h5>
 				<p>{{$page['meta_keywords']}}</p>
-			@endif
-			@if($page['meta_description'])
+			</div>
+			<div>
 				<h5><b>Meta Description</b></h5>
 				<p>{{$page['meta_description']}}</p>
-			@endif
+			</div>
 		</div>
 	</div>
 </div>

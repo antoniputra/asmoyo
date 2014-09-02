@@ -39,7 +39,9 @@ Route::get($adminPrefix .'/logout', array(
 /* End Admin Authentication */
 
 
-/* Admin Page */
+/*============
+Admin Page
+==============*/
 Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), function() use($adminPrefix)
 {
 	// Home
@@ -104,26 +106,14 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	Route::resource('comment', 'Admin_CommentController');
 	// End Comment
 });
-/* End Admin Page */
+/*============
+End Admin Page
+==============*/
 
 
-/* Public Page */
-
-	// Category
-	Route::resource('category', 'CategoryController');
-	// End Category
-
-	// Page
-	Route::get('{page}', array(
-		'as'	=> 'page.show',
-		'uses'	=> 'PageController@show'
-	));
-	// End Page
-
-/* End Public Page */
-
-
-/* Upload */
+/*============
+Upload
+==============*/
 
 // get image
 Route::get('storage/images/{file}', array(
@@ -137,4 +127,33 @@ Route::get('storage/thumbs/{file}', array(
 	'uses' 		=> 'AssetController@getThumb'
 ));
 
-/* End Upload*/
+/*============
+End Upload
+==============*/
+
+
+/*============
+Public Page
+==============*/
+
+// Category
+Route::resource('category', 'CategoryController');
+// End Category
+
+// Blog
+Route::get('blog/{blog}', array(
+	'as'	=> 'blog.show',
+	'uses'	=> 'BlogController@show'
+));
+// End Blog
+
+// Page
+Route::get('{page}', array(
+	'as'	=> 'page.show',
+	'uses'	=> 'PageController@show'
+));
+// End Page
+
+/*============
+End Public Page
+==============*/

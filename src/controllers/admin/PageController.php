@@ -59,14 +59,17 @@ class Admin_PageController extends AsmoyoController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /page/{id}
+	 * GET /page/{slug}
 	 *
-	 * @param  int  $id
+	 * @param  int  $slug
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-		//
+		$data = array(
+			'page'	=> $this->page->requireBySlugCache($slug),
+		);
+		return $this->adminView('content.page.show', $data);
 	}
 
 	/**

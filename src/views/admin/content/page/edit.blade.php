@@ -59,7 +59,7 @@
 			<div class="form-group">
 				<label class="col-md-3 control-label">Meta Keyword</label>
 				<div class="col-md-9">
-					{{ Form::textarea('meta_keyword', null, array('class' => 'form-control', 'rows' => '3')) }}
+					{{ Form::textarea('meta_keywords', null, array('class' => 'form-control', 'rows' => '3')) }}
 				</div>
 			</div>
 

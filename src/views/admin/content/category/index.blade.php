@@ -39,7 +39,7 @@
 						<td> {{$cat['status']}} </td>
 						<td>
 							<a href="{{admin_route('category.show', $cat['slug'])}}" class="btn btn-default btn-sm">
-								<i class="fa fa-pencil"></i> Lihat
+								<i class="fa fa-search"></i> Lihat
 							</a>
 							<a href="{{admin_route('category.edit', $cat['slug'])}}" class="btn btn-default btn-sm">
 								<i class="fa fa-pencil"></i> Edit

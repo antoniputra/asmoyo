@@ -78,9 +78,17 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 
 	// Media
 	Route::resource('media', 'Admin_MediaController');
+	Route::get('media/froala', array(
+		'as' 		=> $adminPrefix .'.media.getFroala',
+		'uses' 		=> 'Admin_MediaController@getImage'
+	));
+	Route::post('media/froala', array(
+		'as' 		=> $adminPrefix .'.media.postFroala',
+		'uses' 		=> 'Admin_MediaController@postImage'
+	));
 	Route::delete('media/{id}', array(
-		'as'	=> $adminPrefix.'.media.forceDestroy',
-		'uses'	=> 'Admin_MediaController'
+		'as'	=> $adminPrefix .'.media.forceDestroy',
+		'uses'	=> 'Admin_MediaController@forceDestroy'
 	));
 	// End Media
 
@@ -100,7 +108,18 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 
 
 /* Public Page */
-Route::resource('category', 'CategoryController');
+
+	// Category
+	Route::resource('category', 'CategoryController');
+	// End Category
+
+	// Page
+	Route::get('{page}', array(
+		'as'	=> 'page.show',
+		'uses'	=> 'PageController@show'
+	));
+	// End Page
+
 /* End Public Page */
 
 

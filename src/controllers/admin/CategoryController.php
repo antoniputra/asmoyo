@@ -90,7 +90,7 @@ class Admin_CategoryController extends AsmoyoController {
 
 		$data = array(
 			'category'		=> $cat,
-			'parentList'	=> $this->category->getParent(),
+			'parentList'	=> $this->category->getParent($cat['id']),
 			'statusList'	=> $this->category->getStatusList(),
 		);
 		return $this->adminView('content.category.edit', $data);

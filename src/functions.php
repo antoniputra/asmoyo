@@ -108,7 +108,7 @@ function asDropdown($data, $withDefault = false, $option = [])
         $result = [];
 
     // if $data is object we will use id and title
-    if ( is_object($data) )
+    if ( is_object($data) OR isset($data[0]['id']) )
     {
         foreach ($data as $d) {
             $result[$d['id']] = $d['title'];

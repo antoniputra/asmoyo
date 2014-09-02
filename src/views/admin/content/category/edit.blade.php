@@ -50,7 +50,7 @@
 					Induk Kategori
 				</label>
 				<div class="col-sm-10">
-					{{Form::select('parent_id', asDropdown($parentList), null, array('class' => 'form-control', 'id' => 'parent_id', 'placeholder' => 'Induk Kategori ?'))}}
+					{{Form::select('parent_id', $parentList, null, array('class' => 'form-control', 'id' => 'parent_id', 'placeholder' => 'Induk Kategori ?'))}}
 				</div>
 			</div>
 
@@ -59,7 +59,7 @@
 					Status
 				</label>
 				<div class="col-sm-10">
-					{{Form::select('status', asDropdown($statusList), null, array('class' => 'form-control', 'id' => 'status', 'placeholder' => 'status'))}}
+					{{Form::select('status', $statusList, null, array('class' => 'form-control', 'id' => 'status', 'placeholder' => 'status'))}}
 				</div>
 			</div>
 

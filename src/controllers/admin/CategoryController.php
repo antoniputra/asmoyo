@@ -35,8 +35,8 @@ class Admin_CategoryController extends AsmoyoController {
 	public function create()
 	{
 		$data = array(
-			'parentList'	=> $this->category->getParent(),
-			'statusList'	=> $this->category->getStatusList(),
+			'parentList'	=> asDropdown($this->category->getParent(), true),
+			'statusList'	=> asDropdown($this->category->getStatusList()),
 		);
 		return $this->adminView('content.category.create', $data);
 	}
@@ -66,8 +66,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function show($slug)
 	{
-		$cat = $this->category->getRepoBySlugCache($slug);
-		if ( ! $cat ) return App::abort(404);
+		$cat = $this->category->requireBySlugCache($slug);
 
 		$data = array(
 			'cat'	=> $cat,
@@ -85,13 +84,11 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function edit($slug)
 	{
-		$cat = $this->category->getRepoBySlugCache($slug);
-		if ( ! $cat ) return App::abort(404);
-
+		$cat = $this->category->requireBySlugCache($slug);
 		$data = array(
 			'category'		=> $cat,
-			'parentList'	=> $this->category->getParent($cat['id']),
-			'statusList'	=> $this->category->getStatusList(),
+			'parentList'	=> asDropdown($this->category->getParent($cat['id']), true),
+			'statusList'	=> asDropdown($this->category->getStatusList()),
 		);
 		return $this->adminView('content.category.edit', $data);
 	}
@@ -105,7 +102,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		$category 	= $this->category->getRepoById($id);
+		$category 	= $this->category->requireById($id);
 		$category->fill( $this->category->getInputOnlyFillable() );
 		if ( $this->category->save( $category, $this->category->getRules('validationEditRules') ) )
 		{
@@ -123,7 +120,7 @@ class Admin_CategoryController extends AsmoyoController {
 	 */
 	public function destroy($id)
 	{
-		$category 	= $this->category->getRepoById($id);
+		$category 	= $this->category->requireById($id);
 		if( $this->category->delete($category) )
 		{
 			return $this->redirectWithAlert(admin_route('category.index'), 'success', 'Berhasil dihapus !!');

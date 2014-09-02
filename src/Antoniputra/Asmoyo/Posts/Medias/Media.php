@@ -8,7 +8,7 @@ class Media extends Entity {
     use SoftDeletingTrait;
 
 	protected $table      	= 'posts';
-	protected $fillable = ['user_id', 'category_id', 'status', 'comment_status', 'type', 'mime_type', 'size', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
+	protected $fillable    = ['user_id', 'category_id', 'status', 'comment_status', 'type', 'mime_type', 'size', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
     protected $dates        = ['deleted_at'];
 
     /**

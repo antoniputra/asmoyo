@@ -6,7 +6,7 @@
 
 <div class="asmoyo-box">
 	<h3 class="box-header">
-		<i class="fa fa-tag"></i>
+		<i class="fa fa-image"></i>
 		Daftar Media
 	</h3>
 	<div class="box-content">

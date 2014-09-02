@@ -44,7 +44,7 @@
 							<a href="{{admin_route('page.edit', $page['slug'])}}" class="btn btn-default btn-sm">
 								<i class="fa fa-pencil"></i> Edit
 							</a>
-							{{ Form::link('Hapus', 'DELETE', admin_route('page.destroy', $page['id']),
+							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('page.forceDestroy', $page['id']),
 								array(
 									'icon'	=> 'fa fa-trash-o',
 									'class'	=> 'btn btn-danger btn-sm'

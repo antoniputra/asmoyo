@@ -13,7 +13,7 @@ class Admin_BlogController extends AsmoyoController {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /post
+	 * GET
 	 *
 	 * @return Response
 	 */
@@ -28,7 +28,7 @@ class Admin_BlogController extends AsmoyoController {
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /post/create
+	 * GET
 	 *
 	 * @return Response
 	 */
@@ -44,7 +44,7 @@ class Admin_BlogController extends AsmoyoController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /post
+	 * POST
 	 *
 	 * @return Response
 	 */
@@ -60,7 +60,7 @@ class Admin_BlogController extends AsmoyoController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /post/{slug}
+	 * GET
 	 *
 	 * @param  int  $slug
 	 * @return Response
@@ -76,7 +76,7 @@ class Admin_BlogController extends AsmoyoController {
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /post/{slug}/edit
+	 * GET
 	 *
 	 * @param  int  $slug
 	 * @return Response
@@ -95,7 +95,7 @@ class Admin_BlogController extends AsmoyoController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /post/{id}
+	 * PUT
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -113,14 +113,34 @@ class Admin_BlogController extends AsmoyoController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /post/{id}
+	 * DELETE
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy($id)
 	{
-		//
+		$blog 	= $this->blog->getRepoById($id);
+		if( $this->blog->delete($blog) )
+		{
+			return $this->redirectWithAlert(admin_route('blog.index'), 'success', 'Berhasil dihapus !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
+	}
+
+	/**
+	 * Remove Permanent the specified resource from storage.
+	 * DELETE
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function forceDestroy($id)
+	{
+		$blog 	= $this->blog->getRepoById($id);
+		$this->blog->delete($blog, true);
+		
+		return $this->redirectWithAlert(admin_route('blog.index'), 'success', 'Berhasil dihapus permanent !!');
 	}
 
 }

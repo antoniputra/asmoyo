@@ -13,7 +13,7 @@ class Admin_PageController extends AsmoyoController {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /page
+	 * GET
 	 *
 	 * @return Response
 	 */
@@ -28,7 +28,7 @@ class Admin_PageController extends AsmoyoController {
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /page/create
+	 * GET
 	 *
 	 * @return Response
 	 */
@@ -43,7 +43,7 @@ class Admin_PageController extends AsmoyoController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /page
+	 * POST
 	 *
 	 * @return Response
 	 */
@@ -59,7 +59,7 @@ class Admin_PageController extends AsmoyoController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /page/{slug}
+	 * GET
 	 *
 	 * @param  int  $slug
 	 * @return Response
@@ -74,7 +74,7 @@ class Admin_PageController extends AsmoyoController {
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /page/{slug}/edit
+	 * GET
 	 *
 	 * @param  int  $slug
 	 * @return Response
@@ -92,7 +92,7 @@ class Admin_PageController extends AsmoyoController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /page/{id}
+	 * PUT
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -110,7 +110,7 @@ class Admin_PageController extends AsmoyoController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /page/{id}
+	 * DELETE
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -123,6 +123,20 @@ class Admin_PageController extends AsmoyoController {
 			return $this->redirectWithAlert(admin_route('page.index'), 'success', 'Berhasil dihapus !!');
 		}
 		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
+	}
+
+	/**
+	 * Remove Permanent the specified resource from storage.
+	 * DELETE
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function forceDestroy($id)
+	{
+		$page 	= $this->page->getRepoById($id);
+		$this->page->delete($page, true);
+		return $this->redirectWithAlert(admin_route('page.index'), 'success', 'Berhasil dihapus permanent !!');
 	}
 
 }

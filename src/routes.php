@@ -72,10 +72,18 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 
 	// Blog
 	Route::resource('blog', 'Admin_BlogController');
+	Route::delete('blog/{id}/force-delete', array(
+		'as'	=> $adminPrefix .'.blog.forceDestroy',
+		'uses'	=> 'Admin_BlogController@forceDestroy'
+	));
 	// End Blog
 
 	// Page
 	Route::resource('page', 'Admin_PageController');
+	Route::delete('page/{id}/force-delete', array(
+		'as'	=> $adminPrefix .'.page.forceDestroy',
+		'uses'	=> 'Admin_PageController@forceDestroy'
+	));
 	// End Page
 
 	// Media
@@ -88,7 +96,7 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 		'as' 		=> $adminPrefix .'.media.postFroala',
 		'uses' 		=> 'Admin_MediaController@postImage'
 	));
-	Route::delete('media/{id}', array(
+	Route::delete('media/{id}/force-delete', array(
 		'as'	=> $adminPrefix .'.media.forceDestroy',
 		'uses'	=> 'Admin_MediaController@forceDestroy'
 	));
@@ -96,10 +104,18 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 
 	// Category
 	Route::resource('category', 'Admin_CategoryController');
+	Route::delete('category/{id}/force-delete', array(
+		'as'	=> $adminPrefix .'.category.forceDestroy',
+		'uses'	=> 'Admin_CategoryController@forceDestroy'
+	));
 	// End Category
 
 	// Tag
 	Route::resource('tag', 'Admin_TagController');
+	Route::delete('tag/{id}/force-delete', array(
+		'as'	=> $adminPrefix .'.tag.forceDestroy',
+		'uses'	=> 'Admin_TagController@forceDestroy'
+	));
 	// End Tag
 
 	// Comment

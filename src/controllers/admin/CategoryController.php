@@ -13,7 +13,7 @@ class Admin_CategoryController extends AsmoyoController {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /category
+	 * GET
 	 *
 	 * @return Response
 	 */
@@ -28,7 +28,7 @@ class Admin_CategoryController extends AsmoyoController {
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /category/create
+	 * GET
 	 *
 	 * @return Response
 	 */
@@ -43,7 +43,7 @@ class Admin_CategoryController extends AsmoyoController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /category
+	 * POST
 	 *
 	 * @return Redirect
 	 */
@@ -59,7 +59,7 @@ class Admin_CategoryController extends AsmoyoController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /category/{slug}
+	 * GET
 	 *
 	 * @param  string  $slug
 	 * @return Response
@@ -77,7 +77,7 @@ class Admin_CategoryController extends AsmoyoController {
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /category/{id}/edit
+	 * GET
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -95,7 +95,7 @@ class Admin_CategoryController extends AsmoyoController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /category/{id}
+	 * PUT
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -113,7 +113,7 @@ class Admin_CategoryController extends AsmoyoController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /category/{id}
+	 * DELETE
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -126,6 +126,21 @@ class Admin_CategoryController extends AsmoyoController {
 			return $this->redirectWithAlert(admin_route('category.index'), 'success', 'Berhasil dihapus !!');
 		}
 		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
+	}
+
+	/**
+	 * Remove Permanent the specified resource from storage.
+	 * DELETE
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function forceDestroy($id)
+	{
+		$category 	= $this->category->getRepoById($id);
+		$this->category->delete($category, true);
+		
+		return $this->redirectWithAlert(admin_route('category.index'), 'success', 'Berhasil dihapus permanent !!');
 	}
 
 }

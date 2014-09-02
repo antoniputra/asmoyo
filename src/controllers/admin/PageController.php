@@ -23,7 +23,7 @@ class Admin_PageController extends AsmoyoController {
 		$data 	= array(
 			'pages'	=> Paginator::make($pages, $pages['total'], $pages['perPage']),
 		);
-		return $this->setCollumn('two_collumn')->adminView('content.page.index', $data);
+		return $this->adminView('content.page.index', $data);
 	}
 
 	/**

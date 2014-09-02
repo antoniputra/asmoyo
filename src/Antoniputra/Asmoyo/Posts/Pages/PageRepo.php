@@ -1,7 +1,6 @@
 <?php namespace Antoniputra\Asmoyo\Posts\Pages;
 
 use Antoniputra\Asmoyo\Cores\Repository;
-use Antoniputra\Asmoyo\Lib\ImageLib;
 use Input;
 
 class PageRepo extends Repository

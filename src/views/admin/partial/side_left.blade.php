@@ -20,9 +20,9 @@
 				<i class="fa fa-picture-o"></i> Media
 			</a>
 		</li>
-		<li @if($activePage == 'thread') class="active" @endif>
-			<a href="{{admin_route('thread.index')}}" class="show-tooltip" data-placement="right" title="Thread">
-				<i class="fa fa-file-text-o"></i> Thread
+		<li @if($activePage == 'blog') class="active" @endif>
+			<a href="{{admin_route('blog.index')}}" class="show-tooltip" data-placement="right" title="Blog">
+				<i class="fa fa-file-text-o"></i> Blog
 			</a>
 		</li>
 		 <li @if($activePage == 'user') class="active" @endif>

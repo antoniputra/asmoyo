@@ -68,9 +68,9 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	Route::resource('user', 'Admin_UserController');
 	// End User
 
-	// Post
-	Route::resource('thread', 'Admin_ThreadController');
-	// End Post
+	// Blog
+	Route::resource('blog', 'Admin_BlogController');
+	// End Blog
 
 	// Page
 	Route::resource('page', 'Admin_PageController');

@@ -37,7 +37,7 @@ class Page extends Entity {
         {
             $model->user_id = \Auth::user()->id;
             $model->type    = 'page';
-            $model->order 	= rand(5, 10);
+            $model->order 	= rand(7, 17);
         });
     }
 }

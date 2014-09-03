@@ -11,7 +11,7 @@ class User extends Entity implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
 
 	protected $table 		= 'users';
-	protected $fillable 	= [];
+	protected $fillable 	= ['email', 'username', 'password', 'permissions', 'activated', 'activation_code', 'activated_at', 'last_login', 'photo', 'fullname', 'birthday', 'gender', 'city', 'address', 'location', 'description'];
 	protected $hidden 		= array('password', 'remember_token');
 
 	/**

@@ -72,6 +72,10 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 		'uses' 		=> 'Admin_UserController@putChangePassword'
 	));
 	Route::resource('user', 'Admin_UserController');
+	Route::delete('user/{id}/force-delete', array(
+		'as'	=> $adminPrefix .'.user.forceDestroy',
+		'uses'	=> 'Admin_UserController@forceDestroy'
+	));
 	// End User
 
 	// Blog

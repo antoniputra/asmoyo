@@ -12,6 +12,11 @@ abstract class Repository
     * The Model
     */
     protected $model;
+
+    /**
+    * Contain Errors
+    */
+    protected $errors;
     
     /**
     * set repo type
@@ -229,23 +234,26 @@ abstract class Repository
         {
             return $this->storeObject($newData, $newValidation);
         } else {
-            throw new Exception("Model should be instanceof Model", 1);
+            throw new \Exception("Model should be instanceof Model", 1);
         }
     }
 
     protected function storeObject($model, $newValidation = array())
     {
-        if ( $newValidation AND is_array($newValidation) ) {
+        if ( is_array($newValidation) ) {
             $model = $model->setRules($newValidation);
         }
 
     	// if the model attributes has changed, we will save
         if ($model->getDirty())
         {
-            return $model->save();
+            if ( $model->save() )
+            {
+                 return true;
+             }
+             $this->errors = $model->getErrors();
+             return false;
         }
-
-        // if not changed store as exception
         else
         {
             return $model->touch();
@@ -260,6 +268,33 @@ abstract class Repository
     public function delete($model, $is_permanent = false)
     {
         return $is_permanent ? $model->forceDelete() : $model->delete() ;
+    }
+
+    public function isValid($input, $rules = array())
+    {
+        $validation = \Validator::make($input, $rules);
+        $passes     = $validation->passes();
+        if( ! $passes ) {
+            $this->errors = $validation->messages();
+        }
+
+        return $passes;
+    }
+
+    /**
+     * Get errors
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * Set errors
+     */
+    public function setErrors($msgErrors)
+    {
+        return $this->errors = $msgErrors;
     }
 
     /**

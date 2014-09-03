@@ -2,6 +2,10 @@
 
 @stop
 
+@section('before_content')
+
+@stop
+
 @section('sideLeft')
 
 @stop

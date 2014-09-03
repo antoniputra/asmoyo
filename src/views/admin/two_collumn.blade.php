@@ -11,8 +11,7 @@
 		<div class="col-md-11">
 			<div class="content">
 				@yield('before_content')
-				
-				<!-- alert -->
+
 				@include($theme_path .'partial.alert')
 				
 				{{$content}}

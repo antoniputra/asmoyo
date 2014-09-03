@@ -4,6 +4,8 @@ use Antoniputra\Asmoyo\Users\UserRepo;
 
 class Admin_UserController extends AsmoyoController {
 
+	protected $collumn = 'three_collumn';
+
 	public function __construct(UserRepo $user)
 	{
 		$this->user = $user;
@@ -49,6 +51,25 @@ class Admin_UserController extends AsmoyoController {
 		return Redirect::to(admin_route('getLogin'));
 	}
 
+	public function getChangePassword()
+	{
+		$data = array(
+
+		);
+		return $this->adminView('content.user.reset_password', $data);
+	}
+
+	public function putChangePassword()
+	{
+		$input = Input::only('password', 'new_password', 'new_password_confirmation');	
+		if ( $this->user->resetPassword($input) )
+		{
+			return $this->redirectWithAlert(admin_route('user.getChangePassword'), 'success', 'Password Berhasil diubah !!');
+		}
+
+		return $this->redirectWithAlert(false, 'danger', 'Password Gagal diubah !!', $this->user->getErrors());
+	}
+
 
 	/**
 	 * Display a listing of the resource.
@@ -58,7 +79,11 @@ class Admin_UserController extends AsmoyoController {
 	 */
 	public function index()
 	{
-		return 'halo';
+		$users 	= $this->user->getRepoPaginatedCache();
+		$data 	= array(
+			'users'	=> Paginator::make($users, $users['total'], $users['perPage']),
+		);
+		return $this->adminView('content.user.index', $data);
 	}
 
 	/**
@@ -92,7 +117,11 @@ class Admin_UserController extends AsmoyoController {
 	 */
 	public function show($id)
 	{
-		//
+		$user = $this->user->requireByIdCache($id);
+		$data = array(
+			'user'	=> $user,
+		);
+		return $this->adminView('content.user.show', $data);
 	}
 
 	/**
@@ -129,6 +158,21 @@ class Admin_UserController extends AsmoyoController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	/**
+	 * Remove Permanent the specified resource from storage.
+	 * DELETE
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function forceDestroy($id)
+	{
+		$user 	= $this->user->getRepoById($id);
+		$this->user->delete($user, true);
+		
+		return $this->redirectWithAlert(admin_route('user.index'), 'success', 'Berhasil dihapus permanent !!');
 	}
 
 }

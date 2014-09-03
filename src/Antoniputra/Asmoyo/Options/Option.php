@@ -5,7 +5,7 @@ use Antoniputra\Asmoyo\Cores\Entity;
 class Option extends Entity {
 	
 	protected $table 		= 'options';
-	protected $fillable 	= [];
+	protected $fillable 	= ['name', 'value', 'description', 'type'];
 	public $timestamps 		= false;
 
 	/**

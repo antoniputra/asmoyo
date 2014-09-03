@@ -23,21 +23,8 @@ class OptionsTableSeeder extends Seeder {
 			[
 				'name'			=> 'web_logo',
 				'description'	=> 'Your website logo',
-				'value'			=> json_encode([
-					'small'	=> [
-						'file'		=> 'logo.png',
-						'mime'		=> 'image/png',
-					],
-					'medium' => [
-						'file'		=> 'logo.png',
-						'mime'		=> 'image/png',
-					],
-					'favicon' => [
-						'file'		=> 'logo.ico',
-						'mime'		=> 'image/ico',
-					],
-				]),
-				'type'			=> 'json',
+				'value'			=> 'logo.png',
+				'type'			=> '',
 			],
 			[
 				'name'			=> 'web_location',
@@ -55,18 +42,8 @@ class OptionsTableSeeder extends Seeder {
 				'name'			=> 'web_contact',
 				'description'	=> 'Your website contact',
 				'value'			=> json_encode([
-					[
-						'type' => 'phone',
-						'name' => 'Customer Service',
-						'description' => 'Sms Only',
-						'value' => '+6285649787899',
-					],
-					[
-						'type' => 'Pin BBM',
-						'name' => 'Customer Service',
-						'description' => 'Sms Only',
-						'value' => '+6285649787899',
-					],
+					'name' 	=> 'Customer Service',
+					'value' => '+6285649787899',
 				]),
 				'type'			=> 'json',
 			],

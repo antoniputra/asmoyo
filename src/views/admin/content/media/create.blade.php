@@ -2,14 +2,16 @@
 
 @section('stylesheets')
 	@parent
-	{{ HTML::style('packages/antoniputra/asmoyo/admin/plugin/bs3-file-input/fileinput.min.css') }}
+	{{ HTML::style('packages/antoniputra/asmoyo/admin/plugin/bs3-file-input/fileinput.css') }}
 @stop
 
 @section('javascripts')
 	@parent
-	{{ HTML::script('packages/antoniputra/asmoyo/admin/plugin/bs3-file-input/fileinput.min.js') }}
+	{{ HTML::script('packages/antoniputra/asmoyo/admin/plugin/bs3-file-input/fileinput.js') }}
 
 	<script type="text/javascript">
+		// $("#content").fileinput('disable');
+
 		$("#content").fileinput({
 			browseClass: "btn btn-success btn-block",
 			removeClass: "btn btn-danger btn-block",

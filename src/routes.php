@@ -53,8 +53,12 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 
 	// Option
 	Route::get('option', array(
-		'as'	=> $adminPrefix.'.option.index',
-		'uses' 	=> 'Admin_OptionController@index'
+		'as'	=> $adminPrefix.'.option.getWeb',
+		'uses' 	=> 'Admin_OptionController@getWeb'
+	));
+	Route::put('option', array(
+		'as'	=> $adminPrefix.'.option.putWeb',
+		'uses' 	=> 'Admin_OptionController@putWeb'
 	));
 	// End Option
 

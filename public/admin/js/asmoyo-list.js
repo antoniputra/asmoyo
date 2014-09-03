@@ -1,7 +1,7 @@
 (function ($) {
 
-	var TEMPLATE 	= 
-        '<div class="col-sm-7"> \n' +
+    var TEMPLATE    = 
+        '<div class="col-sm-12"> \n' +
         '   <div class="form-group">\n' +
         '      <label class="col-sm-2 control-label">\n' +
         '          {labelResource} \n' +
@@ -11,12 +11,12 @@
         '      </div> \n' +
         '   </div> \n' +
         '</div>',
-		
-		isEmpty = function (value, trim) {
+        
+        isEmpty = function (value, trim) {
             return value === null || value === undefined || value == []
                 || value === '' || trim && $.trim(value) === '';
         },
-		uniqId 		= function () {
+        uniqId      = function () {
             return Math.round(new Date().getTime() + (Math.random() * 100));
         },
         textCapitalize = function(string)
@@ -43,17 +43,17 @@
             return (is_stringify) ? JSON.stringify(obj) : obj ;
         }
 
-	var AsmoyoList = function (element, options) {
+    var AsmoyoList = function (element, options) {
         this.$element   = $(element);
         this.init(options);
         this.listen();
     };
 
-	AsmoyoList.prototype = {
-		constructor: AsmoyoList,
-		init: function (options) {
-            this.template        	= options.defaultTemplate;
-            this.options 			= options;
+    AsmoyoList.prototype = {
+        constructor: AsmoyoList,
+        init: function (options) {
+            this.options            = options;
+            this.template           = options.template;
             this.currentValue       = ( isJsonString(this.$element.val()) ) ? $.parseJSON(this.$element.val()) : false ;
             this.fields             = this.getFields();
 
@@ -62,14 +62,6 @@
             }
             this.classEvent         = this.$element.attr('name') +'_items_'+ uniqId();
             this.render();
-		},
-        setTemplate: function(newTemplate)
-        {
-            this.template = newTemplate;
-        },
-        getTemplate: function()
-        {
-            return this.template;
         },
         getFields: function()
         {
@@ -128,7 +120,7 @@
                 result = [];
             
             for (var key in generatedFields) {
-                result += this.getTemplate()
+                result += this.template
                     .replace('{formResource}', generatedFields[key].form)
                     .replace('{labelResource}', generatedFields[key].label);
             }
@@ -156,9 +148,9 @@
                 return targetEl.val( arrayToObject(itemName, itemValue, true) );
             });
         }
-	};
+    };
 
-	$.fn.asmoyolist = function (option) {
+    $.fn.asmoyolist = function (option) {
         var args = Array.apply(null, arguments);
         args.shift();
         return this.each(function () {
@@ -177,7 +169,7 @@
     };
 
     $.fn.asmoyolist.defaults = {
-        defaultTemplate: TEMPLATE,
+        template: TEMPLATE,
         fields: {"title":"text"}
     };
 

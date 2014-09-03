@@ -15,6 +15,12 @@ class OptionsTableSeeder extends Seeder {
 				'type'			=> '',
 			],
 			[
+				'name'			=> 'web_description',
+				'description'	=> 'Your website description',
+				'value'			=> 'My Awesome Website',
+				'type'			=> '',
+			],
+			[
 				'name'			=> 'web_email',
 				'description'	=> 'Your website email, for email system',
 				'value'			=> 'name@gmail.com',
@@ -74,19 +80,19 @@ class OptionsTableSeeder extends Seeder {
 				'type'			=> 'json',
 			],
 			[
-				'name'			=> 'web_meta_title',
+				'name'			=> 'web_metaTitle',
 				'description'	=> 'your website meta title',
 				'value'			=> 'My Awesome Website',
 				'type'			=> '',
 			],
 			[
-				'name'			=> 'web_meta_keyword',
+				'name'			=> 'web_metaKeyword',
 				'description'	=> 'your website meta keyword',
 				'value'			=> 'My Awesome Company Website',
 				'type'			=> '',
 			],
 			[
-				'name'			=> 'web_meta_description',
+				'name'			=> 'web_metaDescription',
 				'description'	=> 'your website meta description',
 				'value'			=> 'My Awesome Company Website who services Event Organizer, MC, and other...',
 				'type'			=> '',

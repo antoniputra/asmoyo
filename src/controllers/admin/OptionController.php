@@ -4,10 +4,7 @@ use Antoniputra\Asmoyo\Options\OptionRepo;
 
 class Admin_OptionController extends AsmoyoController {
 
-	/**
-	 * Contain Option Repository
-	 */
-	protected $option;
+	protected $collumn = 'three_collumn';
 
 	public function __construct(OptionRepo $option)
 	{
@@ -22,8 +19,12 @@ class Admin_OptionController extends AsmoyoController {
 		return $this->adminView('content.option.web', $data);
 	}
 
-	public function postWeb()
+	public function putWeb()
 	{
-		return $this->option->getNewInstance();
+		$input = Input::all();
+		if ( $this->option->saveOption($input) ) {
+			return $this->redirectWithAlert(admin_route('option.getWeb'), 'success', 'Berhasil diperbarui !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!');
 	}
 }

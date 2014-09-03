@@ -22,4 +22,25 @@ class OptionRepo extends Repository
 		}
 		return ( !$name ) ? $result : $result[$name];
 	}
+
+	public function saveOption($input)
+	{
+		$attr = $input ?: \Input::all();
+		if($attr)
+		{
+			foreach($attr as $key => $val)
+			{
+				// all element cannot be null except web_side Left and Right
+				if( !empty($val) )
+				{
+					$val = is_array($val) ? json_encode($val) : $val;
+					$this->model->where('name', $key)->update(array('value' => $val));
+				}
+			}
+
+			return true;
+		}
+
+		return false;
+	}
 }

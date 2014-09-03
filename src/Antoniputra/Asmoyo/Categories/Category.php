@@ -8,7 +8,7 @@ class Category extends Entity {
     use SoftDeletingTrait;
 
 	protected $table      	= 'categories';
-	protected $fillable 	= ['image', 'images', 'parent_id', 'title', 'slug', 'status', 'description'];
+	protected $fillable 	= ['image', 'images', 'type', 'parent_id', 'title', 'slug', 'status', 'description'];
     protected $dates        = ['deleted_at'];
 
     /**
@@ -28,6 +28,16 @@ class Category extends Entity {
         'title'     => 'required|unique:categories',
         'slug'      => 'required|unique:categories',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function($model)
+        {
+            $model->type    = 'category';
+        });
+    }
 
     /**
     * set images attribute to json array

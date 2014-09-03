@@ -10,6 +10,9 @@ class CategoryRepo extends Repository
         'slug'      => 'required|unique:categories,slug,{id}',
     ];
 
+    protected $repo_type 	= 'category';
+    protected $repo_fields 	= ['id', 'image', 'images', 'type', 'parent_id', 'status', 'title', 'slug', 'description'];
+
 	public function __construct(Category $model)
 	{
 		$this->model = $model;
@@ -21,7 +24,7 @@ class CategoryRepo extends Repository
 	 */
 	public function getParent($forgetId = null)
 	{
-		$parent = $this->model->where('parent_id', 0);
+		$parent = $this->queryRepo()->where('parent_id', 0);
 
 		if($forgetId) {
 			$parent = $parent->where('id', '!=', $forgetId);
@@ -38,7 +41,7 @@ class CategoryRepo extends Repository
 		$key = __FUNCTION__.$slug;
 		return $this->cache()->rememberForever($key, function() use($slug)
 		{
-			return $this->model->with('posts')->where('slug', $slug)->first();
+			return $this->queryRepo()->with('posts')->where('slug', $slug)->first();
 		});
 	}
 

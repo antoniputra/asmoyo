@@ -30,6 +30,12 @@ abstract class Repository
     */
     protected $repo_fields;
 
+    /**
+     * contain eager loading relations
+     * @var array
+     */
+    protected $repo_eager = [];
+
 	public function __construct($model = null)
 	{
 		$this->model = $model;
@@ -41,6 +47,15 @@ abstract class Repository
 	}
 
     /**
+     * Set repo_type used by global query repo
+     */
+    public function setRepoType($type)
+    {
+        $this->repo_type = $type;
+        return $this;
+    }
+
+    /**
      * make query by repo_type
      * @param \Model query
      * @return \Model
@@ -48,15 +63,20 @@ abstract class Repository
     public function queryRepo()
     {
         $query = $this->model;
-        if ( $repo_type = $this->repo_type )
-        {
-            $query = $query->where('type', $repo_type);
-        }
-
         if ( $repo_fields = $this->repo_fields )
         {
             $repo_fields = array_merge($repo_fields, array('created_at', 'updated_at', 'deleted_at'));
             $query = $query->select($repo_fields);
+        }
+
+        if ( $repo_eager = $this->repo_eager AND is_array($this->repo_eager) )
+        {
+            $query = $query->with($repo_eager);
+        }
+
+        if ( $repo_type = $this->repo_type )
+        {
+            $query = $query->where('type', $repo_type);
         }
 
         return $query;
@@ -64,7 +84,7 @@ abstract class Repository
 
 	public function getRepoAll($limit = null, $sortir = null)
     {
-        return $this->queryRepo()->all();
+        return $this->queryRepo()->get();
     }
 
     public function getRepoAllPaginated($limit = null, $sortir = null)

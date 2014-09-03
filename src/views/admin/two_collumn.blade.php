@@ -12,7 +12,9 @@
 			<div class="content">
 				@yield('before_content')
 
-				@include($theme_path .'partial.alert')
+				@if( ! isset($login) )
+					@include($theme_path .'partial.alert')
+				@endif
 				
 				{{$content}}
 

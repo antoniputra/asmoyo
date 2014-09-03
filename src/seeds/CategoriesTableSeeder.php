@@ -10,6 +10,7 @@ class CategoriesTableSeeder extends Seeder {
 			array(
 				'image'			=> null,
 				'images'		=> json_encode(array()),
+				'type'			=> 'category',
 				'parent_id'		=> 0,
 				'status'		=> 'publish',
 				'title'			=> 'Skills',
@@ -21,11 +22,25 @@ class CategoriesTableSeeder extends Seeder {
 			array(
 				'image'			=> null,
 				'images'		=> json_encode(array()),
+				'type'			=> 'category',
 				'parent_id'		=> 0,
 				'status'		=> 'publish',
 				'title'			=> 'Knowledge',
 				'slug'			=> 'knowledge',
 				'description'	=> 'this category contain knowledge topic',
+				'created_at'	=> \Carbon\Carbon::now(),
+				'updated_at'	=> \Carbon\Carbon::now(),
+			),
+
+			array(
+				'image'			=> null,
+				'images'		=> json_encode(array()),
+				'type'			=> 'banner',
+				'parent_id'		=> 0,
+				'status'		=> 'publish',
+				'title'			=> 'Banner Utama',
+				'slug'			=> 'banner-utama',
+				'description'	=> 'this banner for main page',
 				'created_at'	=> \Carbon\Carbon::now(),
 				'updated_at'	=> \Carbon\Carbon::now(),
 			),

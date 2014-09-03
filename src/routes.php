@@ -129,6 +129,13 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// Comment
 	Route::resource('comment', 'Admin_CommentController');
 	// End Comment
+
+	// Preference
+	foreach (App::make('asmoyo.preference')->getPreferenceList() as $value)
+	{
+		Route::resource('preference/'.$value, 'Admin_PreferenceController');
+	}
+	// End Preference
 });
 /*============
 End Admin Page

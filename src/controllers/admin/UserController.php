@@ -25,7 +25,7 @@ class Admin_UserController extends AsmoyoController {
 	 */
 	public function getLogin()
 	{
-		$data = array();
+		$data = array('login' => true);
 		return $this->setCollumn('two_collumn')->adminView('content.user.login', $data);
 	}
 

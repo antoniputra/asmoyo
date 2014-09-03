@@ -16,9 +16,9 @@ class Admin_PreferenceController extends AsmoyoController {
 
 	public function index()
 	{
-		$preferences = $this->preference->getRepoPaginatedCache();
+		$preferences = $this->preference->getRepoAll();
 		$data = array(
-			'preferences'	=> Paginator::make($preferences, $preferences['total'], $preferences['perPage']),
+			'preferences'	=> $preferences,
 		);
 		return $this->adminView('content.preference.'. $this->pref_type .'.index', $data);
 	}

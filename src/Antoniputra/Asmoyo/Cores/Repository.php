@@ -51,7 +51,10 @@ abstract class Repository
      */
     public function setRepoType($type)
     {
-        $this->repo_type = $type;
+        if ( isset($this->model->type) ) {
+            $this->model->relation_type  = $type;
+        }
+        $this->repo_type    = $type;
         return $this;
     }
 

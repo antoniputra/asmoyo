@@ -11,9 +11,8 @@ class PreferenceRepo extends Repository
     ];
 
     protected $preferenceList = ['banner'];
-    protected $repo_fields 	= ['id', 'type', 'parent_id', 'status', 'title', 'slug', 'description'];
     protected $repo_type;
-    protected $repo_eager = ['items'];
+    protected $repo_eager = ['datas'];
 
 	public function __construct(Preference $model)
 	{

@@ -21,12 +21,14 @@ abstract class Repository
     /**
     * set repo type
     * used for repo query
+    * @var string
     */
     protected $repo_type;
 
     /**
     * set repo fields
     * used for repo query
+    * @var array
     */
     protected $repo_fields;
 
@@ -35,6 +37,12 @@ abstract class Repository
      * @var array
      */
     protected $repo_eager = [];
+
+    /**
+     * Create cache key by given parameter query setting
+     * @var string
+     */
+    protected $repo_cache_key = '';
 
 	public function __construct($model = null)
 	{
@@ -66,19 +74,22 @@ abstract class Repository
     public function queryRepo()
     {
         $query = $this->model;
-        if ( $repo_fields = $this->repo_fields )
+        if ( $repo_fields = $this->repo_fields AND is_array($this->repo_fields) )
         {
             $repo_fields = array_merge($repo_fields, array('created_at', 'updated_at', 'deleted_at'));
+            $this->repo_cache_key .= implode($repo_fields);
             $query = $query->select($repo_fields);
         }
 
         if ( $repo_eager = $this->repo_eager AND is_array($this->repo_eager) )
         {
+            $this->repo_cache_key .= implode($repo_eager);
             $query = $query->with($repo_eager);
         }
 
         if ( $repo_type = $this->repo_type )
         {
+            $this->repo_cache_key .= $repo_type;
             $query = $query->where('type', $repo_type);
         }
 
@@ -113,7 +124,7 @@ abstract class Repository
             'status'    => $status ?: 'all',
         );
 
-        $cache_key  = __FUNCTION__ . implode($data);
+        $cache_key  = $this->getCacheKey(__FUNCTION__ . implode($data));
         if( $cached = $this->getCache($cache_key) ) return $cached;
 
         $query  = $this->queryRepo();
@@ -147,7 +158,7 @@ abstract class Repository
         $data['items'] = $query->skip( $data['perPage'] * ($data['page']-1) )
                     ->take($data['perPage'])
                     ->get();
-        return $this->setCache($cache_key, $data);
+        return $this->saveToCache($cache_key, $data);
     }
 
     public function getRepoById($id)
@@ -157,7 +168,7 @@ abstract class Repository
 
     public function getRepoByIdCache($id)
     {
-        $key = __FUNCTION__ . $id;
+        $key = $this->getCacheKey(__FUNCTION__ . $id);
         return $this->cache()->rememberForever($key, function() use($id)
         {
             return $this->queryRepo()->find($id);
@@ -181,7 +192,7 @@ abstract class Repository
 
     public function getRepoBySlugCache($slug)
     {
-        $key = __FUNCTION__ . $slug;
+        $key = $this->getCacheKey(__FUNCTION__ . $slug);
         return $this->cache()->rememberForever($key, function() use($slug)
         {
             return $this->queryRepo()->where('slug', $slug)->first();
@@ -350,10 +361,10 @@ abstract class Repository
     }
 
     /**
-    * Stroing value into tagged cache
+    * Stroing value with given key into tagged cache
     * @return mix
     */
-    public function setCache($key, $value)
+    public function saveToCache($key, $value)
     {
         if ($value) {
             $this->cache()->forever($key, $value);
@@ -372,5 +383,17 @@ abstract class Repository
             return $this->cache()->get($key);
         }
         return false;
+    }
+
+    /**
+     * Create cache key by given parameter query setting
+     * @param mix(string|array) additional
+     * @return string
+     */
+    public function getCacheKey($additional)
+    {
+        $base_key   = $this->repo_cache_key;
+        $add_key    = (is_array($additional)) ? implode($additional) : $additional ;
+        return $base_key . $add_key;
     }
 }

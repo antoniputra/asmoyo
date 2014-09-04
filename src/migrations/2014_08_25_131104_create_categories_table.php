@@ -16,13 +16,14 @@ class CreateCategoriesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('image')->nullable();
-			$table->text('images')->nullable();
+			$table->text('images');
 			$table->string('type');
 			$table->integer('parent_id');
 			$table->string('status');
 			$table->string('title');
 			$table->string('slug');
 			$table->text('description');
+			$table->text('options');
 			$table->timestamps();
 			$table->softDeletes();
 		});

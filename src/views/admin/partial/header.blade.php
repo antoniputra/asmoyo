@@ -24,6 +24,23 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-laptop"></i>
+						Preferences <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						@if( $preferenceList = app('asmoyo.preference')->getPreferenceList() )
+						@foreach($preferenceList as $p)
+							<li>
+								<a href="{{admin_route('preference.data.index', $p)}}">
+									{{$p}}
+								</a>
+							</li>
+						@endforeach
+						@endif
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-user"></i>
 						{{$auth['username']}} <b class="caret"></b>
 					</a>

@@ -71,31 +71,30 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 		'as' 		=> $adminPrefix .'.user.putChangePassword',
 		'uses' 		=> 'Admin_UserController@putChangePassword'
 	));
-	Route::resource('user', 'Admin_UserController');
 	Route::delete('user/{id}/force-delete', array(
 		'as'	=> $adminPrefix .'.user.forceDestroy',
 		'uses'	=> 'Admin_UserController@forceDestroy'
 	));
+	Route::resource('user', 'Admin_UserController');
 	// End User
 
 	// Blog
-	Route::resource('blog', 'Admin_BlogController');
 	Route::delete('blog/{id}/force-delete', array(
 		'as'	=> $adminPrefix .'.blog.forceDestroy',
 		'uses'	=> 'Admin_BlogController@forceDestroy'
 	));
+	Route::resource('blog', 'Admin_BlogController');
 	// End Blog
 
 	// Page
-	Route::resource('page', 'Admin_PageController');
 	Route::delete('page/{id}/force-delete', array(
 		'as'	=> $adminPrefix .'.page.forceDestroy',
 		'uses'	=> 'Admin_PageController@forceDestroy'
 	));
+	Route::resource('page', 'Admin_PageController');
 	// End Page
 
 	// Media
-	Route::resource('media', 'Admin_MediaController');
 	Route::get('media/froala', array(
 		'as' 		=> $adminPrefix .'.media.getFroala',
 		'uses' 		=> 'Admin_MediaController@getImage'
@@ -108,22 +107,23 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 		'as'	=> $adminPrefix .'.media.forceDestroy',
 		'uses'	=> 'Admin_MediaController@forceDestroy'
 	));
+	Route::resource('media', 'Admin_MediaController');
 	// End Media
 
 	// Category
-	Route::resource('category', 'Admin_CategoryController');
 	Route::delete('category/{id}/force-delete', array(
 		'as'	=> $adminPrefix .'.category.forceDestroy',
 		'uses'	=> 'Admin_CategoryController@forceDestroy'
 	));
+	Route::resource('category', 'Admin_CategoryController');
 	// End Category
 
 	// Tag
-	Route::resource('tag', 'Admin_TagController');
 	Route::delete('tag/{id}/force-delete', array(
 		'as'	=> $adminPrefix .'.tag.forceDestroy',
 		'uses'	=> 'Admin_TagController@forceDestroy'
 	));
+	Route::resource('tag', 'Admin_TagController');
 	// End Tag
 
 	// Comment
@@ -131,9 +131,15 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// End Comment
 
 	// Preference
-	foreach (App::make('asmoyo.preference')->getPreferenceList() as $value)
+	Route::resource('preference', 'Admin_PreferenceController');
+
+	foreach (App::make('asmoyo.preference')->getPreferenceList() as $type)
 	{
-		Route::resource('preference/'.$value, 'Admin_PreferenceController');
+		Route::delete('preference/{preference}/data/{data}/force-delete', array(
+			'as'	=> $adminPrefix .'.preference.data.forceDestroy',
+			'uses'	=> 'Admin_PreferenceController@forceDestroy'
+		));
+		Route::resource('preference.data', 'Admin_PreferenceDataController');
 	}
 	// End Preference
 });

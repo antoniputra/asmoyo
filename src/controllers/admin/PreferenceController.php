@@ -16,11 +16,22 @@ class Admin_PreferenceController extends AsmoyoController {
 
 	public function index()
 	{
-		$preferences = $this->preference->getRepoAll();
-		$data = array(
-			'preferences'	=> $preferences,
-		);
-		return $this->adminView('content.preference.'. $this->pref_type .'.index', $data);
+		return "list of installed preference";
+	}
+
+	public function create()
+	{
+		
+	}
+
+	public function show($slug)
+	{
+		
+	}
+
+	public function forceDestroy($id)
+	{
+
 	}
 
 	protected function adminViewShare()
@@ -28,8 +39,8 @@ class Admin_PreferenceController extends AsmoyoController {
 		parent::adminViewShare();
 		
 		View::share(array(
-        	'pref_type'	=> $this->pref_type,
-        	'pref_path'	=> 'preference.'.$this->pref_type
+        	'pref_type'		=> $this->pref_type,
+        	'pref_path'		=> 'asmoyo::admin.content.preference.'.$this->pref_type .'.',
     	));
 	}
 }

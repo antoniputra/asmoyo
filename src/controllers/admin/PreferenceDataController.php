@@ -13,29 +13,26 @@ class Admin_PreferenceDataController extends AsmoyoController {
 	public function __construct(PreferenceRepo $preference)
 	{
 		$this->widget_name = Request::segment(3);
-		$this->preference = $preference->at($this->widget_name);
+		$this->preference = $preference->prepare($this->widget_name);
 	}
 
 	public function index()
 	{
-		$preferences = $this->preference->getRepoAll();
+		$preferences = $this->preference->getPaginated();
 		$data = array(
 			'preferences'	=> $preferences,
 		);
 		return $this->adminView('content.preference.'. $this->widget_name .'.index', $data);
 	}
 
-	public function create()
+	public function create($slug)
 	{
-		$data = array(
-			
-		);
-		return $this->adminView('content.preference.'. $this->widget_name .'.create', $data);
+
 	}
 
 	public function show($type, $slug)
 	{
-		$pref = $this->preference->requireBySlugCache($slug);
+		$pref = $this->preference->getDetailBySlug($slug);
 		$data = array(
 			'pref'	=> $pref,
 		);
@@ -44,7 +41,7 @@ class Admin_PreferenceDataController extends AsmoyoController {
 
 	public function edit($type, $slug)
 	{
-		$pref = $this->preference->requireBySlugCache($slug);
+		$pref = $this->preference->getDetailBySlug($slug);
 		$data = array(
 			'pref'	=> $pref,
 		);

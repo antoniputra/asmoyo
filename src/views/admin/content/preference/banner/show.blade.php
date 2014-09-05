@@ -17,7 +17,7 @@
 
 		@if( $pref['datas']->count() )
 			@foreach($pref['datas'] as $data)
-
+				
 			@endforeach
 		@else
 			<h4>Tidak ada {{$wg['title']}} data</h4>

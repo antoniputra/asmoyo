@@ -173,6 +173,11 @@ End Upload
 Public Page
 ==============*/
 
+Route::get('/', [
+	'as'	=> 'home.index',
+	'uses'	=> 'Public_HomeController@index'
+]);
+
 // Category
 Route::resource('category', 'CategoryController');
 // End Category

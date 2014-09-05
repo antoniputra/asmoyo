@@ -58,11 +58,11 @@
     <!-- End Body -->
 
 
-    <!-- Start Body  -->
+    <!-- Start Footer  -->
     @section('footer')
     	@include($theme_path .'partial.footer')
     @show
-    <!-- End Body -->
+    <!-- End Footer -->
 
     @section('javascripts')
     	{{-- HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js') --}}

@@ -11,7 +11,7 @@ class PageRepo extends Repository
     ];
 
     protected $repo_type 	= 'page';
-    protected $repo_fields 	= ['id', 'user_id', 'parent_id', 'image', 'images', 'status', 'comment_status', 'type', 'order', 'mime_type', 'size', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
+    protected $repo_fields 	= ['id', 'user_id', 'parent_id', 'image', 'images', 'status', 'comment_status', 'type', 'order', 'mime_type', 'size', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description', 'created_at', 'updated_at', 'deleted_at'];
 
 	public function __construct(Page $model)
 	{

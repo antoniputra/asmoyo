@@ -14,6 +14,20 @@
 
 		{{Form::open(array('url' => admin_route('category.store'), 'class' => 'form-horizontal'))}}
 			
+			<div class="form-group">
+				<label class="control-label col-md-2">Image</label>
+				<div class="col-md-10">
+					{{ Form::text('title', null, array('class' => 'form-control')) }}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Description</label>
+				<div class="col-md-10">
+					{{ Form::textarea('description', null, array('class' => 'form-control', 'rows' => '4')) }}
+				</div>
+			</div>
+
 			<hr>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">

@@ -11,7 +11,7 @@ class BlogRepo extends Repository
     ];
 
     protected $repo_type 	= 'blog';
-    protected $repo_fields 	= ['id', 'user_id', 'category_id', 'image', 'images', 'status', 'comment_status', 'type', 'mime_type', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
+    protected $repo_fields 	= ['id', 'user_id', 'category_id', 'image', 'images', 'status', 'comment_status', 'type', 'mime_type', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description', 'created_at', 'updated_at', 'deleted_at'];
 
 	public function __construct(Blog $model)
 	{

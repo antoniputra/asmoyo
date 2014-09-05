@@ -14,7 +14,7 @@ class MediaRepo extends Repository
     ];
 
     protected $repo_type 	= 'media';
-    protected $repo_fields 	= ['id', 'user_id', 'category_id', 'status', 'comment_status', 'type', 'mime_type', 'size', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
+    protected $repo_fields 	= ['id', 'user_id', 'category_id', 'status', 'comment_status', 'type', 'mime_type', 'size', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description', 'created_at', 'updated_at', 'deleted_at'];
 
 	public function __construct(Media $model)
 	{

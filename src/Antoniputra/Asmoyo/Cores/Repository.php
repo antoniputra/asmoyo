@@ -82,7 +82,7 @@ abstract class Repository
         $query = $this->model;
         if ( $repo_fields = $this->repo_fields AND is_array($this->repo_fields) )
         {
-            $repo_fields = array_merge($repo_fields, array('created_at', 'updated_at', 'deleted_at'));
+            $repo_fields = array_unique($repo_fields);
             $this->repo_cache_key .= implode($repo_fields);
             $query = $query->select($repo_fields);
         }

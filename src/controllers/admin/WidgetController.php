@@ -8,15 +8,15 @@ class Admin_WidgetController extends AsmoyoController {
 
 	protected $pref_type;
 
-	public function __construct(WidgetRepo $preference)
+	public function __construct(WidgetRepo $widget)
 	{
 		$this->pref_type 	= Request::segment(3);
-		$this->preference 	= $preference->setRepoType( $this->pref_type );
+		$this->widget 	= $widget->setRepoType( $this->pref_type );
 	}
 
 	public function index()
 	{
-		return "list of installed preference";
+		return "list of installed widget";
 	}
 
 	public function create()
@@ -40,7 +40,7 @@ class Admin_WidgetController extends AsmoyoController {
 		
 		View::share(array(
         	'pref_type'		=> $this->pref_type,
-        	'pref_path'		=> 'asmoyo::admin.content.preference.'.$this->pref_type .'.',
+        	'pref_path'		=> 'asmoyo::admin.content.widget.'.$this->pref_type .'.',
     	));
 	}
 }

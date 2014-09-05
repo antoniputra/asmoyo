@@ -20,21 +20,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				@if($preferences)
-				@foreach($preferences as $p)
+				@if($widgets)
+				@foreach($widgets as $w)
 					<tr>
 						<td>
-							<h4>{{$p['title']}}</h4>
-							<p>{{$p['description']}}</p>
+							<h4>{{$w['title']}}</h4>
+							<p>{{$w['description']}}</p>
 						</td>
 						<td>
-							<a href="{{ admin_route('preference.data.show', array($wg_name, $p['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('widget.item.show', array($wg_name, $w['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-search"></i> Lihat
 							</a>
-							<a href="{{ admin_route('preference.data.edit', array($wg_name, $p['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('widget.item.edit', array($wg_name, $w['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-pencil"></i> Edit
 							</a>
-							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('preference.data.forceDestroy', array($wg_name, $p['slug'])),
+							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('widget.item.forceDestroy', array($wg_name, $w['slug'])),
 								array(
 									'icon'	=> 'fa fa-trash-o',
 									'class'	=> 'btn btn-danger btn-sm'

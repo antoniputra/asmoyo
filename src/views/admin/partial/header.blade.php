@@ -31,7 +31,7 @@
 						@if( $widgetList = app('asmoyo.option.widget') )
 						@foreach($widgetList as $name => $value)
 							<li>
-								<a href="{{admin_route('widget.data.index', $name)}}">
+								<a href="{{admin_route('widget.item.index', $name)}}">
 									{{$value['title']}}
 								</a>
 							</li>

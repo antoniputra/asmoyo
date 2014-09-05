@@ -1,6 +1,6 @@
 <?php
 
-use Antoniputra\Asmoyo\Widgets\WidgetRepo;
+use Antoniputra\Asmoyo\Widgets\ItemRepo;
 
 class Admin_WidgetItemController extends AsmoyoController {
 	
@@ -8,17 +8,16 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	protected $widget_name;
 
-	protected $widget;
-
-	public function __construct(WidgetRepo $widget)
+	public function __construct(ItemRepo $widgetItem)
 	{
-		$this->widget_name = Request::segment(3);
-		$this->widget = $widget->prepare($this->widget_name);
+		$this->widget_name 	= Request::segment(3);
+		$this->widgetItem 	= $widgetItem;
 	}
 
 	public function index()
 	{
-		$widgets = $this->widget->getPaginated();
+		$widgets = $this->widgetItem->getRepoAll();
+		return $widgets;
 		$data = array(
 			'widgets'	=> $widgets,
 		);
@@ -32,20 +31,12 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function show($type, $slug)
 	{
-		$pref = $this->widget->getDetailBySlug($slug);
-		$data = array(
-			'pref'	=> $pref,
-		);
-		return $this->adminView('content.widget.'. $this->widget_name .'.show', $data);
+		
 	}
 
 	public function edit($type, $slug)
 	{
-		$pref = $this->widget->getDetailBySlug($slug);
-		$data = array(
-			'pref'	=> $pref,
-		);
-		return $this->adminView('content.widget.'. $this->widget_name .'.edit', $data);
+
 	}
 
 	public function forceDestroy($id)
@@ -57,7 +48,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 	{
 		parent::adminViewShare();
 		
-		$widget = $this->widget->getInfo();
+		$widget = $this->widgetItem->getInfo();
 		View::share(array(
 			'wg'		=> $widget,
 			'wg_name'	=> $this->widget_name,

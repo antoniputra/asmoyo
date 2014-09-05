@@ -13,19 +13,15 @@
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*"
     },
-    "require-dev": {
-        "barryvdh/laravel-debugbar": "1.*",
-        "way/generators": "2.*"
-    },
     "autoload": {
+        "psr-0": {
+            "Antoniputra\\Asmoyo": "src/"
+        },
         "classmap": [
             "src/controllers",
             "src/migrations",
             "src/seeds"
-        ],
-        "psr-0": {
-            "Antoniputra\\Asmoyo\\": "src/"
-        }
+        ]
     },
     "minimum-stability": "stable"
 }

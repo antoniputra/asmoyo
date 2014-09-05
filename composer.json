@@ -13,6 +13,10 @@
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*"
     },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "1.*",
+        "way/generators": "2.*"
+    },
     "autoload": {
         "classmap": [
             "src/controllers",

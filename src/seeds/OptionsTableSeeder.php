@@ -113,13 +113,13 @@ class OptionsTableSeeder extends Seeder {
 			
 			// Media
 			[
-				'name'			=> 'media_image_watermark',
+				'name'			=> 'media_imageWatermark',
 				'description'	=> 'your media image watermark ?',
 				'value'			=> 'watermark.jpg',
 				'type'			=> '',
 			],
 			[
-				'name'			=> 'media_image_thumbnail',
+				'name'			=> 'media_imageThumbnail',
 				'description'	=> 'your media image thumbnail size',
 				'value'			=> json_encode([
 					'width' => '300px',
@@ -128,43 +128,25 @@ class OptionsTableSeeder extends Seeder {
 				'type'			=> 'json',
 			],
 			[
-				'name'			=> 'media_image_large',
-				'description'	=> 'your media image thumbnail size',
-				'value'			=> json_encode([
-					'width' => '720px',
-					'height' => null,
-				]),
-				'type'			=> 'json',
-			],
-			[
-				'name'			=> 'media_image_constraint',
-				'description'	=> 'Image Large Size in pixel',
-				'value'			=> json_encode([
-					'aspectRatio' 	=> 1,
-					'upsize' 		=> 1,
-				]),
-				'type'			=> 'json',
-			],
-			[
-				'name'			=> 'media_image_default',
-				'description'	=> 'Image Large Size in pixel',
+				'name'			=> 'media_imageDefault',
+				'description'	=> 'Image Default. when some resource haven\'t image, this will be used',
 				'value'			=> 'default.jpg',
 				'type'			=> '',
 			],
 			// End Media
 
 
-			// Preference
+			// Widget
 			[
-				'name'			=> 'preference_banner',
-				'description'	=> 'This is banner for your web',
+				'name'			=> 'widget_bootstrap-banner',
+				'description'	=> 'This is banner styled from bootstrap',
 				'value'			=> json_encode([
-					'title'	=> 'Banner',
+					'title'	=> 'Bootstrap Banner',
 					'fields' => ['id', 'image', 'title', 'description']
 				]),
 				'type'			=> 'json',
 			]
-			// End Preference
+			// End Widget
 		];
 
 		DB::table('options')->insert($options);

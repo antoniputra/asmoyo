@@ -24,8 +24,8 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fa fa-laptop"></i>
-						Preferences <b class="caret"></b>
+						<i class="fa fa-th-large"></i>
+						Widgets <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
 						@if( $preferenceList = app('asmoyo.option.preference') )

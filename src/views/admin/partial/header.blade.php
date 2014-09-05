@@ -28,10 +28,10 @@
 						Widgets <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						@if( $preferenceList = app('asmoyo.option.preference') )
-						@foreach($preferenceList as $name => $value)
+						@if( $widgetList = app('asmoyo.option.widget') )
+						@foreach($widgetList as $name => $value)
 							<li>
-								<a href="{{admin_route('preference.data.index', $name)}}">
+								<a href="{{admin_route('widget.data.index', $name)}}">
 									{{$value['title']}}
 								</a>
 							</li>

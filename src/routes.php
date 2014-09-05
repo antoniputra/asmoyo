@@ -131,15 +131,15 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// End Comment
 
 	// Preference
-	Route::resource('preference', 'Admin_PreferenceController');
+	Route::resource('widget', 'Admin_PreferenceController');
 
-	foreach (app('asmoyo.option.preference') as $value)
+	foreach (app('asmoyo.option.widget') as $widget)
 	{
-		Route::delete('preference/{preference}/data/{data}/force-delete', array(
-			'as'	=> $adminPrefix .'.preference.data.forceDestroy',
+		Route::delete('widget/{widget}/data/{data}/force-delete', array(
+			'as'	=> $adminPrefix .'.widget.data.forceDestroy',
 			'uses'	=> 'Admin_PreferenceController@forceDestroy'
 		));
-		Route::resource('preference.data', 'Admin_PreferenceDataController');
+		Route::resource('widget.data', 'Admin_PreferenceDataController');
 	}
 	// End Preference
 });

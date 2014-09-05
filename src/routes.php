@@ -130,18 +130,18 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	Route::resource('comment', 'Admin_CommentController');
 	// End Comment
 
-	// Preference
-	Route::resource('widget', 'Admin_PreferenceController');
+	// Widget
+	Route::resource('widget', 'Admin_WidgetController');
 
 	foreach (app('asmoyo.option.widget') as $widget)
 	{
-		Route::delete('widget/{widget}/data/{data}/force-delete', array(
-			'as'	=> $adminPrefix .'.widget.data.forceDestroy',
-			'uses'	=> 'Admin_PreferenceController@forceDestroy'
+		Route::delete('widget/{widget}/item/{item}/force-delete', array(
+			'as'	=> $adminPrefix .'.widget.item.forceDestroy',
+			'uses'	=> 'Admin_WidgetController@forceDestroy'
 		));
-		Route::resource('widget.data', 'Admin_PreferenceDataController');
+		Route::resource('widget.item', 'Admin_WidgetItemController');
 	}
-	// End Preference
+	// End Widget
 });
 /*============
 End Admin Page

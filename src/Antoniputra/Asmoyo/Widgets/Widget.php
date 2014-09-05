@@ -14,7 +14,7 @@ class Widget extends Entity {
     /**
      * used for caching tags
      */
-    protected $cache_name   = 'asmoyo_preferences';
+    protected $cache_name   = 'asmoyo_widgets';
 
     /**
      * Get preference items

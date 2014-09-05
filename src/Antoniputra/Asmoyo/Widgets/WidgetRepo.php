@@ -28,7 +28,7 @@ class WidgetRepo extends Repository
 	public function __construct(Widget $model)
 	{
 		$this->model 	= $model;
-		$this->list 	= app('asmoyo.option.preference');
+		$this->list 	= app('asmoyo.option.widget');
 	}
 
 	public function prepare($widget_name)

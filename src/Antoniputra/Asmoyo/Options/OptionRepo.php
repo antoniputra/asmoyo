@@ -18,7 +18,7 @@ class OptionRepo extends Repository
 		$data = $this->cache()->rememberForever(__FUNCTION__, function()
         {
         	$result = array();
-			foreach( $this->model->where('name', 'not like', '%preference_%')->get() as $opt )
+			foreach( $this->model->where('name', 'not like', '%widget_%')->get() as $opt )
 			{
 				$result[$opt['name']]	= $opt['value'];
 			}
@@ -32,9 +32,9 @@ class OptionRepo extends Repository
 		$data = $this->cache()->rememberForever(__FUNCTION__, function()
         {
         	$result = array();
-			foreach( $this->model->where('name', 'like', '%preference_%')->get() as $opt )
+			foreach( $this->model->where('name', 'like', '%widget_%')->get() as $opt )
 			{
-				$name 	= str_replace('preference_', '', $opt['name']);
+				$name 	= str_replace('widget_', '', $opt['name']);
 				$result[$name]	= $opt['value'];
 			}
 			return $result;

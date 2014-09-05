@@ -28,10 +28,9 @@ class AsmoyoServiceProvider extends ServiceProvider {
 
 		if( \Schema::hasTable('options') ) {
 			include __DIR__ . '/../../functions.php';
+			include __DIR__ . '/../../filters.php';
+			include __DIR__ . '/../../routes.php';
 		}
-
-		include __DIR__ . '/../../filters.php';
-		include __DIR__ . '/../../routes.php';
 	}
 
 	/**

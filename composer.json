@@ -1,6 +1,7 @@
 {
     "name": "antoniputra/asmoyo",
-    "description": "",
+    "description": "CMS based laravel framework",
+    "license": "MIT",
     "authors": [
         {
             "name": "Antoni Putra",

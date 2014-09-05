@@ -27,7 +27,7 @@ class OptionRepo extends Repository
 		return $data;
 	}
 
-	public function getPreference()
+	public function getWidget()
 	{
 		$data = $this->cache()->rememberForever(__FUNCTION__, function()
         {

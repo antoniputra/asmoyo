@@ -7,33 +7,41 @@ class PreferenceRepo extends Repository
 {
 	protected $validationEditRules = [];
 
+    protected $repo_fields;
     protected $repo_type;
     protected $repo_eager = ['datas'];
 
     /**
-     * The widget name
+     * The widget list
      */
-    protected $name;
+    protected $list;
+
+    /**
+     * The widget info
+     */
+    protected $info;
 
 	public function __construct(Preference $model)
 	{
-		$this->model = $model;
+		$this->model 	= $model;
+		$this->list 	= app('asmoyo.option.preference');
 	}
 
 	public function at($name)
 	{
-		$this->name = $name;
+		$this->info	= $this->list[$name];
+		$this->setRepoFields($this->info['fields']);
 		$this->setRepoType('preference_'. $name);
 		return $this;
 	}
 
-	public function getList()
-	{
-		return app('asmoyo.option.preference');
-	}
-
 	public function getInfo()
 	{
-		return $this->getList()[$this->name];
+		return $this->info;
+	}
+
+	public function getList()
+	{
+		return $this->list;
 	}
 }

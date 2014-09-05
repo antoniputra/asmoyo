@@ -55,14 +55,20 @@ abstract class Repository
 	}
 
     /**
+     * Set repo_fields used by global query repo
+     */
+    public function setRepoFields($fields)
+    {
+        $this->repo_fields = $fields;
+        return $this;
+    }
+
+    /**
      * Set repo_type used by global query repo
      */
     public function setRepoType($type)
     {
-        if ( isset($this->model->type) ) {
-            $this->model->relation_type  = $type;
-        }
-        $this->repo_type    = $type;
+        $this->repo_type = $type;
         return $this;
     }
 

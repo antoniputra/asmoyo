@@ -2,7 +2,7 @@
 
 @section('before_content')
 	@include($theme_path .'content.preference._menu')
-	@include($pref_path .'_menu')
+	@include($wg_path .'_menu')
 @stop
 
 <div class="asmoyo-box">
@@ -28,13 +28,13 @@
 							<p>{{$p['description']}}</p>
 						</td>
 						<td>
-							<a href="{{ admin_route('preference.data.show', array($pref_type, $p['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('preference.data.show', array($wg_name, $p['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-search"></i> Lihat
 							</a>
-							<a href="{{ admin_route('preference.data.edit', array($pref_type, $p['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('preference.data.edit', array($wg_name, $p['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-pencil"></i> Edit
 							</a>
-							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('preference.data.forceDestroy', array($pref_type, $p['slug'])),
+							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('preference.data.forceDestroy', array($wg_name, $p['slug'])),
 								array(
 									'icon'	=> 'fa fa-trash-o',
 									'class'	=> 'btn btn-danger btn-sm'

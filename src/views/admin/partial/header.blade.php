@@ -28,11 +28,11 @@
 						Preferences <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						@if( $preferenceList = app('asmoyo.preference')->getPreferenceList() )
-						@foreach($preferenceList as $p)
+						@if( $preferenceList = app('asmoyo.option.preference') )
+						@foreach($preferenceList as $name => $value)
 							<li>
-								<a href="{{admin_route('preference.data.index', $p)}}">
-									{{$p}}
+								<a href="{{admin_route('preference.data.index', $name)}}">
+									{{$value['title']}}
 								</a>
 							</li>
 						@endforeach

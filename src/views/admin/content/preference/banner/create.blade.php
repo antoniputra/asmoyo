@@ -1,14 +1,14 @@
-@section('title') Preference {{$pref_type}} @stop
+@section('title') Preference {{$wg['title']}} @stop
 
 @section('before_content')
 	@include($theme_path .'content.preference._menu')
-	@include($pref_path .'_menu')
+	@include($wg_path .'_menu')
 @stop
 
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-laptop"></i>
-		Buat data {{$pref_type}}
+		Buat data {{$wg['title']}}
 	</h3>
 	<div class="box-content">
 

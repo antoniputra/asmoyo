@@ -6,12 +6,14 @@ class Admin_PreferenceDataController extends AsmoyoController {
 	
 	protected $collumn 	= 'three_collumn';
 
-	protected $pref_type;
+	protected $widget_name;
+
+	protected $widget;
 
 	public function __construct(PreferenceRepo $preference)
 	{
-		$this->pref_type 	= Request::segment(3);
-		$this->preference 	= $preference->setRepoType( $this->pref_type );
+		$this->widget_name = Request::segment(3);
+		$this->preference = $preference->at($this->widget_name);
 	}
 
 	public function index()
@@ -20,7 +22,7 @@ class Admin_PreferenceDataController extends AsmoyoController {
 		$data = array(
 			'preferences'	=> $preferences,
 		);
-		return $this->adminView('content.preference.'. $this->pref_type .'.index', $data);
+		return $this->adminView('content.preference.'. $this->widget_name .'.index', $data);
 	}
 
 	public function create()
@@ -28,7 +30,7 @@ class Admin_PreferenceDataController extends AsmoyoController {
 		$data = array(
 			
 		);
-		return $this->adminView('content.preference.'. $this->pref_type .'.create', $data);
+		return $this->adminView('content.preference.'. $this->widget_name .'.create', $data);
 	}
 
 	public function show($type, $slug)
@@ -37,7 +39,7 @@ class Admin_PreferenceDataController extends AsmoyoController {
 		$data = array(
 			'pref'	=> $pref,
 		);
-		return $this->adminView('content.preference.'. $this->pref_type .'.show', $data);
+		return $this->adminView('content.preference.'. $this->widget_name .'.show', $data);
 	}
 
 	public function edit($type, $slug)
@@ -46,7 +48,7 @@ class Admin_PreferenceDataController extends AsmoyoController {
 		$data = array(
 			'pref'	=> $pref,
 		);
-		return $this->adminView('content.preference.'. $this->pref_type .'.edit', $data);
+		return $this->adminView('content.preference.'. $this->widget_name .'.edit', $data);
 	}
 
 	public function forceDestroy($id)
@@ -58,9 +60,11 @@ class Admin_PreferenceDataController extends AsmoyoController {
 	{
 		parent::adminViewShare();
 		
+		$widget = $this->preference->getInfo();
 		View::share(array(
-        	'pref_type'		=> $this->pref_type,
-        	'pref_path'		=> 'asmoyo::admin.content.preference.'.$this->pref_type .'.',
+			'wg'		=> $widget,
+			'wg_name'	=> $this->widget_name,
+        	'wg_path'	=> 'asmoyo::admin.content.preference.'. $this->widget_name .'.',
     	));
 	}
 }

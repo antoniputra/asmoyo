@@ -5,22 +5,35 @@ use Input;
 
 class PreferenceRepo extends Repository
 {
-	protected $validationEditRules = [
-        'title'     => 'required|unique:categories,title,{id}',
-        'slug'      => 'required|unique:categories,slug,{id}',
-    ];
+	protected $validationEditRules = [];
 
-    protected $preferenceList = ['banner'];
     protected $repo_type;
     protected $repo_eager = ['datas'];
+
+    /**
+     * The widget name
+     */
+    protected $name;
 
 	public function __construct(Preference $model)
 	{
 		$this->model = $model;
 	}
 
-	public function getPreferenceList()
+	public function at($name)
 	{
-		return $this->preferenceList;
+		$this->name = $name;
+		$this->setRepoType('preference_'. $name);
+		return $this;
+	}
+
+	public function getList()
+	{
+		return app('asmoyo.option.preference');
+	}
+
+	public function getInfo()
+	{
+		return $this->getList()[$this->name];
 	}
 }

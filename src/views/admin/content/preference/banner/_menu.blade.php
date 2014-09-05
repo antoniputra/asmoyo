@@ -2,15 +2,15 @@
   	<div class="container-fluid">
 		<ul class="nav navbar-nav">
 			<li>
-				<a href="{{ admin_route('preference.data.index', array($pref_type)) }}">
+				<a href="{{ admin_route('preference.data.index', array($wg_name)) }}">
 					<i class="fa fa-bars"></i>
-					{{$pref_type}}
+					{{$wg['title']}}
 				</a>
 			</li>
 			<li>
-				<a href="{{admin_route('preference.data.create', array($pref_type))}}">
+				<a href="{{admin_route('preference.data.create', array($wg_name))}}">
 					<i class="fa fa-plus"></i>
-					Buat {{$pref_type}}
+					Buat {{$wg['title']}}
 				</a>
 			</li>
 		</ul>

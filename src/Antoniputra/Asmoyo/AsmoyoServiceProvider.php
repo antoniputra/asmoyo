@@ -41,18 +41,22 @@ class AsmoyoServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bind('Asmoyo\Options\OptionInterface', function(){
+		$this->app->bind('asmoyo.option', function(){
 			return new \Antoniputra\Asmoyo\Options\OptionRepo(
 				new \Antoniputra\Asmoyo\Options\Option
 			);
 		});
 
-		/**
-		 * get all option
-		 */
-		$this->app->bindShared('asmoyo.option', function($app)
+		// get base option
+		$this->app->bindShared('asmoyo.option.base', function($app)
 		{
-			return $app['Asmoyo\Options\OptionInterface']->get();
+			return $app['asmoyo.option']->getBase();
+		});
+
+		// get preference
+		$this->app->bindShared('asmoyo.option.preference', function($app)
+		{
+			return $app['asmoyo.option']->getPreference();
 		});
 
 		/**

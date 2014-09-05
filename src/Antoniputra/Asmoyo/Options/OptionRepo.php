@@ -13,14 +13,31 @@ class OptionRepo extends Repository
 	 * Get all option by option name
 	 * @return array
 	 */
-	public function get($name = null)
+	public function getBase()
 	{
-		$result = array();
-		foreach( $this->model->all() as $opt )
-		{
-			$result[$opt['name']]	= $opt['value'];
-		}
-		return ( !$name ) ? $result : $result[$name];
+		$data = $this->cache()->rememberForever(__FUNCTION__, function()
+        {
+			foreach( $this->model->where('name', 'not like', '%preference_%')->get() as $opt )
+			{
+				$result[$opt['name']]	= $opt['value'];
+			}
+			return $result;
+		});
+		return $data;
+	}
+
+	public function getPreference()
+	{
+		$data = $this->cache()->rememberForever(__FUNCTION__, function()
+        {
+			foreach( $this->model->where('name', 'like', '%preference_%')->get() as $opt )
+			{
+				$name 	= str_replace('preference_', '', $opt['name']);
+				$result[$name]	= $opt['value'];
+			}
+			return $result;
+		});
+		return $data;
 	}
 
 	public function saveOption($input)
@@ -34,7 +51,7 @@ class OptionRepo extends Repository
 				if( !empty($val) )
 				{
 					$val = is_array($val) ? json_encode($val) : $val;
-					$this->model->where('name', $key)->update(array('value' => $val));
+					$this->model->where('name', $key)->save(array('value' => $val));
 				}
 			}
 

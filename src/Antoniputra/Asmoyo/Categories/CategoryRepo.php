@@ -3,15 +3,14 @@
 use Antoniputra\Asmoyo\Cores\Repository;
 use Input;
 
-class CategoryRepo extends Repository
-{
+class CategoryRepo extends Repository {
+	
 	protected $validationEditRules = [
         'title'     => 'required|unique:categories,title,{id}',
         'slug'      => 'required|unique:categories,slug,{id}',
     ];
 
     protected $repo_type 	= 'category';
-    protected $repo_fields 	= ['id', 'image', 'images', 'type', 'parent_id', 'status', 'title', 'slug', 'description'];
 
 	public function __construct(Category $model)
 	{

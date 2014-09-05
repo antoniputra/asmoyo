@@ -152,6 +152,19 @@ class OptionsTableSeeder extends Seeder {
 				'type'			=> '',
 			],
 			// End Media
+
+
+			// Preference
+			[
+				'name'			=> 'preference_banner',
+				'description'	=> 'This is banner for your web',
+				'value'			=> json_encode([
+					'title'	=> 'Banner',
+					'fields' => ['id', 'image', 'title', 'description']
+				]),
+				'type'			=> 'json',
+			]
+			// End Preference
 		];
 
 		DB::table('options')->insert($options);

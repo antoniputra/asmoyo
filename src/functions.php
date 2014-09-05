@@ -2,7 +2,7 @@
 
 use Antoniputra\Asmoyo\Cores\Exceptions\GlobalFunctionError;
 
-$GLOBALS['options'] 	= app('asmoyo.option');
+$GLOBALS['options'] 	= app('asmoyo.option.base');
 $GLOBALS['theme_dir'] 	= 'asmoyo-theme';
 
 /**

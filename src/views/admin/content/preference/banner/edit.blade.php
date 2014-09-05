@@ -1,8 +1,8 @@
-@section('title') Preference {{$pref_type}} @stop
+@section('title') Preference {{$wg['title']}} @stop
 
 @section('before_content')
 	@include($theme_path .'content.preference._menu')
-	@include($pref_path .'_menu')
+	@include($wg_path .'_menu')
 @stop
 
 <div class="asmoyo-box">
@@ -12,7 +12,7 @@
 	</h3>
 	<div class="box-content">
 
-		{{Form::model($pref, array('url' => admin_route('preference.data.update', array($pref_type, $pref['id'])), 'method' => 'PUT', 'class' => 'form-horizontal'))}}
+		{{Form::model($pref, array('url' => admin_route('preference.data.update', array($wg_name, $pref['id'])), 'method' => 'PUT', 'class' => 'form-horizontal'))}}
 			
 			<hr>
 			<div class="form-group">

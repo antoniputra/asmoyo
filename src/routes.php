@@ -133,7 +133,7 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// Preference
 	Route::resource('preference', 'Admin_PreferenceController');
 
-	foreach (App::make('asmoyo.preference')->getPreferenceList() as $type)
+	foreach (app('asmoyo.option.preference') as $value)
 	{
 		Route::delete('preference/{preference}/data/{data}/force-delete', array(
 			'as'	=> $adminPrefix .'.preference.data.forceDestroy',

@@ -52,10 +52,10 @@ class AsmoyoServiceProvider extends ServiceProvider {
 			return $app['asmoyo.option']->getBase();
 		});
 
-		// get preference
-		$this->app->bindShared('asmoyo.option.preference', function($app)
+		// get widget
+		$this->app->bindShared('asmoyo.option.widget', function($app)
 		{
-			return $app['asmoyo.option']->getPreference();
+			return $app['asmoyo.option']->getWidget();
 		});
 
 		/**
@@ -101,7 +101,7 @@ class AsmoyoServiceProvider extends ServiceProvider {
 		/**
 		 * Binding Preference
 		 */
-		/*$this->app->bind('asmoyo.preference', function($app)
+		/*$this->app->bind('asmoyo.widget', function($app)
 		{
 			return new \Antoniputra\Asmoyo\Preferences\PreferenceRepo(
 				new \Antoniputra\Asmoyo\Preferences\Preference

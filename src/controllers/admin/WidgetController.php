@@ -6,12 +6,12 @@ class Admin_WidgetController extends AsmoyoController {
 	
 	protected $collumn 	= 'three_collumn';
 
-	protected $wg_type;
+	protected $wg_name;
 
 	public function __construct(WidgetRepo $widget)
 	{
-		$this->wg_type = Request::segment(3);
-		$this->widget 	 = $widget->setRepoType( $this->wg_type );
+		$this->wg_name 	= Request::segment(3);
+		$this->widget 	= $widget->setRepoType($this->wg_name);
 	}
 
 	public function index()
@@ -25,26 +25,30 @@ class Admin_WidgetController extends AsmoyoController {
 
 	public function create()
 	{
-		
+		return 'install new widget';
 	}
 
 	public function show($slug)
 	{
-		
+		$widgets = $this->widget->getRepoAll();
+		$data = array(
+			'widgets'	=> $widgets,
+		);
+		return $this->adminView('content.widget.'. $this->wg_name .'.index', $data);
 	}
 
 	public function forceDestroy($id)
 	{
-
+		return 'force delete widget';
 	}
 
 	protected function adminViewShare()
 	{
-		parent::adminViewShare();
-		
+		parent::adminViewShare();		
 		View::share(array(
-        	'wg_type'		=> $this->wg_type,
-        	'wg_path'		=> 'asmoyo::admin.content.widget.'.$this->wg_type .'.',
+			'wg'		=> $this->widget->getInfo(),
+        	'wg_name'	=> $this->wg_name,
+        	'wg_path'	=> 'asmoyo::admin.content.widget.'.$this->wg_name .'.',
     	));
 	}
 }

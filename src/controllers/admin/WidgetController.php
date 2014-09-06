@@ -6,17 +6,21 @@ class Admin_WidgetController extends AsmoyoController {
 	
 	protected $collumn 	= 'three_collumn';
 
-	protected $pref_type;
+	protected $wg_type;
 
 	public function __construct(WidgetRepo $widget)
 	{
-		$this->pref_type 	= Request::segment(3);
-		$this->widget 	= $widget->setRepoType( $this->pref_type );
+		$this->wg_type = Request::segment(3);
+		$this->widget 	 = $widget->setRepoType( $this->wg_type );
 	}
 
 	public function index()
 	{
-		return "list of installed widget";
+		$widgets = app('asmoyo.option.widget');
+		$data = array(
+			'widgets'	=> Paginator::make($widgets, count($widgets), 10),
+		);
+		return $this->adminView('content.widget.index', $data);
 	}
 
 	public function create()
@@ -39,8 +43,8 @@ class Admin_WidgetController extends AsmoyoController {
 		parent::adminViewShare();
 		
 		View::share(array(
-        	'pref_type'		=> $this->pref_type,
-        	'pref_path'		=> 'asmoyo::admin.content.widget.'.$this->pref_type .'.',
+        	'wg_type'		=> $this->wg_type,
+        	'wg_path'		=> 'asmoyo::admin.content.widget.'.$this->wg_type .'.',
     	));
 	}
 }

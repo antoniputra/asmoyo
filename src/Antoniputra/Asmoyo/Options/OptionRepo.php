@@ -36,6 +36,10 @@ class OptionRepo extends Repository
 			{
 				$name 	= str_replace('widget_', '', $opt['name']);
 				$result[$name]	= $opt['value'];
+				
+				if ( ! isset($opt['value']['description']) ) {
+					$result[$name]['description']= $opt['description'];
+				}
 			}
 			return $result;
 		});

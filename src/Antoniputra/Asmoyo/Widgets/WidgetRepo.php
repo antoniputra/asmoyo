@@ -33,7 +33,7 @@ class WidgetRepo extends Repository
 
 	public function prepare($widget_name)
 	{
-		$this->setRepoType('preference_'. $widget_name);
+		$this->setRepoType('widget_'. $widget_name);
 		$this->info 	= $this->list[$widget_name];
 		$this->fields 	= array_unique(array_merge(['id', 'category_id'], $this->info['fields']));
 		return $this;

@@ -101,12 +101,12 @@ class AsmoyoServiceProvider extends ServiceProvider {
 		/**
 		 * Binding Preference
 		 */
-		/*$this->app->bind('asmoyo.widget', function($app)
+		$this->app->bind('asmoyo.widget', function($app)
 		{
 			return new \Antoniputra\Asmoyo\Preferences\PreferenceRepo(
 				new \Antoniputra\Asmoyo\Preferences\Preference
 			);
-		});*/
+		});
 
 	}
 

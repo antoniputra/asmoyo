@@ -28,6 +28,12 @@
 						Widgets <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
+						<li>
+							<a href="{{admin_route('widget.index')}}">
+								All Widget
+							</a>
+						</li>
+						<li class="divider"> </li>
 						@if( $widgetList = app('asmoyo.option.widget') )
 						@foreach($widgetList as $name => $value)
 							<li>

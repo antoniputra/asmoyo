@@ -192,7 +192,7 @@ Route::get('blog/{blog}', array(
 // Page
 Route::get('{page}', array(
 	'as'	=> 'page.show',
-	'uses'	=> 'PageController@show'
+	'uses'	=> 'Public_PageController@show'
 ));
 // End Page
 

@@ -4,13 +4,13 @@
 			<li>
 				<a href="{{admin_route('widget.index')}}">
 					<i class="fa fa-bars"></i>
-					Preference
+					Daftar Widgets
 				</a>
 			</li>
 			<li>
 				<a href="{{admin_route('widget.create')}}">
 					<i class="fa fa-plus"></i>
-					Tambah Preference
+					Tambah Widgets
 				</a>
 			</li>
 		</ul>

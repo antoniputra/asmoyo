@@ -28,15 +28,6 @@ class Admin_WidgetController extends AsmoyoController {
 		return 'install new widget';
 	}
 
-	public function show($slug)
-	{
-		$widgets = $this->widget->getRepoAll();
-		$data = array(
-			'widgets'	=> $widgets,
-		);
-		return $this->adminView('content.widget.'. $this->wg_name .'.index', $data);
-	}
-
 	public function forceDestroy($id)
 	{
 		return 'force delete widget';

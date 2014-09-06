@@ -28,13 +28,13 @@
 							<p>{{$widget['description']}}</p>
 						</td>
 						<td>
-							<a href="{{ admin_route('widget.item.show', array($wg_name, $widget['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('widget.cat.show', array($wg_name, $widget['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-search"></i> Lihat
 							</a>
-							<a href="{{ admin_route('widget.item.edit', array($wg_name, $widget['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('widget.cat.edit', array($wg_name, $widget['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-pencil"></i> Edit
 							</a>
-							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('widget.item.forceDestroy', array($wg_name, $widget['slug'])),
+							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('widget.cat.forceDestroy', array($wg_name, $widget['slug'])),
 								array(
 									'icon'	=> 'fa fa-trash-o',
 									'class'	=> 'btn btn-danger btn-sm'

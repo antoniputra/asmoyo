@@ -141,10 +141,6 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 			'as'	=> $adminPrefix .'.widget.cat.index',
 			'uses'	=> 'Admin_WidgetItemController@index'
 		));
-		Route::get('widget/{widget}/{cat}', array(
-			'as'	=> $adminPrefix .'.widget.cat.show',
-			'uses'	=> 'Admin_WidgetItemController@show'
-		));
 		Route::get('widget/{widget}/create', array(
 			'as'	=> $adminPrefix .'.widget.cat.create',
 			'uses'	=> 'Admin_WidgetItemController@create'
@@ -157,16 +153,16 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 			'as'	=> $adminPrefix .'.widget.cat.forceDestroy',
 			'uses'	=> 'Admin_WidgetItemController@forceDestroy'
 		));
+		Route::get('widget/{widget}/{cat}', array(
+			'as'	=> $adminPrefix .'.widget.cat.show',
+			'uses'	=> 'Admin_WidgetItemController@show'
+		));
 		// End Widget Category
 
 		// Widget Item
 		Route::get('widget/{widget}/{cat}/item', array(
 			'as'	=> $adminPrefix .'.widget.item.index',
 			'uses'	=> 'Admin_WidgetItemController@itemIndex'
-		));
-		Route::get('widget/{widget}/{cat}/item/{item}', array(
-			'as'	=> $adminPrefix .'.widget.item.show',
-			'uses'	=> 'Admin_WidgetItemController@itemShow'
 		));
 		Route::get('widget/{widget}/{cat}/item/create', array(
 			'as'	=> $adminPrefix .'.widget.item.create',
@@ -175,6 +171,10 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 		Route::get('widget/{widget}/{cat}/item/{item}/edit', array(
 			'as'	=> $adminPrefix .'.widget.item.edit',
 			'uses'	=> 'Admin_WidgetItemController@itemEdit'
+		));
+		Route::get('widget/{widget}/{cat}/item/{item}', array(
+			'as'	=> $adminPrefix .'.widget.item.show',
+			'uses'	=> 'Admin_WidgetItemController@itemShow'
 		));
 		Route::delete('widget/{widget}/{cat}/item/{item}/force-delete', array(
 			'as'	=> $adminPrefix .'.widget.item.forceDestroy',

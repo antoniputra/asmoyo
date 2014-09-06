@@ -22,9 +22,9 @@
 							</p>
 							<p>
 								<a href="{{admin_route('widget.show', array($name))}}" class="btn btn-primary">
-									Detail
+									<i class="fa fa-gear"></i>
+									Manage
 								</a>
-								
 							</p>
 						</div>
 					</div>

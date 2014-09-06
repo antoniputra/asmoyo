@@ -11,17 +11,18 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function __construct(WidgetRepo $widget, ItemRepo $widgetItem)
 	{
-		$this->wg_name 	= Request::segment(3);
+		$this->wg_name 		= Request::segment(3);
 		$this->widget 		= $widget->setRepoType($this->wg_name);
-		$this->widgetItem 	= $widgetItem->setRepoFields(['title', 'description']);
+		$this->widgetItem 	= $widgetItem->setRepoFields( $this->widget->getInfo()['fields'] );
 	}
 
-	/**
-	 * @see WidgetController@show
-	 */
 	public function index($widgetSlug)
 	{
-		return 'cok';
+		$widgets = $this->widget->getRepoAll();
+		$data = array(
+			'widgets'	=> $widgets,
+		);
+		return $this->adminView('content.widget.'. $this->wg_name .'.index', $data);
 	}
 
 	public function create()
@@ -36,27 +37,42 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 		$items 	= $this->widgetItem->getItemByWidgetId($widget['id']);
 		$data 	= array(
-			'items'	=> $items,
+			'widget'	=> $widget,
+			'items'		=> $items,
 		);
 		return $this->adminView('content.widget.'. $this->wg_name .'.item', $data);
 	}
 
 	public function edit($widgetSlug, $itemSlug)
 	{
+		return 'ini '. $widgetSlug .' edit '. $itemSlug;
+	}
 
+	public function forceDestroy($widgetSlug, $itemSlug)
+	{
+		return 'ini '. $widgetSlug .' delete '. $itemSlug;
 	}
 
 
 	/**
 	 * Widget item
 	 */
+	public function itemIndex()
+	{
+
+	}
 
 	public function itemCreate($widgetSlug)
 	{
 		return 'create new item widget';
 	}
 
-	public function forceDestroy($id)
+	public function itemShow($widgetSlug, $itemSlug)
+	{
+		return 'create new item widget';
+	}
+
+	public function itemForceDestroy($id)
 	{
 		
 	}

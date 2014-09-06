@@ -12,7 +12,7 @@ class WidgetRepo extends Repository
     /**
      * define relation
      */
-    protected $repo_eager   = ['items'];
+    // protected $repo_eager   = ['items'];
 
     /**
      * contain widget name

@@ -11,9 +11,9 @@
 				</a>
 			</li>
 			<li>
-				<a href="{{admin_route('widget.category.create', array($wg_name))}}">
+				<a href="{{admin_route('widget.cat.create', array($wg_name))}}">
 					<i class="fa fa-plus"></i>
-					Buat
+					Buat Kategori
 				</a>
 			</li>
 		</ul>

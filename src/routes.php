@@ -133,14 +133,55 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// Widget
 	Route::resource('widget', 'Admin_WidgetController');
 
+	if ( app('asmoyo.option.widget') ) {
 	foreach (app('asmoyo.option.widget') as $widget)
 	{
-		Route::delete('widget/{widget}/item/{item}/force-delete', array(
-			'as'	=> $adminPrefix .'.widget.item.forceDestroy',
-			'uses'	=> 'Admin_WidgetController@forceDestroy'
+		// Widget Category
+		Route::get('widget/{widget}', array(
+			'as'	=> $adminPrefix .'.widget.cat.index',
+			'uses'	=> 'Admin_WidgetItemController@index'
 		));
-		Route::resource('widget.item', 'Admin_WidgetItemController');
-	}
+		Route::get('widget/{widget}/{cat}', array(
+			'as'	=> $adminPrefix .'.widget.cat.show',
+			'uses'	=> 'Admin_WidgetItemController@show'
+		));
+		Route::get('widget/{widget}/create', array(
+			'as'	=> $adminPrefix .'.widget.cat.create',
+			'uses'	=> 'Admin_WidgetItemController@create'
+		));
+		Route::get('widget/{widget}/{cat}/edit', array(
+			'as'	=> $adminPrefix .'.widget.cat.edit',
+			'uses'	=> 'Admin_WidgetItemController@edit'
+		));
+		Route::delete('widget/{widget}/{cat}/force-delete', array(
+			'as'	=> $adminPrefix .'.widget.cat.forceDestroy',
+			'uses'	=> 'Admin_WidgetItemController@forceDestroy'
+		));
+		// End Widget Category
+
+		// Widget Item
+		Route::get('widget/{widget}/{cat}/item', array(
+			'as'	=> $adminPrefix .'.widget.item.index',
+			'uses'	=> 'Admin_WidgetItemController@itemIndex'
+		));
+		Route::get('widget/{widget}/{cat}/item/{item}', array(
+			'as'	=> $adminPrefix .'.widget.item.show',
+			'uses'	=> 'Admin_WidgetItemController@itemShow'
+		));
+		Route::get('widget/{widget}/{cat}/item/create', array(
+			'as'	=> $adminPrefix .'.widget.item.create',
+			'uses'	=> 'Admin_WidgetItemController@itemCreate'
+		));
+		Route::get('widget/{widget}/{cat}/item/{item}/edit', array(
+			'as'	=> $adminPrefix .'.widget.item.edit',
+			'uses'	=> 'Admin_WidgetItemController@itemEdit'
+		));
+		Route::delete('widget/{widget}/{cat}/item/{item}/force-delete', array(
+			'as'	=> $adminPrefix .'.widget.item.forceDestroy',
+			'uses'	=> 'Admin_WidgetItemController@itemForceDestroy'
+		));
+		// End Widget Item
+	} }
 	// End Widget
 });
 /*============

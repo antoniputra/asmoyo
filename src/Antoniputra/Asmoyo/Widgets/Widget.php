@@ -19,8 +19,8 @@ class Widget extends Entity {
     /**
      * Get preference items
      */
-    public function datas()
+    public function items()
     {
-    	return $this->hasMany('Antoniputra\Asmoyo\Posts\Post', 'category_id');
+    	return $this->hasMany('Antoniputra\Asmoyo\Widgets\Item', 'category_id');
     }
 }

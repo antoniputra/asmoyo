@@ -6,19 +6,38 @@ use Antoniputra\Asmoyo\Widgets\WidgetRepo;
 class Admin_WidgetItemController extends AsmoyoController {
 	
 	protected $collumn 	= 'three_collumn';
-
+	
+	/**
+	 * contain widget name by uri segment 3
+	 */
 	protected $wg_name;
+
+	/**
+	 * contain widget information
+	 */
+	protected $widget;
+
+	/**
+	 * Contain Widget Category
+	 */
+	protected $wgCategory;
+
+	/**
+	 * Contain Widget Item
+	 */
+	protected $wgItem;
 
 	public function __construct(WidgetRepo $widget, ItemRepo $widgetItem)
 	{
 		$this->wg_name 		= Request::segment(3);
-		$this->widget 		= $widget->setRepoType($this->wg_name);
-		$this->widgetItem 	= $widgetItem->setRepoFields( $this->widget->getInfo()['fields'] );
+		$this->widget		= app('asmoyo.option.widget')[$this->wg_name];
+		$this->wgCategory 	= $widget->setRepoType($this->wg_name);
+		$this->wgItem 		= $widgetItem->setRepoFields( $this->widget['fields'] );
 	}
 
 	public function index($widgetSlug)
 	{
-		$widgets = $this->widget->getRepoAll();
+		$widgets = $this->wgCategory->getRepoAll();
 		$data = array(
 			'widgets'	=> $widgets,
 		);
@@ -27,15 +46,18 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function create()
 	{
-		return 'create new category widget';
+		$data = array(
+			
+		);
+		return $this->adminView('content.widget.'. $this->wg_name .'.create', $data);
 	}
 
 	public function show($widgetSlug, $itemSlug)
 	{
-		$widget 	= $this->widget->getRepoBySlug($itemSlug);
+		$widget 	= $this->wgCategory->getRepoBySlug($itemSlug);
 		if ( ! $widget ) return App::abort(404);
 
-		$items 	= $this->widgetItem->getItemByWidgetId($widget['id']);
+		$items 	= $this->wgItem->getItemByWidgetId($widget['id']);
 		$data 	= array(
 			'widget'	=> $widget,
 			'items'		=> $items,
@@ -81,7 +103,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 	{
 		parent::adminViewShare();
 		View::share(array(
-			'wg'		=> $this->widget->getInfo(),
+			'wg'		=> $this->widget,
 			'wg_name'	=> $this->wg_name,
         	'wg_path'	=> 'asmoyo::admin.content.widget.'. $this->wg_name .'.',
     	));

@@ -21,7 +21,7 @@
 								{{$widget['description']}}
 							</p>
 							<p>
-								<a href="{{admin_route('widget.show', array($name))}}" class="btn btn-primary">
+								<a href="{{admin_route('widget.cat.index', array($name))}}" class="btn btn-primary">
 									<i class="fa fa-gear"></i>
 									Manage
 								</a>

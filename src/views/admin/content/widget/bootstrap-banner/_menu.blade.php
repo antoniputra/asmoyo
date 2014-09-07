@@ -5,7 +5,7 @@
 		</a>
 		<ul class="nav navbar-nav">
 			<li>
-				<a href="{{ admin_route('widget.show', array($wg_name)) }}">
+				<a href="{{ admin_route('widget.cat.index', array($wg_name)) }}">
 					<i class="fa fa-bars"></i>
 					Daftar
 				</a>

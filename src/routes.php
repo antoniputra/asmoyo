@@ -131,7 +131,7 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// End Comment
 
 	// Widget
-	Route::resource('widget', 'Admin_WidgetController');
+	Route::resource('widget', 'Admin_WidgetController', ['only' => ['index', 'create']]);
 
 	if ( app('asmoyo.option.widget') ) {
 	foreach (app('asmoyo.option.widget') as $widget)

@@ -53,16 +53,13 @@ class Admin_UserController extends AsmoyoController {
 
 	public function getChangePassword()
 	{
-		$data = array(
-
-		);
+		$data = [];
 		return $this->adminView('content.user.reset_password', $data);
 	}
 
 	public function putChangePassword()
 	{
-		$input = Input::only('password', 'new_password', 'new_password_confirmation');	
-		if ( $this->user->resetPassword($input) )
+		if ( $this->user->saveResetPassword(Input::only('password', 'new_password', 'new_password_confirmation')) )
 		{
 			return $this->redirectWithAlert(admin_route('user.getChangePassword'), 'success', 'Password Berhasil diubah !!');
 		}

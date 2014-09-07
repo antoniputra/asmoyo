@@ -1,9 +1,5 @@
 @section('title') Reset Password @stop
 
-@section('before_content')
-	@include($theme_path .'content.user._menu')
-@stop
-
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-user"></i>
@@ -19,7 +15,7 @@
 			<div class="form-group">
 				<label class="control-label col-md-3">Password Sekarang</label>
 				<div class="col-md-8">
-					{{ Form::password('password', array('class' => 'form-control')) }}
+					{{ Form::password('password', array('class' => 'form-control', 'autofocus' => true)) }}
 				</div>
 			</div>
 			<hr>

@@ -29,14 +29,18 @@ class UserRepo extends Repository
 		return false;
 	}
 
-	public function resetPassword($input)
+	public function saveResetPassword($input)
 	{
-		if ( ! $this->isValid($input, $this->validation_resetPassword) ) {
+		$auth = $this->auth();
+		if ( ! \Hash::check($input['password'], $auth['password']) ) {
+			$this->setErrors(['Password sekarang tidak cocok']);
 			return false;
 		}
 
-		$auth = $this->auth();
-		if ( ! \Hash::check($input['password'], $auth['password']) ) return false;
+		if ( ! $this->isValid($input, $this->validation_resetPassword) )
+		{
+			return false;
+		}
 
 		$user = $this->requireById( $auth['id'] );
 		$user->fill([

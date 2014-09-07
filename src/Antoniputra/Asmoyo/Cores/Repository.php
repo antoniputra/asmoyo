@@ -218,6 +218,7 @@ abstract class Repository
     /**
      * create new instance.
      * if the given attributes is null, we will skip it.
+     * @param \Input array  attributes
      */
     public function getNewInstance($attributes = array())
     {

@@ -8,16 +8,31 @@ class Widget extends Entity {
     use SoftDeletingTrait;
 
 	protected $table      	= 'categories';
-	protected $fillable 	= ['type', 'parent_id', 'title', 'slug', 'status', 'description'];
+	protected $fillable 	= ['image', 'title', 'description'];
+    protected $guarded      = ['*'];
     protected $dates        = ['deleted_at'];
+
+    protected $validationRules = [
+        'title' => 'required',
+    ];
 
     /**
      * used for caching tags
      */
     protected $cache_name   = 'asmoyo_widgets';
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function($model)
+        {
+            $model->type    = 'widget_'. \Request::segment(3);
+        });
+    }
+
     /**
-     * Get preference items
+     * Get widget items
      */
     public function items()
     {

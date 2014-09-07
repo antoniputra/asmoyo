@@ -44,18 +44,9 @@ class Admin_WidgetItemController extends AsmoyoController {
 		return $this->adminView('content.widget.'. $this->wg_uri .'.index', $data);
 	}
 
-	public function create()
-	{
-		$data = array(
-			
-		);
-		return $this->adminView('content.widget.'. $this->wg_uri .'.create', $data);
-	}
-
 	public function show($widgetSlug, $itemSlug)
 	{
-		$widget 	= $this->wgCategory->getRepoBySlug($itemSlug);
-		if ( ! $widget ) return App::abort(404);
+		$widget 	= $this->wgCategory->requireBySlug($itemSlug);
 
 		$items 	= $this->wgItem->getItemByWidgetId($widget['id']);
 		$data 	= array(
@@ -65,14 +56,47 @@ class Admin_WidgetItemController extends AsmoyoController {
 		return $this->adminView('content.widget.'. $this->wg_uri .'.item', $data);
 	}
 
-	public function edit($widgetSlug, $itemSlug)
+	public function create($widgetSlug)
 	{
-		return 'ini '. $widgetSlug .' edit '. $itemSlug;
+		$data = array(
+			
+		);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.form', $data);
 	}
 
-	public function forceDestroy($widgetSlug, $itemSlug)
+	public function store($widgetSlug)
 	{
-		return 'ini '. $widgetSlug .' delete '. $itemSlug;
+		$wgCat = $this->wgCategory->getNewInstance();
+		if ( $this->wgCategory->save($wgCat) )
+		{
+			return $this->redirectWithAlert(admin_route('widget.cat.index', [$widgetSlug]), 'success', 'Berhasil dibuat !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal dibuat !!', $wgCat->getErrors());
+	}
+
+	public function edit($widgetSlug, $catSlug)
+	{
+		$wgCat = $this->wgCategory->requireBySlug($catSlug);
+		$data = array(
+			'wgCat' => $wgCat,
+		);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.form', $data);
+	}
+
+	public function update($widgetSlug, $catSlug)
+	{
+		$wgCat = $this->wgCategory->requireBySlug($catSlug);
+		$wgCat->fill( $this->wgCategory->getInputOnlyFillable() );
+		if ( $this->wgCategory->save($wgCat) )
+		{
+			return $this->redirectWithAlert(admin_route('widget.cat.index', [$widgetSlug]), 'success', 'Berhasil diperbarui !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $wgCat->getErrors());
+	}
+
+	public function forceDestroy($widgetSlug, $catSlug)
+	{
+		return 'ini '. $widgetSlug .' delete '. $catSlug;
 	}
 
 

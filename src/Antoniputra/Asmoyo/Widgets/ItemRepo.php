@@ -3,9 +3,7 @@
 use Antoniputra\Asmoyo\Cores\Repository;
 use Input;
 
-class ItemRepo extends Repository
-{
-	protected $validationEditRules = [];
+class ItemRepo extends Repository {
 
 	public function __construct(Item $model)
 	{

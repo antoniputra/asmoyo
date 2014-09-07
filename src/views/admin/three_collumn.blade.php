@@ -10,9 +10,11 @@
 
 		<div class="col-md-8">
 			<div class="content">
-				@yield('before_content')
+				@if( ! isset($login) )
+					@include($theme_path .'partial.alert')
+				@endif
 
-				@include($theme_path .'partial.alert')
+				@yield('before_content')
 				
 				{{$content}}
 

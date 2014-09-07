@@ -217,12 +217,18 @@ abstract class Repository
 
     /**
      * create new instance.
-     * if the given attributes is null, we will skip it.
+     * if the param attributes is null, we will use input by fillable fields.
      * @param \Input array  attributes
      */
     public function getNewInstance($attributes = array())
     {
         $attributes = $attributes ?: $this->getInputOnlyFillable() ;
+
+        // if attributes is empty
+        // register all input except _token
+        if ( ! $attributes) {
+            $attributes = Input::except('_token');
+        }
 
         // filter attributes
         $newAttributes = [];
@@ -232,8 +238,8 @@ abstract class Repository
                 $newAttributes[$key] = $value;
             }
         }
-        $attributes = $newAttributes;
 
+        $attributes = $newAttributes;
         return $this->model->newInstance($attributes);
     }
 
@@ -263,7 +269,7 @@ abstract class Repository
      * @param array newValidation
      * @return Model --> storeObject
      */
-    public function save($newData, $newValidation = array())
+    public function save($newData, $newValidation = null)
     {
         // if newData is array, set as new instance
         if (is_array($newData)) {
@@ -279,7 +285,7 @@ abstract class Repository
         }
     }
 
-    protected function storeObject($model, $newValidation = array())
+    protected function storeObject($model, $newValidation = null)
     {
         if ( is_array($newValidation) ) {
             $model = $model->setRules($newValidation);

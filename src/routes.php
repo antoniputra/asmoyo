@@ -153,6 +153,10 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 			'as'	=> $adminPrefix .'.widget.cat.edit',
 			'uses'	=> 'Admin_WidgetItemController@edit'
 		));
+		Route::put('widget/{widget}/{cat}/update', array(
+			'as'	=> $adminPrefix .'.widget.cat.update',
+			'uses'	=> 'Admin_WidgetItemController@update'
+		));
 		Route::delete('widget/{widget}/{cat}/force-delete', array(
 			'as'	=> $adminPrefix .'.widget.cat.forceDestroy',
 			'uses'	=> 'Admin_WidgetItemController@forceDestroy'

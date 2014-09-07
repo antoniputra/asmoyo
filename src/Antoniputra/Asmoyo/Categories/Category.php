@@ -8,7 +8,8 @@ class Category extends Entity {
     use SoftDeletingTrait;
 
 	protected $table      	= 'categories';
-	protected $fillable 	= ['image', 'images', 'type', 'parent_id', 'title', 'slug', 'status', 'description'];
+	protected $fillable 	= ['image', 'images', 'parent_id', 'title', 'slug', 'status', 'description'];
+    protected $guarded      = ['*'];
     protected $dates        = ['deleted_at'];
 
     /**

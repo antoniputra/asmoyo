@@ -3,9 +3,7 @@
 use Antoniputra\Asmoyo\Cores\Repository;
 use Input;
 
-class WidgetRepo extends Repository
-{
-	protected $validationEditRules = [];
+class WidgetRepo extends Repository {
 
     protected $repo_type;
 

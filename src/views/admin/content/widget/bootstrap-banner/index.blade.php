@@ -1,6 +1,7 @@
 @section('title') Daftar Banner @stop
 
 @section('before_content')
+	@parent
 	@include($theme_path .'content.widget._menu')
 	@include($wg_path .'_menu')
 @stop
@@ -12,7 +13,7 @@
 	</h3>
 	<div class="box-content">
 
-		<table class="table table-bordered">
+		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -27,7 +28,7 @@
 							<h4>{{$widget['title']}}</h4>
 							<p>{{$widget['description']}}</p>
 						</td>
-						<td>
+						<td style="vertical-align:middle;">
 							<a href="{{ admin_route('widget.cat.show', array($wg_uri, $widget['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-search"></i> Lihat
 							</a>

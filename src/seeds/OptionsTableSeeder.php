@@ -138,10 +138,10 @@ class OptionsTableSeeder extends Seeder {
 
 			// Widget
 			[
-				'name'			=> 'widget_bootstrap-banner',
-				'description'	=> 'This is banner styled from bootstrap',
+				'name'			=> 'widget_bootstrap-carousel',
+				'description'	=> 'This is banner using bootstrap-carousel.js',
 				'value'			=> json_encode([
-					'title'	=> 'Bootstrap Banner',
+					'title'	=> 'Bootstrap Carousel',
 					'fields' => ['id', 'image', 'title', 'description']
 				]),
 				'type'			=> 'json',

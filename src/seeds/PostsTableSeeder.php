@@ -94,6 +94,7 @@ class PostsTableSeeder extends Seeder {
 		$widget_banners = array(
 			array(
 				'category_id'	=> 3,
+				'type'			=> 'widget_bootstrap-carousel',
 				'order'			=> 0,
 				'image'			=> 'http://lorempixel.com/920/460/',
 				'title'			=> 'Some title',
@@ -101,6 +102,7 @@ class PostsTableSeeder extends Seeder {
 			),
 			array(
 				'category_id'	=> 3,
+				'type'			=> 'widget_bootstrap-carousel',
 				'order'			=> 1,
 				'image'			=> 'http://lorempixel.com/920/460/',
 				'title'			=> 'Some title',

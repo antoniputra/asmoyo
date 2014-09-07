@@ -37,7 +37,7 @@ class CategoriesTableSeeder extends Seeder {
 			array(
 				'image'			=> null,
 				'images'		=> json_encode(array()),
-				'type'			=> 'widget_bootstrap-banner',
+				'type'			=> 'widget_bootstrap-carousel',
 				'parent_id'		=> 0,
 				'status'		=> 'publish',
 				'title'			=> 'Banner Utama',

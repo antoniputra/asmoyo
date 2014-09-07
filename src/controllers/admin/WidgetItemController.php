@@ -6,11 +6,11 @@ use Antoniputra\Asmoyo\Widgets\WidgetRepo;
 class Admin_WidgetItemController extends AsmoyoController {
 	
 	protected $collumn 	= 'three_collumn';
-	
+
 	/**
 	 * contain widget name by uri segment 3
 	 */
-	protected $wg_name;
+	protected $wg_uri;
 
 	/**
 	 * contain widget information
@@ -27,12 +27,12 @@ class Admin_WidgetItemController extends AsmoyoController {
 	 */
 	protected $wgItem;
 
-	public function __construct(WidgetRepo $widget, ItemRepo $widgetItem)
+	public function __construct(WidgetRepo $wgCategory, ItemRepo $wgItem)
 	{
-		$this->wg_name 		= Request::segment(3);
-		$this->widget		= app('asmoyo.option.widget')[$this->wg_name];
-		$this->wgCategory 	= $widget->setRepoType($this->wg_name);
-		$this->wgItem 		= $widgetItem->setRepoFields( $this->widget['fields'] );
+		$this->wg_uri 		= Request::segment(3);
+		$this->widget		= app('asmoyo.option.widget')[$this->wg_uri];
+		$this->wgCategory 	= $wgCategory->setRepoType($this->wg_uri);
+		$this->wgItem 		= $wgItem->setRepoFields( $this->widget['fields'] );
 	}
 
 	public function index($widgetSlug)
@@ -41,7 +41,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 		$data = array(
 			'widgets'	=> $widgets,
 		);
-		return $this->adminView('content.widget.'. $this->wg_name .'.index', $data);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.index', $data);
 	}
 
 	public function create()
@@ -49,7 +49,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 		$data = array(
 			
 		);
-		return $this->adminView('content.widget.'. $this->wg_name .'.create', $data);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.create', $data);
 	}
 
 	public function show($widgetSlug, $itemSlug)
@@ -62,7 +62,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 			'widget'	=> $widget,
 			'items'		=> $items,
 		);
-		return $this->adminView('content.widget.'. $this->wg_name .'.item', $data);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.item', $data);
 	}
 
 	public function edit($widgetSlug, $itemSlug)
@@ -104,8 +104,8 @@ class Admin_WidgetItemController extends AsmoyoController {
 		parent::adminViewShare();
 		View::share(array(
 			'wg'		=> $this->widget,
-			'wg_name'	=> $this->wg_name,
-        	'wg_path'	=> 'asmoyo::admin.content.widget.'. $this->wg_name .'.',
+			'wg_uri'	=> $this->wg_uri,
+        	'wg_path'	=> 'asmoyo::admin.content.widget.'. $this->wg_uri .'.',
     	));
 	}
 }

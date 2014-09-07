@@ -145,6 +145,10 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 			'as'	=> $adminPrefix .'.widget.cat.create',
 			'uses'	=> 'Admin_WidgetItemController@create'
 		));
+		Route::post('widget/{widget}/store', array(
+			'as'	=> $adminPrefix .'.widget.cat.store',
+			'uses'	=> 'Admin_WidgetItemController@store'
+		));
 		Route::get('widget/{widget}/{cat}/edit', array(
 			'as'	=> $adminPrefix .'.widget.cat.edit',
 			'uses'	=> 'Admin_WidgetItemController@edit'

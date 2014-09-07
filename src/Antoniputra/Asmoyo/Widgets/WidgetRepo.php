@@ -33,13 +33,4 @@ class WidgetRepo extends Repository
 		$this->repo_type 	= 'widget_'. $widget_name;
 		return $this;
 	}
-
-	public function getInfo()
-	{
-		$wg_list = app('asmoyo.option.widget');
-		$wg_name = $this->widget_name;
-		return ($wg_name)
-			? $wg_list[$this->widget_name]
-			: $wg_list ;
-	}
 }

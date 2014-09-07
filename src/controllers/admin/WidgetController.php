@@ -9,7 +9,7 @@ class Admin_WidgetController extends AsmoyoController {
 	/**
 	 * contain widget name by uri segment 3
 	 */
-	protected $wg_name;
+	protected $wg_uri;
 
 	/**
 	 * contain widget information
@@ -21,17 +21,17 @@ class Admin_WidgetController extends AsmoyoController {
 	 */
 	protected $wgCategory;
 
-	public function __construct(WidgetRepo $widget)
+	public function __construct(WidgetRepo $wgCategory)
 	{
-		$this->wg_name 		= Request::segment(3);
-		$this->widget		= app('asmoyo.option.widget')[$this->wg_name];
-		$this->wgCategory 	= $widget->setRepoType($this->wg_name);
+		$this->wg_uri 		= Request::segment(3);
+		$this->widgets		= app('asmoyo.option.widget');
+		$this->wgCategory 	= $wgCategory->setRepoType($this->wg_uri);
 	}
 
 	public function index()
 	{
-		$widgets = app('asmoyo.option.widget');
-		$data = array(
+		$widgets = $this->widgets;
+		$data 	= array(
 			'widgets'	=> Paginator::make($widgets, count($widgets), 10),
 		);
 		return $this->adminView('content.widget.index', $data);
@@ -51,9 +51,9 @@ class Admin_WidgetController extends AsmoyoController {
 	{
 		parent::adminViewShare();		
 		View::share(array(
-			'wg'		=> $this->wg,
-        	'wg_name'	=> $this->wg_name,
-        	'wg_path'	=> 'asmoyo::admin.content.widget.'.$this->wg_name .'.',
+			'wg'		=> $this->widget,
+        	'wg_uri'	=> $this->wg_uri,
+        	'wg_path'	=> 'asmoyo::admin.content.widget.'.$this->wg_uri .'.',
     	));
 	}
 }

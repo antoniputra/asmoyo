@@ -10,7 +10,7 @@
 		<i class="fa fa-th-large"></i>
 		Daftar - {{$widget['title']}}
 		&nbsp;
-		<a href="{{admin_route('widget.item.create', array($wg_name, $widget['slug']))}}" class="btn btn-primary btn-sm">
+		<a href="{{admin_route( 'widget.item.create', [$wg_uri, $widget['slug']] )}}" class="btn btn-primary btn-sm">
 			<i class="fa fa-plus"></i>
 			Tambah Item
 		</a>

@@ -19,7 +19,7 @@ class WgCategory extends Entity {
     /**
      * used for caching tags
      */
-    protected $cache_name   = 'asmoyo_widgets';
+    protected $cache_name   = 'asmoyo_widgets_categories';
 
     public static function boot()
     {

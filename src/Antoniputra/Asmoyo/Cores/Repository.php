@@ -3,9 +3,6 @@
 use Illuminate\Database\Eloquent\Model;
 use DB, Eloquent, Closure, Input, Config, Cache;
 
-/**
-* Handle base repo
-*/
 abstract class Repository
 {
     /**
@@ -64,6 +61,15 @@ abstract class Repository
     }
 
     /**
+     * Set repo_eager used by global query repo
+     */
+    public function setRepoEager($eagers)
+    {
+        $this->repo_eager = !is_array($eagers) ? [$eagers] : $eagers ;
+        return $this;
+    }
+
+    /**
      * Set repo_type used by global query repo
      */
     public function setRepoType($type)
@@ -102,9 +108,18 @@ abstract class Repository
         return $query;
     }
 
-	public function getRepoAll($limit = null, $sortir = null)
+    public function getRepoAll()
     {
         return $this->queryRepo()->get();
+    }
+
+	public function getRepoAllCache()
+    {
+        $key = $this->getCacheKey(__FUNCTION__);
+        return $this->cache()->rememberForever($key, function()
+        {
+            return $this->queryRepo()->get();
+        });
     }
 
     public function getRepoAllPaginated($limit = null, $sortir = null)

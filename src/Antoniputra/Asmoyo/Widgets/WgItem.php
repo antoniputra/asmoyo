@@ -8,7 +8,6 @@ class WgItem extends Entity {
     use SoftDeletingTrait;
 
     protected $table      	= 'posts';
-	// protected $fillable 	= [];
 	protected $guarded 		= ['type'];
     protected $dates        = ['deleted_at'];
 

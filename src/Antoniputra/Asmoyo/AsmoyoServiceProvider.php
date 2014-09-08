@@ -98,6 +98,21 @@ class AsmoyoServiceProvider extends ServiceProvider {
 			);
 		});
 
+		/**
+		 * Binding Widget
+		 */
+		$this->app->bindShared('asmoyo.widget', function($app)
+		{
+			return new \Antoniputra\Asmoyo\Widgets\Wg(
+				new \Antoniputra\Asmoyo\Widgets\WgCategoryRepo(
+					new \Antoniputra\Asmoyo\Widgets\WgCategory
+				),
+				new \Antoniputra\Asmoyo\Widgets\WgItemRepo(
+					new \Antoniputra\Asmoyo\Widgets\WgItem
+				)
+			);
+		});
+
 	}
 
 	/**

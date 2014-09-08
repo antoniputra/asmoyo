@@ -5,13 +5,6 @@ use Input;
 
 class WgCategoryRepo extends Repository {
 
-    protected $repo_type;
-
-    /**
-     * define relation
-     */
-    // protected $repo_eager   = ['items'];
-
     /**
      * contain widget name
      */
@@ -33,7 +26,7 @@ class WgCategoryRepo extends Repository {
 	}
 
 	/**
-	 * 
+	 * Delete Model with these items
 	 */
 	public function delete($model, $is_permanent = false)
 	{

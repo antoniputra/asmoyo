@@ -84,7 +84,7 @@
 					Before Content
 				</label>
 				<div class="col-sm-10">
-					{{Form::select('option[before_content]', $widgets, null, array('class' => 'form-control', 'id' => 'option[before_content]'))}}
+					{{Form::select('options[before_content]', $widgets, null, array('class' => 'form-control', 'id' => 'options[before_content]'))}}
 				</div>
 			</div>
 

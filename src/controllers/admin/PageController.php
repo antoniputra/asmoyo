@@ -84,9 +84,10 @@ class Admin_PageController extends AsmoyoController {
 	{
 		$page = $this->page->requireBySlugCache($slug);
 		$data = array(
-			'page'			=> $page,
+			'page'			=> $page->toArray(),
 			'parentList'	=> asDropdown($this->page->getParent($page['id']), true),
 			'statusList'	=> asDropdown($this->page->getStatusList()),
+			'widgets'		=> app('asmoyo.widget')->getAllDetailDropdown(),
 		);
 		return $this->adminView('content.page.edit', $data);
 	}

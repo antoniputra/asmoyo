@@ -9,6 +9,7 @@ class Page extends Entity {
 
 	protected $table      	= 'posts';
 	protected $fillable 	= ['user_id', 'parent_id', 'image', 'images', 'status', 'comment_status', 'type', 'order', 'mime_type', 'size', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
+    protected $guarded      = ['user_id', 'type'];
     protected $dates        = ['deleted_at'];
 
     /**
@@ -38,6 +39,14 @@ class Page extends Entity {
             $model->user_id = \Auth::user()->id;
             $model->type    = 'page';
             $model->order 	= rand(7, 17);
+
+            $options = $model->getAttribute('options');
+            $model->options =  $options ? json_encode($options) : '';
         });
+    }
+
+    public function getOptionsAttribute($value)
+    {
+        return ( ! is_array($value) ) ? json_decode($value, true) : $value;
     }
 }

@@ -45,9 +45,9 @@ class Wg {
 		return $results;
 	}
 
-	public function getAllDetailDropdown()
+	public function getAllDetailDropdown($withDefault = true)
 	{
-		$results = [];
+		$results = $withDefault ? [0 => 'Tidak ada'] : [];
 		if($all = $this->getAllDetail())
 		{
 			foreach ($all as $widgetName => $widgetCat)

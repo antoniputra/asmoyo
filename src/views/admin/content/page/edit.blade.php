@@ -80,6 +80,15 @@
 			</div>
 
 			<div class="form-group">
+				<label for="status" class="col-sm-2 control-label">
+					Before Content
+				</label>
+				<div class="col-sm-10">
+					{{Form::select('options[before_content]', $widgets, null, array('class' => 'form-control', 'id' => 'options[before_content]'))}}
+				</div>
+			</div>
+
+			<div class="form-group">
 				<div class="form-group">
 					<label for="content" class="col-sm-12 text-center">
 						Content

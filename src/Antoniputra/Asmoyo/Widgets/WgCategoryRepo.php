@@ -3,7 +3,7 @@
 use Antoniputra\Asmoyo\Cores\Repository;
 use Input;
 
-class WidgetRepo extends Repository {
+class WgCategoryRepo extends Repository {
 
     protected $repo_type;
 
@@ -17,7 +17,7 @@ class WidgetRepo extends Repository {
      */
     protected $widget_name;
 
-	public function __construct(Widget $model)
+	public function __construct(WgCategory $model)
 	{
 		$this->model 	= $model;
 	}

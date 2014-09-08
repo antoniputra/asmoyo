@@ -3,9 +3,9 @@
 use Antoniputra\Asmoyo\Cores\Repository;
 use Input;
 
-class ItemRepo extends Repository {
+class WgItemRepo extends Repository {
 
-	public function __construct(Item $model)
+	public function __construct(WgItem $model)
 	{
 		$this->model 	= $model;
 	}

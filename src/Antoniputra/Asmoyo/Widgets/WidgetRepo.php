@@ -23,9 +23,9 @@ class WidgetRepo extends Repository {
 	}
 
 	/**
-	 * set repo type and widget name
+	 * set repo by requested widget
 	 */
-	public function setRepoType($widget_name)
+	public function prepare($widget_name)
 	{
 		$this->widget_name 	= $widget_name;
 		$this->repo_type 	= 'widget_'. $widget_name;

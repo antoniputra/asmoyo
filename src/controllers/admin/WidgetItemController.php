@@ -31,8 +31,8 @@ class Admin_WidgetItemController extends AsmoyoController {
 	{
 		$this->wg_uri 		= Request::segment(3);
 		$this->widget		= app('asmoyo.option.widget')[$this->wg_uri];
-		$this->wgCategory 	= $wgCategory->setRepoType($this->wg_uri);
-		$this->wgItem 		= $wgItem->setRepoFields( $this->widget['fields'] );
+		$this->wgCategory 	= $wgCategory->prepare($this->wg_uri);
+		$this->wgItem 		= $wgItem->prepare($this->wg_uri, $this->widget['fields']);
 	}
 
 	public function index($widgetSlug)
@@ -44,16 +44,16 @@ class Admin_WidgetItemController extends AsmoyoController {
 		return $this->adminView('content.widget.'. $this->wg_uri .'.index', $data);
 	}
 
-	public function show($widgetSlug, $itemSlug)
+	public function show($widgetSlug, $catSlug)
 	{
-		$widget 	= $this->wgCategory->requireBySlug($itemSlug);
+		$widget = $this->wgCategory->requireBySlug($catSlug);
 
 		$items 	= $this->wgItem->getItemByWidgetId($widget['id']);
 		$data 	= array(
 			'widget'	=> $widget,
 			'items'		=> $items,
 		);
-		return $this->adminView('content.widget.'. $this->wg_uri .'.item', $data);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.show', $data);
 	}
 
 	public function create($widgetSlug)
@@ -103,22 +103,48 @@ class Admin_WidgetItemController extends AsmoyoController {
 	/**
 	 * Widget item
 	 */
-	public function itemIndex()
+	public function itemIndex($widgetSlug, $catSlug)
 	{
+		$widget = $this->wgCategory->requireBySlug($catSlug);
 
+		$items 	= $this->wgItem->getItemByWidgetId($widget['id']);
+		$data 	= array(
+			'widget'	=> $widget,
+			'items'		=> $items,
+		);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.item_index', $data);
 	}
 
-	public function itemCreate($widgetSlug)
+	public function itemShow($widgetSlug, $catSlug, $itemId)
 	{
-		return 'create new item widget';
+		return 'show item widget';
 	}
 
-	public function itemShow($widgetSlug, $itemSlug)
+	public function itemCreate($widgetSlug, $catSlug)
 	{
-		return 'create new item widget';
+		$wgCat = $this->wgCategory->requireBySlug($catSlug);
+		$data = array(
+			'wgCat' => $wgCat,
+		);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.item_form', $data);
 	}
 
-	public function itemForceDestroy($id)
+	public function itemStore($widgetSlug, $catSlug)
+	{
+		$wgItem = $this->wgItem->getNewInstance();
+		if ( $this->wgItem->save($wgItem) )
+		{
+			return $this->redirectWithAlert(admin_route('widget.item.index', [$widgetSlug, $catSlug]), 'success', 'Item Berhasil dibuat !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Item Gagal dibuat !!', $wgItem->getErrors());
+	}
+
+	public function itemEdit($widgetSlug, $catSlug, $itemId)
+	{
+		return 'widget edit';
+	}
+
+	public function itemForceDestroy($widgetSlug, $catSlug, $itemId)
 	{
 		
 	}

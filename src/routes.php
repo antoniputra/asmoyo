@@ -176,9 +176,17 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 			'as'	=> $adminPrefix .'.widget.item.create',
 			'uses'	=> 'Admin_WidgetItemController@itemCreate'
 		));
+		Route::post('widget/{widget}/{cat}/item/store', array(
+			'as'	=> $adminPrefix .'.widget.item.store',
+			'uses'	=> 'Admin_WidgetItemController@itemStore'
+		));
 		Route::get('widget/{widget}/{cat}/item/{item}/edit', array(
 			'as'	=> $adminPrefix .'.widget.item.edit',
 			'uses'	=> 'Admin_WidgetItemController@itemEdit'
+		));
+		Route::put('widget/{widget}/{cat}/item/{item}/update', array(
+			'as'	=> $adminPrefix .'.widget.item.update',
+			'uses'	=> 'Admin_WidgetItemController@itemUpdate'
 		));
 		Route::get('widget/{widget}/{cat}/item/{item}', array(
 			'as'	=> $adminPrefix .'.widget.item.show',

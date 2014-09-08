@@ -1,7 +1,7 @@
 <?php
 
-use Antoniputra\Asmoyo\Widgets\ItemRepo;
-use Antoniputra\Asmoyo\Widgets\WidgetRepo;
+use Antoniputra\Asmoyo\Widgets\WgItemRepo;
+use Antoniputra\Asmoyo\Widgets\WgCategoryRepo;
 
 class Admin_WidgetItemController extends AsmoyoController {
 	
@@ -27,7 +27,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 	 */
 	protected $wgItem;
 
-	public function __construct(WidgetRepo $wgCategory, ItemRepo $wgItem)
+	public function __construct(WgCategoryRepo $wgCategory, WgItemRepo $wgItem)
 	{
 		$this->wg_uri 		= Request::segment(3);
 		$this->widget		= app('asmoyo.option.widget')[$this->wg_uri];

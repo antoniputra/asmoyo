@@ -52,7 +52,7 @@
 					Status
 				</label>
 				<div class="col-sm-10">
-					{{Form::select('status', $statusList, null, array('class' => 'form-control', 'id' => 'status', 'placeholder' => 'status'))}}
+					{{Form::select('status', $statusList, null, array('class' => 'form-control', 'id' => 'status'))}}
 				</div>
 			</div>
 
@@ -76,6 +76,15 @@
 				</label>
 				<div class="col-sm-10">
 					{{Form::textarea('description', null, array('class' => 'form-control', 'id' => 'description', 'rows' => '4', 'placeholder' => 'description'))}}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="status" class="col-sm-2 control-label">
+					Before Content
+				</label>
+				<div class="col-sm-10">
+					{{Form::select('option[before_content]', $widgets, null, array('class' => 'form-control', 'id' => 'option[before_content]'))}}
 				</div>
 			</div>
 

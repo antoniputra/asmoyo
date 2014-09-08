@@ -1,7 +1,5 @@
 <?php
 
-use Antoniputra\Asmoyo\Widgets\WidgetRepo;
-
 class Admin_WidgetController extends AsmoyoController {
 	
 	protected $collumn 	= 'three_collumn';
@@ -21,11 +19,10 @@ class Admin_WidgetController extends AsmoyoController {
 	 */
 	protected $wgCategory;
 
-	public function __construct(WidgetRepo $wgCategory)
+	public function __construct()
 	{
 		$this->wg_uri 		= Request::segment(3);
 		$this->widgets		= app('asmoyo.option.widget');
-		$this->wgCategory 	= $wgCategory->setRepoType($this->wg_uri);
 	}
 
 	public function index()

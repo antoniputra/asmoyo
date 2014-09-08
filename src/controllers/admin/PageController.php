@@ -21,7 +21,7 @@ class Admin_PageController extends AsmoyoController {
 	{
 		$pages = $this->page->getRepoPaginatedCache();
 		$data 	= array(
-			'pages'	=> Paginator::make($pages, $pages['total'], $pages['perPage']),
+			'pages'		=> Paginator::make($pages, $pages['total'], $pages['perPage']),
 		);
 		return $this->adminView('content.page.index', $data);
 	}
@@ -37,6 +37,7 @@ class Admin_PageController extends AsmoyoController {
 		$data = array(
 			'parentList'	=> asDropdown($this->page->getParent(), true),
 			'statusList'	=> asDropdown($this->page->getStatusList()),
+			'widgets'		=> app('asmoyo.widget')->getAllDetailDropdown(),
 		);
 		return $this->adminView('content.page.create', $data);
 	}

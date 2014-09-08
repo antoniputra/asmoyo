@@ -11,12 +11,6 @@ class Admin_PageController extends AsmoyoController {
 		$this->page = $page;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 * GET
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$pages = $this->page->getRepoPaginatedCache();
@@ -26,12 +20,6 @@ class Admin_PageController extends AsmoyoController {
 		return $this->adminView('content.page.index', $data);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 		$data = array(
@@ -43,12 +31,6 @@ class Admin_PageController extends AsmoyoController {
 		return $this->setCollumn('two_collumn')->adminView('content.page.form', $data);
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST
-	 *
-	 * @return Response
-	 */
 	public function store()
 	{
 		$page = $this->page->getNewInstance();
@@ -59,13 +41,6 @@ class Admin_PageController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', 'Gagal dibuat !!', $page->getErrors());
 	}
 
-	/**
-	 * Display the specified resource.
-	 * GET
-	 *
-	 * @param  int  $slug
-	 * @return Response
-	 */
 	public function show($slug)
 	{
 		$data = array(
@@ -98,13 +73,6 @@ class Admin_PageController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', "$page[title] Gagal diperbarui !!", $page->getErrors());
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function destroy($id)
 	{
 		$page 	= $this->page->requireById($id);
@@ -115,13 +83,6 @@ class Admin_PageController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
 	}
 
-	/**
-	 * Remove Permanent the specified resource from storage.
-	 * DELETE
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function forceDestroy($id)
 	{
 		$page 	= $this->page->getRepoById($id);

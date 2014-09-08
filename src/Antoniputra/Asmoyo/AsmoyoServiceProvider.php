@@ -25,12 +25,10 @@ class AsmoyoServiceProvider extends ServiceProvider {
 
 		// set Auth model
 		Config::set('auth.model', Config::get('asmoyo::model.user'));
-
-		if( \Schema::hasTable('options') ) {
-			include __DIR__ . '/../../functions.php';
-			include __DIR__ . '/../../filters.php';
-			include __DIR__ . '/../../routes.php';
-		}
+	
+		include __DIR__ . '/../../functions.php';
+		include __DIR__ . '/../../filters.php';
+		include __DIR__ . '/../../routes.php';
 	}
 
 	/**

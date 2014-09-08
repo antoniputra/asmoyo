@@ -96,7 +96,9 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function forceDestroy($widgetSlug, $catSlug)
 	{
-		return 'ini '. $widgetSlug .' delete '. $catSlug;
+		$wgCat = $this->wgCategory->getRepoBySlug($catSlug);
+		$this->wgCategory->delete($wgCat, true);
+		return $this->redirectWithAlert(admin_route('widget.cat.index', [$widgetSlug]), 'success', 'Berhasil dihapus permanent !!');
 	}
 
 
@@ -141,7 +143,13 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function itemEdit($widgetSlug, $catSlug, $itemId)
 	{
-		return 'widget edit';
+		$wgCat 	= $this->wgCategory->requireBySlug($catSlug);
+		$wgItem = $this->wgItem->requireById($itemId);
+		$data = array(
+			'wgItem' 	=> $wgItem,
+			'wgCat' 	=> $wgCat,
+		);
+		return $this->adminView('content.widget.'. $this->wg_uri .'.item_form', $data);
 	}
 
 	public function itemForceDestroy($widgetSlug, $catSlug, $itemId)

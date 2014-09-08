@@ -31,4 +31,17 @@ class WidgetRepo extends Repository {
 		$this->repo_type 	= 'widget_'. $widget_name;
 		return $this;
 	}
+
+	/**
+	 * 
+	 */
+	public function delete($model, $is_permanent = false)
+	{
+		if ($is_permanent) {
+			$model->items()->forceDelete();
+		} else {
+			$model->items()->delete();
+		}
+		return parent::delete($model, $is_permanent);
+	}
 }

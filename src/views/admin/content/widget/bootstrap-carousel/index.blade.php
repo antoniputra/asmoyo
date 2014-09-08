@@ -32,6 +32,9 @@
 							<a href="{{ admin_route('widget.cat.show', array($wg_uri, $widget['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-search"></i> Lihat
 							</a>
+							<a href="{{ admin_route('widget.item.index', array($wg_uri, $widget['slug'])) }}" class="btn btn-default btn-sm">
+								<i class="fa fa-gear"></i> Manage
+							</a>
 							<a href="{{ admin_route('widget.cat.edit', array($wg_uri, $widget['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-pencil"></i> Edit
 							</a>

@@ -142,7 +142,7 @@ class OptionsTableSeeder extends Seeder {
 				'description'	=> 'This is banner using bootstrap-carousel.js',
 				'value'			=> json_encode([
 					'title'	=> 'Bootstrap Carousel',
-					'fields' => ['category_id', 'image', 'title', 'description']
+					'fields' => ['category_id', 'order', 'image', 'title', 'description']
 				]),
 				'type'			=> 'json',
 			]

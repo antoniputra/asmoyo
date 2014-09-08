@@ -10,6 +10,10 @@
 		<i class="fa fa-th-large"></i>
 		Daftar - {{$widget['title']}}
 		&nbsp;
+		<a href="{{admin_route( 'widget.cat.show', [$wg_uri, $widget['slug']] )}}" class="btn btn-primary btn-sm">
+			<i class="fa fa-search"></i>
+			Preview
+		</a>
 		<a href="{{admin_route( 'widget.item.create', [$wg_uri, $widget['slug']] )}}" class="btn btn-primary btn-sm">
 			<i class="fa fa-plus"></i>
 			Tambah Item
@@ -19,7 +23,8 @@
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th style="width:70%;">Item</th>
+					<th style="width:30%;">Image</th>
+					<th style="width:40%;">Description</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -31,6 +36,8 @@
 							<div class="thumbnail">
 								<img src="{{ $item['image'] }}">
 							</div>
+						</td>
+						<td>
 							<h4>{{$item['title']}}</h4>
 							<p>{{$item['description']}}</p>
 						</td>

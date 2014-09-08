@@ -143,6 +143,9 @@ function getMime($ext, $default='text/html')
 }
 
 
+\View::addNamespace('asmoyo-widget', app_path('views/packages/asmoyo/widget'));
+
+
 /**
 * ===============
 * Register Macros
@@ -177,4 +180,12 @@ Form::macro('link', function($text, $method, $action, $attr = array(), $confirm_
     $output .= Form::close();
     
     return $output;
+});
+
+/**
+* {asmoyo name='bootstrap-carousel' category='banner-utama' asmoyo}
+*/
+HTML::macro('translatePseudo', function($pseudo)
+{
+    return app('asmoyo.widget')->translatePseudo($pseudo);
 });

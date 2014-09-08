@@ -25,6 +25,15 @@ class WgCategoryRepo extends Repository {
 		return $this;
 	}
 
+	public function getByCategorySlug($slug)
+	{
+		$key = $this->getCacheKey(__FUNCTION__.$slug);
+        return $this->cache()->rememberForever($key, function() use($slug)
+        {
+			return $this->queryRepo()->with(['items'])->where('slug', $slug)->first();
+		});
+	}
+
 	/**
 	 * Delete Model with these items
 	 */

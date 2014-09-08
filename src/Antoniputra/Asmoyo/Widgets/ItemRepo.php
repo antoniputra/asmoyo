@@ -12,7 +12,7 @@ class ItemRepo extends Repository {
 
 	public function prepare($widget_name, $widget_fields)
 	{
-		$this->repo_fields 	= $widget_fields;
+		$this->repo_fields 	= array_merge(['id'], $widget_fields);
 		$this->repo_type 	= 'widget_'. $widget_name;
 		return $this;
 	}

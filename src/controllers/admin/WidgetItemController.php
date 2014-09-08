@@ -152,9 +152,22 @@ class Admin_WidgetItemController extends AsmoyoController {
 		return $this->adminView('content.widget.'. $this->wg_uri .'.item_form', $data);
 	}
 
+	public function itemUpdate($widgetSlug, $catSlug, $itemId)
+	{
+		$wgItem = $this->wgItem->requireById($itemId);
+		$wgItem->fill( Input::only($this->widget['fields']) );
+		if ( $this->wgItem->save($wgItem) )
+		{
+			return $this->redirectWithAlert(admin_route('widget.item.index', [$widgetSlug, $catSlug]), 'success', 'Berhasil diperbarui !!');
+		}
+		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $wgItem->getErrors());
+	}
+
 	public function itemForceDestroy($widgetSlug, $catSlug, $itemId)
 	{
-		
+		$wgItem = $this->wgItem->requireById($itemId);
+		$this->wgItem->delete($wgItem, true);
+		return $this->redirectWithAlert(admin_route('widget.item.index', [$widgetSlug, $catSlug]), 'success', 'Berhasil diperbarui !!');
 	}
 
 	protected function adminViewShare()

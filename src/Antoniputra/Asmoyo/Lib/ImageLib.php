@@ -150,8 +150,8 @@ class ImageLib
 	protected function fileData($file = array())
 	{
 		$file 		= $file ?: $this->file;
-		$fileName 	= $this->fileName ?: str_random(50) .'.'. $extension;
 		$extension 	= $file->getClientOriginalExtension();
+		$fileName 	= $this->fileName ?: str_random(50) .'.'. $extension;
 		return array(
 			'mimeType'		=> $file->getMimeType(),
 			'extension'		=> $extension,

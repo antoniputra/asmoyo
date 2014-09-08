@@ -24,7 +24,7 @@ class AssetController extends Controller
 	{
 		$this->path = str_finish(Config::get('asmoyo::uploads.path_image'), '/');
 		$this->path_thumb 		= str_finish($this->path, '/') .'thumb/';
-		$this->default_image 	= asmoyo_option('media_image_default');
+		$this->default_image 	= asmoyo_option('media_imageDefault');
 	}
 
 	/**

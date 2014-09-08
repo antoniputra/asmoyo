@@ -35,11 +35,12 @@ class Admin_PageController extends AsmoyoController {
 	public function create()
 	{
 		$data = array(
+			'title'			=> 'Buat Halaman',
 			'parentList'	=> asDropdown($this->page->getParent(), true),
 			'statusList'	=> asDropdown($this->page->getStatusList()),
 			'widgets'		=> app('asmoyo.widget')->getAllDetailDropdown(),
 		);
-		return $this->adminView('content.page.create', $data);
+		return $this->setCollumn('two_collumn')->adminView('content.page.form', $data);
 	}
 
 	/**
@@ -73,41 +74,28 @@ class Admin_PageController extends AsmoyoController {
 		return $this->adminView('content.page.show', $data);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET
-	 *
-	 * @param  int  $slug
-	 * @return Response
-	 */
 	public function edit($slug)
 	{
 		$page = $this->page->requireBySlugCache($slug);
 		$data = array(
 			'page'			=> $page->toArray(),
+			'title'			=> 'Edit Halaman : '. $page['title'],
 			'parentList'	=> asDropdown($this->page->getParent($page['id']), true),
 			'statusList'	=> asDropdown($this->page->getStatusList()),
 			'widgets'		=> app('asmoyo.widget')->getAllDetailDropdown(),
 		);
-		return $this->adminView('content.page.edit', $data);
+		return $this->setCollumn('two_collumn')->adminView('content.page.form', $data);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update($id)
 	{
 		$page 	= $this->page->requireById($id);
 		$page->fill( $this->page->getInputOnlyFillable() );
 		if ( $this->page->save($page) )
 		{
-			return $this->redirectWithAlert(admin_route('page.index'), 'success', 'Berhasil diperbarui !!');
+			return $this->redirectWithAlert(admin_route('page.index'), 'success', "$page[title] Berhasil diperbarui !!");
 		}
-		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $page->getErrors());
+		return $this->redirectWithAlert(false, 'danger', "$page[title] Gagal diperbarui !!", $page->getErrors());
 	}
 
 	/**

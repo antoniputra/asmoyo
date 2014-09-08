@@ -1,5 +1,5 @@
 @section('title')
-	{{ !isset($wgItem) ? "Tambah Item : $wgCat[title]" : "Edit Item $wgItem[title]" }} 
+	{{ !isset($wgItem) ? "Tambah Item : $wgCat[title]" : "Edit Item $wgItem[title]" }}
 @stop
 
 @section('before_content')

@@ -183,9 +183,14 @@ Form::macro('link', function($text, $method, $action, $attr = array(), $confirm_
 });
 
 /**
-* {asmoyo name='bootstrap-carousel' category='banner-utama' asmoyo}
+* @param string pseudo {asmoyo name=bootstrap-carousel category=banner-utama asmoyo}
 */
-HTML::macro('translatePseudo', function($pseudo)
+HTML::macro('translatePseudo', function($pseudo, $newProperty = [])
 {
-    return app('asmoyo.widget')->translatePseudo($pseudo);
+    return app('asmoyo.widget')->translatePseudo($pseudo, $newProperty);
 });
+
+function translatePseudo($pseudo, $newProperty = [])
+{
+    return HTML::translatePseudo($pseudo, $newProperty);
+}

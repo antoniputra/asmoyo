@@ -72,7 +72,7 @@ class Wg {
 	
 	/**
 	 * Create pseudo by given key
-	 * @return {asmoyo name="widget_bootstrap-carousel" asmoyo}
+	 * @return string {asmoyo name=... category=... asmoyo}
 	 */
 	public function makePseudo($name, $category = null, $item = null)
 	{
@@ -95,30 +95,35 @@ class Wg {
 
 	/**
 	 * @param string pseudo
+	 * @param array option
 	 * @return View with pseudo query data
 	 */
-	public function translatePseudo($pseudo)
+	public function translatePseudo($pseudo, $additional_prop = [])
 	{
 		$pseudo = trim(str_replace([$this->pseudo_tag[0], $this->pseudo_tag[1]], "", $pseudo));
 		$pseudo = str_replace(" ", "&", $pseudo);
-		parse_str($pseudo, $result);
+		parse_str($pseudo, $property);
+
+		$property = array_unique(array_merge($property, $additional_prop));
 
 		$data = [
-			'widget'	=> $this->widgets[$result['name']],
+			'property'	=> $property,
+			'widget'	=> $this->widgets[$property['name']],
 		];
 		
-		if ( isset($result['category']) ) {
+		if ( isset($property['category']) ) {
 			$data += [
-				'wgCat' 	=> $this->wgCategory->getByCategorySlug($result['category']),
+				'wgCat' 	=> $this->wgCategory->getByCategorySlug($property['category']),
 			];
 		}
 
-		if ( isset($result['item']) ) {
+		if ( isset($property['item']) ) {
 			$data += [
-				'wgItem' 	=> $this->wgItem->getById($result['item']),
+				'wgItem' 	=> $this->wgItem->getById($property['item']),
 			];
 		}
 
-		return View::make('asmoyo-widget::bootstrap-carousel.default', $data)->render();
+		$view = isset($property['view']) ? $property['view'] : 'default' ;
+		return View::make('asmoyo-widget::bootstrap-carousel.'. $view, $data)->render();
 	}
 }

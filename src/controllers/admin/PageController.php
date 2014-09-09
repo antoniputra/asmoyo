@@ -51,8 +51,6 @@ class Admin_PageController extends AsmoyoController {
 
 	public function edit($slug)
 	{
-		return translatePseudo('{asmoyo name=bootstrap-carousel category=banner-utama asmoyo}');
-		
 		$page = $this->page->requireBySlugCache($slug);
 		$data = array(
 			'page'			=> $page->toArray(),

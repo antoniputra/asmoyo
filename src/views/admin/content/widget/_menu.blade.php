@@ -1,5 +1,8 @@
 <nav class="navbar navbar-inverse" role="navigation">
   	<div class="container-fluid">
+  		<a class="navbar-brand">
+			Widget
+		</a>
 		<ul class="nav navbar-nav">
 			<li>
 				<a href="{{admin_route('widget.index')}}">

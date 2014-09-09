@@ -8,19 +8,36 @@
 	<h3 class="box-header">
 		<i class="fa fa-files-o"></i>
 		Halaman : {{$page['title']}}
+		<div>
+			<a href="{{ route('page.show', $page['slug']) }}" class="text-link">
+				<small>
+					<i class="fa fa-link"></i>
+					{{ route('page.show', $page['slug']) }}
+				</small>
+			</a>			
+		</div>
 	</h3>
 	<div class="box-content">
+		<ul class="list-inline">
+			<li>
+				<a class="btn btn-primary">
+					Status : <b>{{$page['status']}}</b>
+				</a>
+			</li>
+		</ul>
+
+		<hr>
 		<blockquote>
 			<p><b>Description</b></p>
-			{{$page['description']}}
+			<p>{{$page['description']}}</p>
 		</blockquote>
-		
 		<hr>
+		
 		<div>
 			{{$page['content']}}
 		</div>
-		<hr>
 
+		<hr>
 		<div class="well">
 			<div>
 				<h5><b>Meta Keywords</b></h5>

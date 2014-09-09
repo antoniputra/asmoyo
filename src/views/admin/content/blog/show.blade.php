@@ -8,19 +8,47 @@
 	<h3 class="box-header">
 		<i class="fa fa-file-text-o"></i>
 		Blog : {{$blog['title']}}
+		<div>
+			<a href="{{ route('blog.show', $blog['slug']) }}" class="text-link">
+				<small>
+					<i class="fa fa-link"></i>
+					{{ route('blog.show', $blog['slug']) }}
+				</small>
+			</a>
+		</div>
 	</h3>
 	<div class="box-content">
+
+		<ul class="list-inline">
+			<li>
+				<a class="btn btn-primary">
+					Status : <b>{{$blog['status']}}</b>
+				</a>
+			</li>
+			<li>
+				<a href="{{ admin_route('category.show', $blog['category']['slug']) }}" class="btn btn-primary">
+					Kategori : <b>{{$blog['category']['title']}}</b>
+				</a>
+			</li>
+			<li>
+				<a class="btn btn-primary">
+					Komentar Status : <b>{{$blog['comment_status'] ? 'Aktif' : 'Tidak Aktif'}}</b>
+				</a>
+			</li>
+		</ul>
+
+		<hr>
 		<blockquote>
 			<p><b>Description</b></p>
-			{{$blog['description']}}
+			<p>{{$blog['description']}}</p>
 		</blockquote>
-		
 		<hr>
+		
 		<div>
 			{{$blog['content']}}
 		</div>
-		<hr>
 
+		<hr>
 		<div class="well">
 			<div>
 				<h5><b>Meta Keywords</b></h5>

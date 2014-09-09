@@ -8,7 +8,8 @@ class Blog extends Entity {
     use SoftDeletingTrait;
 
 	protected $table      	= 'posts';
-	protected $fillable 	= ['user_id', 'category_id', 'image', 'images', 'status', 'comment_status', 'type', 'mime_type', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
+	protected $fillable 	= ['category_id', 'image', 'images', 'status', 'comment_status', 'mime_type', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
+    protected $guard        = ['user_id', 'type'];
     protected $dates        = ['deleted_at'];
 
     /**
@@ -29,7 +30,15 @@ class Blog extends Entity {
         {
             $model->user_id = \Auth::user()->id;
             $model->type    = 'blog';
+
+            $options = $model->getAttribute('options');
+            $model->options =  $options ? json_encode($options) : '';
         });
+    }
+
+    public function getOptionsAttribute($value)
+    {
+        return ( ! is_array($value) ) ? json_decode($value, true) : $value;
     }
 
     /**

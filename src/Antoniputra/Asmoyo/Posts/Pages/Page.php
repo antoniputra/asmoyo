@@ -8,7 +8,7 @@ class Page extends Entity {
     use SoftDeletingTrait;
 
 	protected $table      	= 'posts';
-	protected $fillable 	= ['user_id', 'parent_id', 'image', 'images', 'status', 'comment_status', 'type', 'order', 'mime_type', 'size', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
+	protected $fillable 	= ['parent_id', 'image', 'images', 'status', 'comment_status', 'order', 'mime_type', 'size', 'options', 'title', 'slug', 'description', 'content', 'meta_keywords', 'meta_description'];
     protected $guarded      = ['user_id', 'type'];
     protected $dates        = ['deleted_at'];
 

@@ -17,7 +17,7 @@ abstract class AsmoyoController extends Controller
 	{
 		$this->publicViewShare();
 
-		$_path 		= 'asmoyo-theme.baretshow.';
+		$_path 		= 'asmoyo-theme.'. asmoyo_option('web_theme.name') .'.';
 		$layout 	= $_path . $this->layout;
 		$collumn 	= $_path . $this->collumn;
 		$content 	= $_path . $content;

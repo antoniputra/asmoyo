@@ -21,17 +21,23 @@
 
 		<ul class="list-inline">
 			<li>
-				<a class="btn btn-primary">
+				<a href="{{ admin_route('blog.edit', $blog['slug']) }}" class="btn btn-primary">
+					<i class="fa fa-pencil"></i>
+					Edit
+				</a>
+			</li>
+			<li>
+				<a class="btn btn-default">
 					Status : <b>{{$blog['status']}}</b>
 				</a>
 			</li>
 			<li>
-				<a href="{{ admin_route('category.show', $blog['category']['slug']) }}" class="btn btn-primary">
+				<a href="{{ admin_route('category.show', $blog['category']['slug']) }}" class="btn btn-default">
 					Kategori : <b>{{$blog['category']['title']}}</b>
 				</a>
 			</li>
 			<li>
-				<a class="btn btn-primary">
+				<a class="btn btn-default">
 					Komentar Status : <b>{{$blog['comment_status'] ? 'Aktif' : 'Tidak Aktif'}}</b>
 				</a>
 			</li>

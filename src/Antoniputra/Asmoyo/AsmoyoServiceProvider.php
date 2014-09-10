@@ -50,7 +50,7 @@ class AsmoyoServiceProvider extends ServiceProvider {
 			return $app['asmoyo.option']->getBase();
 		});
 
-		// get widget
+		// get widget lists
 		$this->app->bindShared('asmoyo.option.widget', function($app)
 		{
 			return $app['asmoyo.option']->getWidget();

@@ -11,12 +11,6 @@ class Admin_CategoryController extends AsmoyoController {
 		$this->category = $category;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 * GET
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$cats = $this->category->getRepoPaginatedCache();
@@ -26,27 +20,16 @@ class Admin_CategoryController extends AsmoyoController {
 		return $this->adminView('content.category.index', $data);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 		$data = array(
 			'parentList'	=> asDropdown($this->category->getParent(), true),
 			'statusList'	=> asDropdown($this->category->getStatusList()),
+			'title'			=> 'Buat Kategori',
 		);
-		return $this->adminView('content.category.create', $data);
+		return $this->adminView('content.category.form', $data);
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST
-	 *
-	 * @return Redirect
-	 */
 	public function store()
 	{
 		$category = $this->category->getNewInstance();
@@ -57,13 +40,6 @@ class Admin_CategoryController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', 'Gagal dibuat !!', $category->getErrors());
 	}
 
-	/**
-	 * Display the specified resource.
-	 * GET
-	 *
-	 * @param  string  $slug
-	 * @return Response
-	 */
 	public function show($slug)
 	{
 		$cat = $this->category->requireBySlugCache($slug);
@@ -75,13 +51,6 @@ class Admin_CategoryController extends AsmoyoController {
 		return $this->adminView('content.category.show', $data);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($slug)
 	{
 		$cat = $this->category->requireBySlugCache($slug);
@@ -89,17 +58,11 @@ class Admin_CategoryController extends AsmoyoController {
 			'category'		=> $cat,
 			'parentList'	=> asDropdown($this->category->getParent($cat['id']), true),
 			'statusList'	=> asDropdown($this->category->getStatusList()),
+			'title'			=> 'Edit Kategori : '. $cat['title'],
 		);
-		return $this->adminView('content.category.edit', $data);
+		return $this->adminView('content.category.form', $data);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update($id)
 	{
 		$category 	= $this->category->requireById($id);
@@ -111,13 +74,6 @@ class Admin_CategoryController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $category->getErrors());
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function destroy($id)
 	{
 		$category 	= $this->category->requireById($id);
@@ -128,13 +84,6 @@ class Admin_CategoryController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
 	}
 
-	/**
-	 * Remove Permanent the specified resource from storage.
-	 * DELETE
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function forceDestroy($id)
 	{
 		$category 	= $this->category->getRepoById($id);

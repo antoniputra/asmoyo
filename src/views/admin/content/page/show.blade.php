@@ -20,7 +20,13 @@
 	<div class="box-content">
 		<ul class="list-inline">
 			<li>
-				<a class="btn btn-primary">
+				<a href="{{ admin_route('page.edit', $page['slug']) }}" class="btn btn-primary">
+					<i class="fa fa-pencil"></i>
+					Edit
+				</a>
+			</li>
+			<li>
+				<a class="btn btn-default">
 					Status : <b>{{$page['status']}}</b>
 				</a>
 			</li>

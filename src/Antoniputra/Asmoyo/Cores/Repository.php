@@ -108,17 +108,27 @@ abstract class Repository
         return $query;
     }
 
-    public function getRepoAll()
+    public function getRepoAll($limit = null)
     {
-        return $this->queryRepo()->get();
+        $query = $this->queryRepo();
+        if ($limit AND is_numeric($limit))
+        {
+            $query = $query->limit($limit);
+        }
+        return $query->get();
     }
 
-	public function getRepoAllCache()
+	public function getRepoAllCache($limit = null)
     {
-        $key = $this->getCacheKey(__FUNCTION__);
-        return $this->cache()->rememberForever($key, function()
+        $key = $this->getCacheKey(__FUNCTION__ . $limit);
+        return $this->cache()->rememberForever($key, function() use($limit)
         {
-            return $this->queryRepo()->get();
+            $query = $this->queryRepo();
+            if ($limit AND is_numeric($limit))
+            {
+                $query = $query->limit($limit);
+            }
+            return $query->get();
         });
     }
 

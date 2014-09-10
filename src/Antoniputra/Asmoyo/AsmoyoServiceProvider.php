@@ -114,7 +114,7 @@ class AsmoyoServiceProvider extends ServiceProvider {
 		/**
 		 * Get Menu
 		 */
-		$this->app->bindShared('asmoyo.preference.menu', function()
+		$this->app->bindShared('asmoyo.preference.navbar', function()
 		{
 			return app('asmoyo.page')->getAsMenu();
 		});

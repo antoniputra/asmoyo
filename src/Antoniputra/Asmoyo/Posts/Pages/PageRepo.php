@@ -24,13 +24,47 @@ class PageRepo extends Repository
 	 */
 	public function getParent($forgetId = null)
 	{
-		$parent = $this->queryRepo()->where('parent_id', 0);
+		$parent = $this->setRepoFields(['id', 'parent_id', 'status', 'type', 'order', 'title', 'slug'])
+			->queryRepo()
+			->where('parent_id', 0)
+			->orderBy('order', 'asc');
 
 		if($forgetId) {
 			$parent = $parent->where('id', '!=', $forgetId);
 		}
 
 		return $parent->get()->toArray();
+	}
+
+	public function getChild($parent_id)
+	{
+		return $this->setRepoFields(['id', 'parent_id', 'status', 'type', 'order', 'title', 'slug'])
+			->queryRepo()
+			->where('parent_id', $parent_id)
+			->orderBy('order', 'asc')
+			->get()->toArray();
+	}
+
+	/**
+	 * get as menu
+	 * with 1 level dropdown
+	 */
+	public function getAsMenu()
+	{
+		$key = $this->getCacheKey(__FUNCTION__);
+        return $this->cache()->rememberForever($key, function()
+        {
+			$result = [];
+			$parent = $this->getParent();
+			if ($parent) {
+				foreach ($parent as $p) {
+					$p 				= $p;
+					$p['child']		= $this->getChild($p['id']);
+					$result[] = $p;
+				}
+			}
+			return $result;
+		});
 	}
 
 }

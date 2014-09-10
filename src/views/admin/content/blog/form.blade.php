@@ -44,6 +44,15 @@
 				</div>
 
 				<div class="form-group">
+					<label for="media_id" class="col-sm-2 control-label">
+						Gambar
+					</label>
+					<div class="col-sm-10">
+						{{Form::text('image', null, array('id' => 'image', 'class'=>'form-control'))}}
+					</div>
+				</div>
+
+				<div class="form-group">
 					<label for="description" class="col-sm-2 control-label" for="description">
 						Description
 					</label>

@@ -112,6 +112,14 @@ class AsmoyoServiceProvider extends ServiceProvider {
 		});
 
 		/**
+		 * Binding Preference
+		 */
+		/*$this->app->bindShared('asmoyo.preference.widget', function($app)
+		{
+			return new \Antoniputra\Asmoyo\Lib\Preference();
+		});*/
+
+		/**
 		 * Get Menu
 		 */
 		$this->app->bindShared('asmoyo.preference.navbar', function()

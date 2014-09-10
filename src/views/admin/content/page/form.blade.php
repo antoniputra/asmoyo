@@ -67,11 +67,8 @@
 
 	<div class="col-md-4">
 		<div class="asmoyo-box">
-			<h3 class="box-header">
-				<i class="fa fa-files-o"></i>
-				Pengaturan
-			</h3>
 			<div class="box-content">
+				<legend>Setting</legend>
 				<div class="form-group">
 					<label for="parent_id" class="" for="parent_id">
 						Induk Halaman
@@ -89,9 +86,17 @@
 						{{Form::select('status', $statusList, null, array('class' => 'form-control', 'id' => 'status'))}}
 					</div>
 				</div>
-
 				<hr>
 
+				<legend>Preference</legend>
+				<div class="form-group">
+					<label class="" for="options.collumn">
+						Collumn
+					</label>
+					<div class="">
+						{{Form::select('options[collumn]', ['one_collumn' => 'One Collumn', 'two_collumn' => 'Two Collumn', 'three_collumn' => 'Three Collumn', ], null, array('class' => 'form-control', 'id' => 'options.collumn'))}}
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="" for="options.before_content">
 						Before Content
@@ -100,7 +105,6 @@
 						{{Form::select('options[before_content]', $widgets, null, array('class' => 'form-control', 'id' => 'options.before_content'))}}
 					</div>
 				</div>
-
 				<div class="form-group">
 					<label class="" for="options.after_content">
 						After Content
@@ -109,9 +113,25 @@
 						{{Form::select('options[after_content]', $widgets, null, array('class' => 'form-control', 'id' => 'options.after_content'))}}
 					</div>
 				</div>
-
+				<div class="form-group">
+					<label class="" for="options.sidebar_left">
+						Sidebar Left
+					</label>
+					<div class="">
+						{{Form::select('options[sidebar_left]', $widgets, null, array('class' => 'form-control', 'id' => 'options.sidebar_left'))}}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="" for="options.sidebar_right">
+						Sidebar Right
+					</label>
+					<div class="">
+						{{Form::select('options[sidebar_right]', $widgets, null, array('class' => 'form-control', 'id' => 'options.sidebar_right'))}}
+					</div>
+				</div>
 				<hr>
 
+				<legend>Meta</legend>
 				<div class="form-group">
 					<label class="" for="meta_keywords">
 						Meta Keyword

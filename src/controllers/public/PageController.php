@@ -11,6 +11,6 @@ class Public_PageController extends AsmoyoController
 
 	public function show($slug)
 	{
-		return app('asmoyo.preference.menu');
+		return app('asmoyo.preference.navbar');
 	}
 }

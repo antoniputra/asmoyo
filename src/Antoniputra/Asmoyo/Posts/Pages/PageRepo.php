@@ -59,17 +59,18 @@ class PageRepo extends Repository
 			if ($parent) {
 				foreach ($parent as $p) {
 					$menu = $p;
-					$menu['url'] = route('page.show', $p['slug']);
+					$menu['url'] 	= route('page.show', $p['slug']);
+					$menu['child'] 	= [];
 
 					$child = $this->getChild($p['id']);
 					if ($child) {
 						foreach ($child as $c) {
 							$menuChild 	= $c;
 							$menuChild['url'] = route('page.show', $c['slug']);
+							$menu['child'][] = $menuChild;
 						}
 					}
 
-					$menu['child'] = $menuChild;
 					$result[] = $menu;
 				}
 			}

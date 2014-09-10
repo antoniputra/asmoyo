@@ -95,10 +95,11 @@ class Wg {
 
 	/**
 	 * @param string pseudo
+	 * @param string type(header, body, content, sidebar)
 	 * @param array option
 	 * @return View with pseudo query data
 	 */
-	public function translatePseudo($pseudo, $additional_prop = [])
+	public function translatePseudo($pseudo, $type, $additional_prop = [])
 	{
 		$pseudo = trim(str_replace([$this->pseudo_tag[0], $this->pseudo_tag[1]], "", $pseudo));
 		$pseudo = str_replace(" ", "&", $pseudo);
@@ -122,8 +123,6 @@ class Wg {
 				'wgItem' 	=> $this->wgItem->getById($property['item']),
 			];
 		}
-
-		$view = isset($property['view']) ? $property['view'] : 'default' ;
-		return View::make('asmoyo-widget::bootstrap-carousel.'. $view, $data)->render();
+		return View::make('asmoyo-widget::'. $type .'.'. $property['name'], $data)->render();
 	}
 }

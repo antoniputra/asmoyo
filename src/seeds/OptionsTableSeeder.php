@@ -102,8 +102,8 @@ class OptionsTableSeeder extends Seeder {
 				'name'			=> 'web_theme',
 				'description'	=> 'Theme for this website',
 				'value'			=> json_encode([
-					'name'	=> 'standard',
-					'title'	=> 'Asmoyo Standard Theme',
+					'name'	=> 'baretshow',
+					'title'	=> 'Baretshow Theme',
 					'description' => 'This is Standard Theme starter for using this framework',
 				]),
 				'type'			=> 'json',

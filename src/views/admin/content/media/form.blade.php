@@ -1,4 +1,6 @@
-@section('title') Edit Media - {{$media['title']}} @stop
+@section('title')
+	{{ $title }}
+@stop
 
 @section('stylesheets')
 	@parent
@@ -9,29 +11,47 @@
 	@parent
 	{{ HTML::script('packages/antoniputra/asmoyo/admin/plugin/bs3-file-input/fileinput.min.js') }}
 
-	<script type="text/javascript">
-		$("#content").fileinput({
-			initialPreview: [
-				"<img src='{{getThumb($media['content'])}}' class='file-preview-image'>",
-			],
-			overwriteInitial: true,
-			maxFileSize: 100,
+	@if( !isset($media) )
+		<script type="text/javascript">
+			$("#content").fileinput({
+				browseClass: "btn btn-success btn-block",
+				removeClass: "btn btn-danger btn-block",
+				showCaption: false,
+				showRemove: false,
+				showUpload: false,
+				maxFileSize: 2000
+			});
+		</script>
+	@else
+		<script type="text/javascript">
+			$("#content").fileinput({
+				initialPreview: [
+					"<img src='{{getThumb($media['content'])}}' class='file-preview-image'>",
+				],
+				overwriteInitial: true,
+				maxFileSize: 100,
 
-			browseClass: "btn btn-success btn-block",
-			removeClass: "btn btn-danger btn-block",
-			showCaption: false,
-			showRemove: false,
-			showUpload: false,
-			maxFileSize: 2000
-		});
-	</script>
+				browseClass: "btn btn-success btn-block",
+				removeClass: "btn btn-danger btn-block",
+				showCaption: false,
+				showRemove: false,
+				showUpload: false,
+				maxFileSize: 2000
+			});
+		</script>
+	@endif
 @stop
 
 @section('before_content')
 	@include($theme_path .'content.media._menu')
 @stop
 
-{{ Form::model($media, array('url' => admin_route('media.update', $media['id']), 'method' => 'PUT', 'files' => true, 'class' => 'form row')) }}
+@if( !isset($media) )
+	{{ Form::open(array('url' => admin_route('media.store'), 'files' => true, 'class' => 'form row')) }}
+@else
+	{{ Form::model($media, array('url' => admin_route('media.update', $media['id']), 'method' => 'PUT', 'files' => true, 'class' => 'form row')) }}
+@endif
+
 	<div class="col-md-5">
 		<div class="asmoyo-box">
 			<h3 class="box-header">
@@ -42,10 +62,12 @@
 				<div class="form-group">
 					<label for="content">Image</label>
 					{{ Form::file('content', array('class' => 'form-control file', 'id' => 'content')) }}
-					
-					{{ Form::hidden('content', null, array('class' => 'form-control')) }}
-					{{ Form::hidden('mime_type', null, array('class' => 'form-control')) }}
-					{{ Form::hidden('size', null, array('class' => 'form-control')) }}
+
+					@if( isset($media) )
+						{{ Form::hidden('content', null, array('class' => 'form-control')) }}
+						{{ Form::hidden('mime_type', null, array('class' => 'form-control')) }}
+						{{ Form::hidden('size', null, array('class' => 'form-control')) }}
+					@endif
 				</div>
 			</div>
 		</div>
@@ -54,8 +76,7 @@
 	<div class="col-md-7">
 		<div class="asmoyo-box">
 			<h3 class="box-header">
-				<i class="fa fa-info-circle"></i>
-				Informasi
+				{{ $title }}
 			</h3>
 			<div class="box-content">
 				<div class="form-group row">

@@ -11,12 +11,6 @@ class Admin_MediaController extends AsmoyoController {
 		$this->media = $media;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /post
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$medias = $this->media->getRepoPaginatedCache();
@@ -26,28 +20,18 @@ class Admin_MediaController extends AsmoyoController {
 		return $this->setCollumn('two_collumn')->adminView('content.media.index', $data);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /post/create
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 		$categoryItems = app('asmoyo.category')->getRepoAll();
 		$data = array(
 			'statusList'	=> asDropdown($this->media->getStatusList()),
 			'categoryList'	=> asDropdown($categoryItems, true),
+
+			'title'			=> 'Tambah Media',
 		);
-		return $this->setCollumn('two_collumn')->adminView('content.media.create', $data);
+		return $this->setCollumn('two_collumn')->adminView('content.media.form', $data);
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /post
-	 *
-	 * @return Response
-	 */
 	public function store()
 	{
 		$media = $this->media->getNewInstance();
@@ -58,13 +42,6 @@ class Admin_MediaController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', 'Gagal dibuat !!', $media->getErrors());
 	}
 
-	/**
-	 * Display the specified resource.
-	 * GET /post/{slug}
-	 *
-	 * @param  int  $slug
-	 * @return Response
-	 */
 	public function show($id)
 	{
 		$media = $this->media->requireByIdCache($id);
@@ -76,13 +53,6 @@ class Admin_MediaController extends AsmoyoController {
 		return $this->adminView('content.media.show', $data);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /post/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($id)
 	{
 		$media = $this->media->requireByIdCache($id);
@@ -91,17 +61,12 @@ class Admin_MediaController extends AsmoyoController {
 			'media'			=> $media,
 			'statusList'	=> asDropdown($this->media->getStatusList()),
 			'categoryList'	=> asDropdown($categoryItems, true),
+
+			'title'			=> 'Edit Media : '. $media['title'],
 		);
-		return $this->setCollumn('two_collumn')->adminView('content.media.edit', $data);
+		return $this->setCollumn('two_collumn')->adminView('content.media.form', $data);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /post/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update($id)
 	{
 		$media 	= $this->media->requireByIdCache($id);
@@ -117,13 +82,6 @@ class Admin_MediaController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $media->getErrors());
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /post/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function destroy($id)
 	{
 		$media 	= $this->media->getRepoById($id);
@@ -134,13 +92,6 @@ class Admin_MediaController extends AsmoyoController {
 		return $this->redirectWithAlert(false, 'danger', 'Gagal dihapus !!');
 	}
 
-	/**
-	 * Remove Permanent the specified resource from storage.
-	 * DELETE /post/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function forceDestroy($id)
 	{
 		$media 	= $this->media->getRepoById($id);

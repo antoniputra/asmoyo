@@ -138,7 +138,8 @@ class AssetController extends Controller
 	 */
 	public function getDefaultImage($path)
 	{
-		$imgDefault = $path . $this->default_image;
+		// $imgDefault = $path . $this->default_image;
+		$imgDefault = public_path('/packages/antoniputra/asmoyo/_img/'). $this->default_image;
 		$etag 		= $this->makeEtag($imgDefault);
 		return $this->setImageResponse($imgDefault);
 	}

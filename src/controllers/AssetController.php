@@ -119,7 +119,7 @@ class AssetController extends Controller
 	private function setImageResponse($image, $etag = null)
 	{
 		$resp = Response::make(File::get($image), 200, array(
-			'Content-Type' => getMime(File::extension($image))
+			'Content-Type' => get_mime(File::extension($image))
 		));
 		$resp->setCache(array(
 			'max_age' 		=> 86400, // One day

@@ -24,8 +24,8 @@ class Admin_MediaController extends AsmoyoController {
 	{
 		$categoryItems = app('asmoyo.category')->getRepoAll();
 		$data = array(
-			'statusList'	=> asDropdown($this->media->getStatusList()),
-			'categoryList'	=> asDropdown($categoryItems, true),
+			'statusList'	=> as_dropdown($this->media->getStatusList()),
+			'categoryList'	=> as_dropdown($categoryItems, true),
 
 			'title'			=> 'Tambah Media',
 		);
@@ -59,8 +59,8 @@ class Admin_MediaController extends AsmoyoController {
 		$categoryItems = app('asmoyo.category')->getRepoAll();
 		$data = array(
 			'media'			=> $media,
-			'statusList'	=> asDropdown($this->media->getStatusList()),
-			'categoryList'	=> asDropdown($categoryItems, true),
+			'statusList'	=> as_dropdown($this->media->getStatusList()),
+			'categoryList'	=> as_dropdown($categoryItems, true),
 
 			'title'			=> 'Edit Media : '. $media['title'],
 		);

@@ -25,8 +25,8 @@ class Admin_BlogController extends AsmoyoController {
 		$categoryItems = app('asmoyo.category')->getRepoAll();
 		$data = array(
 			'title'			=> 'Buat Baru',
-			'statusList'	=> asDropdown($this->blog->getStatusList()),
-			'categoryList'	=> asDropdown($categoryItems, true),
+			'statusList'	=> as_dropdown($this->blog->getStatusList()),
+			'categoryList'	=> as_dropdown($categoryItems, true),
 			'widgets'		=> app('asmoyo.widget')->getAllDetailDropdown(),
 		);
 		return $this->setCollumn('two_collumn')->adminView('content.blog.form', $data);
@@ -57,8 +57,8 @@ class Admin_BlogController extends AsmoyoController {
 		$data = array(
 			'blog'			=> $blog->toArray(),
 			'title'			=> 'Edit Blog : '. $blog['title'],
-			'statusList'	=> asDropdown($this->blog->getStatusList()),
-			'categoryList'	=> asDropdown($categoryItems, true),
+			'statusList'	=> as_dropdown($this->blog->getStatusList()),
+			'categoryList'	=> as_dropdown($categoryItems, true),
 			'widgets'		=> app('asmoyo.widget')->getAllDetailDropdown(),
 		);
 		return $this->setCollumn('two_collumn')->adminView('content.blog.form', $data);

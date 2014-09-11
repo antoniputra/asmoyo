@@ -4,7 +4,7 @@ use Antoniputra\Asmoyo\Posts\Pages\PageRepo;
 
 class Public_PageController extends AsmoyoController
 {
-	protected $collumn = 'one_collumn';
+	protected $collumn = 'two_collumn';
 
 	public function __construct(PageRepo $page)
 	{
@@ -16,6 +16,6 @@ class Public_PageController extends AsmoyoController
 		$data = [
 			'page'	=> $this->page->requireBySlugCache($slug),
 		];
-		return $this->publicView('content.post.show', $data);
+		return $this->publicView('content.page.show', $data);
 	}
 }

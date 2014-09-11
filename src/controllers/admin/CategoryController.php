@@ -23,8 +23,8 @@ class Admin_CategoryController extends AsmoyoController {
 	public function create()
 	{
 		$data = array(
-			'parentList'	=> asDropdown($this->category->getParent(), true),
-			'statusList'	=> asDropdown($this->category->getStatusList()),
+			'parentList'	=> as_dropdown($this->category->getParent(), true),
+			'statusList'	=> as_dropdown($this->category->getStatusList()),
 			'title'			=> 'Buat Kategori',
 		);
 		return $this->adminView('content.category.form', $data);
@@ -56,8 +56,8 @@ class Admin_CategoryController extends AsmoyoController {
 		$cat = $this->category->requireBySlugCache($slug);
 		$data = array(
 			'category'		=> $cat,
-			'parentList'	=> asDropdown($this->category->getParent($cat['id']), true),
-			'statusList'	=> asDropdown($this->category->getStatusList()),
+			'parentList'	=> as_dropdown($this->category->getParent($cat['id']), true),
+			'statusList'	=> as_dropdown($this->category->getStatusList()),
 			'title'			=> 'Edit Kategori : '. $cat['title'],
 		);
 		return $this->adminView('content.category.form', $data);

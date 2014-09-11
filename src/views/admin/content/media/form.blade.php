@@ -26,7 +26,7 @@
 		<script type="text/javascript">
 			$("#content").fileinput({
 				initialPreview: [
-					"<img src='{{getThumb($media['content'])}}' class='file-preview-image'>",
+					"<img src='{{get_thumb($media['content'])}}' class='file-preview-image'>",
 				],
 				overwriteInitial: true,
 				maxFileSize: 100,

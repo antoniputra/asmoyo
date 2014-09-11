@@ -24,8 +24,8 @@ class Admin_PageController extends AsmoyoController {
 	{
 		$data = array(
 			'title'			=> 'Buat Halaman',
-			'parentList'	=> asDropdown($this->page->getParent(), true),
-			'statusList'	=> asDropdown($this->page->getStatusList()),
+			'parentList'	=> as_dropdown($this->page->getParent(), true),
+			'statusList'	=> as_dropdown($this->page->getStatusList()),
 			'widgets'		=> app('asmoyo.widget')->getAllDetailDropdown(),
 		);
 		return $this->setCollumn('two_collumn')->adminView('content.page.form', $data);
@@ -55,8 +55,8 @@ class Admin_PageController extends AsmoyoController {
 		$data = array(
 			'page'			=> $page->toArray(),
 			'title'			=> 'Edit Halaman : '. $page['title'],
-			'parentList'	=> asDropdown($this->page->getParent($page['id']), true),
-			'statusList'	=> asDropdown($this->page->getStatusList()),
+			'parentList'	=> as_dropdown($this->page->getParent($page['id']), true),
+			'statusList'	=> as_dropdown($this->page->getStatusList()),
 			'widgets'		=> app('asmoyo.widget')->getAllDetailDropdown(),
 		);
 		return $this->setCollumn('two_collumn')->adminView('content.page.form', $data);

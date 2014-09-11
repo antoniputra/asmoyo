@@ -13,9 +13,14 @@ class Public_PageController extends AsmoyoController
 
 	public function show($slug)
 	{
+		$page = $this->page->requireBySlugCache($slug);
+		if ($page['slug'] == 'home') {
+			return Redirect::to('/');
+		}
+
 		$data = [
-			'page'	=> $this->page->requireBySlugCache($slug),
-			'title' => true,
+			'page'	=> $page,
+			'title' => $page['title'],
 		];
 		return $this->publicView('content.page.show', $data);
 	}

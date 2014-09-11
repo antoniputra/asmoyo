@@ -6,7 +6,9 @@ class Public_HomeController extends AsmoyoController {
 
 	public function index()
 	{
-		$data = array();
+		$data = array(
+			'title'	=> 'Home',
+		);
 		return $this->publicView('content.home', $data);
 	}
 

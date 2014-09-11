@@ -6,7 +6,9 @@ class Public_HomeController extends AsmoyoController {
 
 	public function index()
 	{
-		$data = array(
+		$blogs['items'] = app('asmoyo.blog')->getRepoAllCache(3);
+		$data 	= array(
+			'blogs'	=> $blogs,
 			'title'	=> 'Home',
 		);
 		return $this->publicView('content.home', $data);

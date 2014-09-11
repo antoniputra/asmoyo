@@ -40,7 +40,7 @@ function admin_route($routeName, $param = null)
  * @see Intervention Image Cache
  * @return string|Route
  */
-function getImgCache($filename, $type = 'medium')
+function get_img_cache($filename, $type = 'medium')
 {
     return route('imagecache', array($type, $filename));
 }
@@ -51,7 +51,7 @@ function getImgCache($filename, $type = 'medium')
  * @param array     option
  * @return string|Route
  */
-function getImg($filename, $option = array())
+function get_img($filename, $option = array())
 {
     $param = null;
     if ($option)
@@ -65,7 +65,7 @@ function getImg($filename, $option = array())
     return route('upload.image', $filename) . $param;
 }
 
-function getThumb($filename)
+function get_thumb($filename)
 {
     return route('upload.thumb', $filename);
 }
@@ -100,7 +100,7 @@ function tpl_get($view = null)
  * @param bool  withDefault
  * @param array option
  */
-function asDropdown($data, $withDefault = false, $option = [])
+function as_dropdown($data, $withDefault = false, $option = [])
 {
     if ( $withDefault )
         $result[0] = 'Tidak ada';
@@ -125,7 +125,7 @@ function asDropdown($data, $withDefault = false, $option = [])
 }
 
 // get mime type (used for response content type)
-function getMime($ext, $default='text/html')
+function get_mime($ext, $default='text/html')
 {
     $mimes = array(
         'css'   => 'text/css',

@@ -170,16 +170,22 @@ class ImageLib
 	private function checkDir()
 	{
 		$path = $this->path;
-		if ( ! file_exists( $path ) AND ! File::makeDirectory($path, 0777, true, true) )
+		if ( ! file_exists( $path ) )
 		{
-			throw new \Exception("Error when make '$path', be sure your directory is writable", 1);
+			if( ! File::makeDirectory($path, 0777, true, true) )
+			{
+				throw new \Exception("Error when make '$path', be sure your directory is writable", 1);
+			}
 		}
 
 		// create thumb directory
 		$path_thumb = $this->path_thumb;
-		if ( ! file_exists( $path_thumb ) AND ! File::makeDirectory($path_thumb, 0777, true, true) )
+		if ( ! file_exists( $path_thumb ) )
 		{
-			throw new \Exception("Error when make '$path_thumb', be sure your directory is writable", 1);
+			if ( ! File::makeDirectory($path_thumb, 0777, true, true) )
+			{
+				throw new \Exception("Error when make '$path_thumb', be sure your directory is writable", 1);
+			}
 		}
 	}
 

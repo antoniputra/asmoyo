@@ -189,7 +189,7 @@ HTML::macro('translatePseudo', function($pseudo, $newProperty = [])
     return app('asmoyo.widget')->translatePseudo($pseudo, $newProperty);
 });
 
-function translatePseudo($pseudo, $type, $newProperty = [])
+function translate_pseudo($pseudo, $type, $newProperty = [])
 {
     return HTML::translatePseudo($pseudo, $type, $newProperty);
 }

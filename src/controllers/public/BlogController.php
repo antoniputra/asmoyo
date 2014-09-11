@@ -25,6 +25,7 @@ class Public_BlogController extends AsmoyoController
 	{
 		$data = [
 			'blog'	=> $this->blog->requireBySlugCache($slug),
+			'title'	=> true,
 		];
 		return $this->publicView('content.blog.show', $data);
 	}

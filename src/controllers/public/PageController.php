@@ -15,6 +15,7 @@ class Public_PageController extends AsmoyoController
 	{
 		$data = [
 			'page'	=> $this->page->requireBySlugCache($slug),
+			'title' => true,
 		];
 		return $this->publicView('content.page.show', $data);
 	}

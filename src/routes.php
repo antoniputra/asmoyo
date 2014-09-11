@@ -236,13 +236,17 @@ Route::get('/', [
 ]);
 
 // Category
-Route::resource('category', 'CategoryController');
+Route::resource('category', 'Public_CategoryController');
 // End Category
 
 // Blog
+Route::get('blog/', array(
+	'as'	=> 'blog.index',
+	'uses'	=> 'Public_BlogController@index'
+));
 Route::get('blog/{blog}', array(
 	'as'	=> 'blog.show',
-	'uses'	=> 'BlogController@show'
+	'uses'	=> 'Public_BlogController@show'
 ));
 // End Blog
 

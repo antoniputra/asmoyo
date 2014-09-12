@@ -1,4 +1,6 @@
-@section('title') Pengaturan Web @stop
+@section('title')
+	{{ $title }}
+@stop
 
 @section('javascripts')
 	@parent
@@ -15,7 +17,7 @@
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-globe"></i>
-		Pengaturan Web
+		{{ $title }}
 	</h3>
 	<div class="box-content">
 

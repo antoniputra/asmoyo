@@ -22,7 +22,6 @@ class Admin_OptionController extends AsmoyoController {
 
 	public function putWeb()
 	{
-		return Input::all();
 		$this->option->saveOption();
 		return $this->redirectWithAlert(admin_route('option.getWeb'), 'success', 'Berhasil diperbarui !!');
 	}

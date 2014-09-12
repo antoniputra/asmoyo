@@ -252,7 +252,7 @@ abstract class Repository
         // if attributes is empty
         // register all input except _token
         if ( ! $attributes) {
-            $attributes = Input::except('_token');
+            $attributes = Input::except(['_token', '_method']);
         }
 
         // filter attributes

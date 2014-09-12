@@ -52,13 +52,21 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// End Home
 
 	// Option
-	Route::get('option', array(
+	Route::get('option/web', array(
 		'as'	=> $adminPrefix.'.option.getWeb',
 		'uses' 	=> 'Admin_OptionController@getWeb'
 	));
-	Route::put('option', array(
+	Route::put('option/web', array(
 		'as'	=> $adminPrefix.'.option.putWeb',
 		'uses' 	=> 'Admin_OptionController@putWeb'
+	));
+	Route::get('option/media', array(
+		'as' 		=> $adminPrefix .'.option.getMedia',
+		'uses' 		=> 'Admin_OptionController@getMedia'
+	));
+	Route::put('option/media', array(
+		'as' 		=> $adminPrefix .'.option.putMedia',
+		'uses' 		=> 'Admin_OptionController@putMedia'
 	));
 	// End Option
 

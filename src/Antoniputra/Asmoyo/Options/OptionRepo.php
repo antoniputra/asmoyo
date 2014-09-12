@@ -27,6 +27,20 @@ class OptionRepo extends Repository
 		return $data;
 	}
 
+	public function getMedia()
+	{
+		$data = $this->cache()->rememberForever(__FUNCTION__, function()
+        {
+        	$result = array();
+			foreach( $this->model->where('name', 'like', '%media_%')->get() as $opt )
+			{
+				$result[$opt['name']]	= $opt['value'];
+			}
+			return $result;
+		});
+		return $data;
+	}
+
 	public function getWidget()
 	{
 		$data = $this->cache()->rememberForever(__FUNCTION__, function()
@@ -46,9 +60,9 @@ class OptionRepo extends Repository
 		return $data;
 	}
 
-	public function saveOption($input)
+	public function saveOption($input = [])
 	{
-		$attr = $input ?: \Input::all();
+		$attr = $input ?: \Input::except(['_token', '_method']);
 		if($attr)
 		{
 			foreach($attr as $key => $val)
@@ -57,7 +71,7 @@ class OptionRepo extends Repository
 				if( !empty($val) )
 				{
 					$val = is_array($val) ? json_encode($val) : $val;
-					$this->model->where('name', $key)->save(array('value' => $val));
+					$this->model->where('name', $key)->update(array('value' => $val));
 				}
 			}
 

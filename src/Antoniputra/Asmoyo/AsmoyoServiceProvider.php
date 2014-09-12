@@ -50,6 +50,12 @@ class AsmoyoServiceProvider extends ServiceProvider {
 			return $app['asmoyo.option']->getBase();
 		});
 
+		// get media lists
+		$this->app->bindShared('asmoyo.option.media', function($app)
+		{
+			return $app['asmoyo.option']->getMedia();
+		});
+
 		// get widget lists
 		$this->app->bindShared('asmoyo.option.widget', function($app)
 		{

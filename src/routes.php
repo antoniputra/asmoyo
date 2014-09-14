@@ -141,71 +141,67 @@ Route::group(array('prefix' => $adminPrefix, 'before' => 'adminFilter'), functio
 	// Widget
 	Route::resource('widget', 'Admin_WidgetController', ['only' => ['index', 'create']]);
 
-	if ( app('asmoyo.option.widget') ) {
-	foreach (app('asmoyo.option.widget') as $widget)
-	{
-		// Widget Category
-		Route::get('widget/{widget}', array(
-			'as'	=> $adminPrefix .'.widget.cat.index',
-			'uses'	=> 'Admin_WidgetItemController@index'
-		));
-		Route::get('widget/{widget}/create', array(
-			'as'	=> $adminPrefix .'.widget.cat.create',
-			'uses'	=> 'Admin_WidgetItemController@create'
-		));
-		Route::post('widget/{widget}/store', array(
-			'as'	=> $adminPrefix .'.widget.cat.store',
-			'uses'	=> 'Admin_WidgetItemController@store'
-		));
-		Route::get('widget/{widget}/{cat}/edit', array(
-			'as'	=> $adminPrefix .'.widget.cat.edit',
-			'uses'	=> 'Admin_WidgetItemController@edit'
-		));
-		Route::put('widget/{widget}/{cat}/update', array(
-			'as'	=> $adminPrefix .'.widget.cat.update',
-			'uses'	=> 'Admin_WidgetItemController@update'
-		));
-		Route::delete('widget/{widget}/{cat}/force-delete', array(
-			'as'	=> $adminPrefix .'.widget.cat.forceDestroy',
-			'uses'	=> 'Admin_WidgetItemController@forceDestroy'
-		));
-		Route::get('widget/{widget}/{cat}', array(
-			'as'	=> $adminPrefix .'.widget.cat.show',
-			'uses'	=> 'Admin_WidgetItemController@show'
-		));
-		// End Widget Category
+	// Widget Category
+	Route::get('widget/{widget}', array(
+		'as'	=> $adminPrefix .'.widget.cat.index',
+		'uses'	=> 'Admin_WidgetItemController@index'
+	));
+	Route::get('widget/{widget}/create', array(
+		'as'	=> $adminPrefix .'.widget.cat.create',
+		'uses'	=> 'Admin_WidgetItemController@create'
+	));
+	Route::post('widget/{widget}/store', array(
+		'as'	=> $adminPrefix .'.widget.cat.store',
+		'uses'	=> 'Admin_WidgetItemController@store'
+	));
+	Route::get('widget/{widget}/{cat}/edit', array(
+		'as'	=> $adminPrefix .'.widget.cat.edit',
+		'uses'	=> 'Admin_WidgetItemController@edit'
+	));
+	Route::put('widget/{widget}/{cat}/update', array(
+		'as'	=> $adminPrefix .'.widget.cat.update',
+		'uses'	=> 'Admin_WidgetItemController@update'
+	));
+	Route::delete('widget/{widget}/{cat}/force-delete', array(
+		'as'	=> $adminPrefix .'.widget.cat.forceDestroy',
+		'uses'	=> 'Admin_WidgetItemController@forceDestroy'
+	));
+	Route::get('widget/{widget}/{cat}', array(
+		'as'	=> $adminPrefix .'.widget.cat.show',
+		'uses'	=> 'Admin_WidgetItemController@show'
+	));
+	// End Widget Category
 
-		// Widget Item
-		Route::get('widget/{widget}/{cat}/item', array(
-			'as'	=> $adminPrefix .'.widget.item.index',
-			'uses'	=> 'Admin_WidgetItemController@itemIndex'
-		));
-		Route::get('widget/{widget}/{cat}/item/create', array(
-			'as'	=> $adminPrefix .'.widget.item.create',
-			'uses'	=> 'Admin_WidgetItemController@itemCreate'
-		));
-		Route::post('widget/{widget}/{cat}/item/store', array(
-			'as'	=> $adminPrefix .'.widget.item.store',
-			'uses'	=> 'Admin_WidgetItemController@itemStore'
-		));
-		Route::get('widget/{widget}/{cat}/item/{item}/edit', array(
-			'as'	=> $adminPrefix .'.widget.item.edit',
-			'uses'	=> 'Admin_WidgetItemController@itemEdit'
-		));
-		Route::put('widget/{widget}/{cat}/item/{item}/update', array(
-			'as'	=> $adminPrefix .'.widget.item.update',
-			'uses'	=> 'Admin_WidgetItemController@itemUpdate'
-		));
-		Route::get('widget/{widget}/{cat}/item/{item}', array(
-			'as'	=> $adminPrefix .'.widget.item.show',
-			'uses'	=> 'Admin_WidgetItemController@itemShow'
-		));
-		Route::delete('widget/{widget}/{cat}/item/{item}/force-delete', array(
-			'as'	=> $adminPrefix .'.widget.item.forceDestroy',
-			'uses'	=> 'Admin_WidgetItemController@itemForceDestroy'
-		));
-		// End Widget Item
-	} }
+	// Widget Item
+	Route::get('widget/{widget}/{cat}/item', array(
+		'as'	=> $adminPrefix .'.widget.item.index',
+		'uses'	=> 'Admin_WidgetItemController@itemIndex'
+	));
+	Route::get('widget/{widget}/{cat}/item/create', array(
+		'as'	=> $adminPrefix .'.widget.item.create',
+		'uses'	=> 'Admin_WidgetItemController@itemCreate'
+	));
+	Route::post('widget/{widget}/{cat}/item/store', array(
+		'as'	=> $adminPrefix .'.widget.item.store',
+		'uses'	=> 'Admin_WidgetItemController@itemStore'
+	));
+	Route::get('widget/{widget}/{cat}/item/{item}/edit', array(
+		'as'	=> $adminPrefix .'.widget.item.edit',
+		'uses'	=> 'Admin_WidgetItemController@itemEdit'
+	));
+	Route::put('widget/{widget}/{cat}/item/{item}/update', array(
+		'as'	=> $adminPrefix .'.widget.item.update',
+		'uses'	=> 'Admin_WidgetItemController@itemUpdate'
+	));
+	Route::get('widget/{widget}/{cat}/item/{item}', array(
+		'as'	=> $adminPrefix .'.widget.item.show',
+		'uses'	=> 'Admin_WidgetItemController@itemShow'
+	));
+	Route::delete('widget/{widget}/{cat}/item/{item}/force-delete', array(
+		'as'	=> $adminPrefix .'.widget.item.forceDestroy',
+		'uses'	=> 'Admin_WidgetItemController@itemForceDestroy'
+	));
+	// End Widget Item	
 	// End Widget
 });
 /*============

@@ -72,21 +72,21 @@ class Widget {
 	 * get widget category
 	 * @return \Antoniputra\Asmoyo\Widgets\CategoryRepo
 	 */
-	public function category($widget_name = null)
+	public function category($widget_name = null, $widget_fields = null)
 	{
-		return $this->category->init($this->widget['name']);
+		$widget_name 	= $widget_name ?: $this->widget['name'];
+		return $this->category->init($widget_name);
 	}
 
 	/**
 	 * get widget item
 	 * @return \Antoniputra\Asmoyo\Widgets\ItemRepo
 	 */
-	public function item($widget_name = null)
+	public function item($widget_name = null, $widget_fields = null)
 	{
-		return $this->item->init(
-			$this->widget['name'],
-			$this->widget['fields']
-		);
+		$widget_name 	= $widget_name ?: $this->widget['name'];
+		$widget_fields 	= $widget_fields ?: $this->widget['fields'];
+		return $this->item->init($widget_name, $widget_fields);
 	}
 
 	public function getAllDetail()

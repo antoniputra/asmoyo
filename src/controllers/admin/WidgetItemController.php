@@ -3,7 +3,7 @@
 use Antoniputra\Asmoyo\Widgets\WidgetRepo;
 
 class Admin_WidgetItemController extends AsmoyoController {
-	
+
 	protected $collumn 	= 'three_collumn';
 
 	/**
@@ -36,8 +36,8 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function index($widgetSlug)
 	{
-		$cats = $this->category->getRepoAll();
-		$data = array(
+		$cats 	= $this->category->getRepoAll();
+		$data 	= array(
 			'cats'	=> $cats,
 		);
 		return $this->adminViewWidget('index', $data);
@@ -45,8 +45,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function show($widgetSlug, $catSlug)
 	{
-		$cat = $this->category->requireBySlug($catSlug);
-
+		$cat 	= $this->category->requireBySlug($catSlug);
 		$items 	= $this->item->getItemByWidgetId($cat['id']);
 		$data 	= array(
 			'cat'	=> $cat,
@@ -57,15 +56,13 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function create($widgetSlug)
 	{
-		$data = array(
-			
-		);
+		$data 	= [];
 		return $this->adminViewWidget('form', $data);
 	}
 
 	public function store($widgetSlug)
 	{
-		$cat = $this->category->getNewInstance();
+		$cat 	= $this->category->getNewInstance();
 		if ( $this->category->save($cat) )
 		{
 			return $this->redirectWithAlert(admin_route('widget.cat.index', [$widgetSlug]), 'success', 'Berhasil dibuat !!');
@@ -75,10 +72,10 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function edit($widgetSlug, $catSlug)
 	{
-		$cat = $this->category->requireBySlug($catSlug);
-		$data = array(
+		$cat 	= $this->category->requireBySlug($catSlug);
+		$data 	= [
 			'cat' => $cat,
-		);
+		];
 		return $this->adminViewWidget('form', $data);
 	}
 
@@ -95,8 +92,8 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function forceDestroy($widgetSlug, $catSlug)
 	{
-		$wgCat = $this->category->getRepoBySlug($catSlug);
-		$this->category->delete($wgCat, true);
+		$cat = $this->category->getRepoBySlug($catSlug);
+		$this->category->delete($cat, true);
 		return $this->redirectWithAlert(admin_route('widget.cat.index', [$widgetSlug]), 'success', 'Berhasil dihapus permanent !!');
 	}
 
@@ -108,10 +105,10 @@ class Admin_WidgetItemController extends AsmoyoController {
 	{
 		$cat 	= $this->category->requireBySlug($catSlug);
 		$items 	= $this->item->getItemByWidgetId($cat['id']);
-		$data 	= array(
+		$data 	= [
 			'cat'	=> $cat,
 			'items'	=> $items,
-		);
+		];
 		return $this->adminViewWidget('item_index', $data);
 	}
 
@@ -122,16 +119,16 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function itemCreate($widgetSlug, $catSlug)
 	{
-		$cat = $this->category->requireBySlug($catSlug);
-		$data = array(
+		$cat 	= $this->category->requireBySlug($catSlug);
+		$data 	= [
 			'cat' => $cat,
-		);
+		];
 		return $this->adminViewWidget('item_form', $data);
 	}
 
 	public function itemStore($widgetSlug, $catSlug)
 	{
-		$item = $this->item->getNewInstance();
+		$item 	= $this->item->getNewInstance();
 		if ( $this->item->save($item) )
 		{
 			return $this->redirectWithAlert(admin_route('widget.item.index', [$widgetSlug, $catSlug]), 'success', 'Item Berhasil dibuat !!');
@@ -143,16 +140,16 @@ class Admin_WidgetItemController extends AsmoyoController {
 	{
 		$cat 	= $this->category->requireBySlug($catSlug);
 		$item 	= $this->item->requireById($itemId);
-		$data = array(
+		$data 	= [
 			'cat' 	=> $cat,
 			'item' 	=> $item
-		);
+		];
 		return $this->adminViewWidget('item_form', $data);
 	}
 
 	public function itemUpdate($widgetSlug, $catSlug, $itemId)
 	{
-		$item = $this->item->requireById($itemId);
+		$item 	= $this->item->requireById($itemId);
 		$item->fill( Input::only($this->widget_info['fields']) );
 		if ( $this->item->save($item) )
 		{
@@ -163,14 +160,14 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function itemForceDestroy($widgetSlug, $catSlug, $itemId)
 	{
-		$item = $this->item->requireById($itemId);
+		$item 	= $this->item->requireById($itemId);
 		$this->item->delete($item, true);
 		return $this->redirectWithAlert(admin_route('widget.item.index', [$widgetSlug, $catSlug]), 'success', 'Berhasil diperbarui !!');
 	}
 
 	protected function adminViewWidget($content, $data = [])
 	{
-		$widget_path = 'content.widget.'. $this->widget_info['name'] .'.';
+		$widget_path 	= 'content.widget.'. $this->widget_info['name'] .'.';
 		return $this->adminView($widget_path . $content, $data);
 	}
 
@@ -178,9 +175,9 @@ class Admin_WidgetItemController extends AsmoyoController {
 	{
 		parent::adminViewShare();
 
-		View::share(array(
+		View::share([
 			'widget'		=> $this->widget_info,
         	'widget_path'	=> 'asmoyo::admin.content.widget.'. $this->widget_info['name'] .'.',
-    	));
+    	]);
 	}
 }

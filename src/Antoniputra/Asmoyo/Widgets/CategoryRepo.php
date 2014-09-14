@@ -3,14 +3,14 @@
 use Antoniputra\Asmoyo\Cores\Repository;
 use Input;
 
-class WgCategoryRepo extends Repository {
+class CategoryRepo extends Repository {
 
     /**
      * contain widget name
      */
     protected $widget_name;
 
-	public function __construct(WgCategory $model)
+	public function __construct(Category $model)
 	{
 		$this->model 	= $model;
 	}

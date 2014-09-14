@@ -3,7 +3,7 @@
 use Antoniputra\Asmoyo\Cores\Entity;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class WgItem extends Entity {
+class Item extends Entity {
 
     use SoftDeletingTrait;
 

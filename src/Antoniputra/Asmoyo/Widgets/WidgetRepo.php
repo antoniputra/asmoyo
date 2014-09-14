@@ -3,25 +3,31 @@
 use Antoniputra\Asmoyo\Cores\Repository;
 use View;
 
-class Wg {
+class WidgetRepo {
 
 	/**
 	 * Contain Widget Lists
-	 * @var \OptionRepo
+	 * @var \Antoniputra\Asmoyo\Options\OptionRepo
 	 */
 	protected $widgets;
 
 	/**
-	 * Contain Widget Category Repo
-	 * @var \wgCategoryRepo
+	 * Contain Widget Lists
+	 * @var array
 	 */
-	protected $wgCategory;
+	protected $widget;
+
+	/**
+	 * Contain Widget Category Repo
+	 * @var \Antoniputra\Asmoyo\Widgets\CategoryRepo
+	 */
+	protected $category;
 
 	/**
 	 * Contain Widget Item Repo
-	 * @var \wgItemRepo
+	 * @var \Antoniputra\Asmoyo\Widgets\ItemRepo
 	 */
-	protected $wgItem;
+	protected $item;
 
 	/**
 	 * pseudo tag
@@ -29,20 +35,40 @@ class Wg {
 	 */
 	public $pseudo_tag = ['{asmoyo', 'asmoyo}'];
 
-	public function __construct(WgCategoryRepo $wgCategory, WgItemRepo $wgItem)
+	public function __construct(CategoryRepo $category, ItemRepo $item)
 	{
 		$this->widgets 		= app('asmoyo.option.widget');
-		$this->wgCategory 	= $wgCategory;
-		$this->wgItem 		= $wgItem;
+		$this->category 	= $category;
+		$this->item 		= $item;
+	}
+
+	/**
+	 * initialize widget
+	 * @param $widget_name
+	 */
+	public function init($widget_name)
+	{
+		$this->widget = $this->widgets[$widget_name];
+		return $this;
+	}
+
+	public function getWidget()
+	{
+		return $this->widget;
+	}
+
+	public function getWidgets()
+	{
+		return $this->widgets;
 	}
 
 	public function getAllDetail()
 	{
 		$results = [];
-		if ($this->widgets) {
-			foreach ($this->widgets as $name => $value)
+		if ($this->widget) {
+			foreach ($this->widget as $name => $value)
 			{
-				foreach ($this->wgCategory->prepare($name)->getRepoAllCache() as $catValue)
+				foreach ($this->category->prepare($name)->getRepoAllCache() as $catValue)
 				{
 					$results[$name][] = $catValue;
 				}
@@ -68,7 +94,26 @@ class Wg {
 		return $results;
 	}
 
-	// public function get
+	/**
+	 * get widget category
+	 * @return \Antoniputra\Asmoyo\Widgets\CategoryRepo
+	 */
+	public function category()
+	{
+		return $this->category->prepare($this->widget['name']);
+	}
+
+	/**
+	 * get widget item
+	 * @return \Antoniputra\Asmoyo\Widgets\ItemRepo
+	 */
+	public function item()
+	{
+		return $this->item->prepare(
+			$this->widget['name'],
+			$this->widget['fields']
+		);
+	}
 	
 	/**
 	 * Create pseudo by given key
@@ -109,18 +154,18 @@ class Wg {
 
 		$data = [
 			'property'	=> $property,
-			'widget'	=> $this->widgets[$property['name']],
+			'widget'	=> $this->widget[$property['name']],
 		];
 		
 		if ( isset($property['category']) ) {
 			$data += [
-				'wgCat' 	=> $this->wgCategory->getByCategorySlug($property['category']),
+				'wgCat' 	=> $this->category->getByCategorySlug($property['category']),
 			];
 		}
 
 		if ( isset($property['item']) ) {
 			$data += [
-				'wgItem' 	=> $this->wgItem->getById($property['item']),
+				'item' 	=> $this->item->getById($property['item']),
 			];
 		}
 		return View::make('asmoyo-widget::'. $type .'.'. $property['name'], $data)->render();

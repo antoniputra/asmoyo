@@ -3,7 +3,7 @@
 use Antoniputra\Asmoyo\Cores\Entity;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class WgCategory extends Entity {
+class Category extends Entity {
 
     use SoftDeletingTrait;
 
@@ -36,6 +36,6 @@ class WgCategory extends Entity {
      */
     public function items()
     {
-    	return $this->hasMany('Antoniputra\Asmoyo\Widgets\WgItem', 'category_id');
+    	return $this->hasMany('Antoniputra\Asmoyo\Widgets\Item', 'category_id');
     }
 }

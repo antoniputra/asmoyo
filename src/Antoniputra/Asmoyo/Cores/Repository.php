@@ -14,13 +14,6 @@ abstract class Repository
     * Contain Errors
     */
     protected $errors;
-    
-    /**
-    * set repo type
-    * used for repo query
-    * @var string
-    */
-    protected $repo_type;
 
     /**
     * set repo fields
@@ -34,6 +27,19 @@ abstract class Repository
      * @var array
      */
     protected $repo_eager = [];
+
+    /**
+    * set repo type
+    * used for repo query
+    * @var string
+    */
+    protected $repo_type;
+
+    /**
+    * set repo where
+    * @var array
+    */
+    protected $repo_where;
 
     /**
      * Create cache key by given parameter query setting
@@ -51,30 +57,27 @@ abstract class Repository
 		return $this->model;
 	}
 
-    /**
-     * Set repo_fields used by global query repo
-     */
     public function setRepoFields($fields)
     {
         $this->repo_fields = $fields;
         return $this;
     }
 
-    /**
-     * Set repo_eager used by global query repo
-     */
     public function setRepoEager($eagers)
     {
         $this->repo_eager = !is_array($eagers) ? [$eagers] : $eagers ;
         return $this;
     }
 
-    /**
-     * Set repo_type used by global query repo
-     */
     public function setRepoType($type)
     {
         $this->repo_type = $type;
+        return $this;
+    }
+
+    public function setRepoWhere($where)
+    {
+        $this->repo_where = $where;
         return $this;
     }
 
@@ -103,6 +106,12 @@ abstract class Repository
         {
             $this->repo_cache_key .= $repo_type;
             $query = $query->where('type', $repo_type);
+        }
+
+        if ( $repo_where = $this->repo_where AND is_array($this->repo_where) )
+        {
+            $this->repo_cache_key .= implode($repo_where);
+            $query = $query->where($repo_where[0], $repo_where[1], $repo_where[2]);
         }
 
         return $query;

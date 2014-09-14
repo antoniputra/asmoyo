@@ -36,7 +36,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function index($widgetSlug)
 	{
-		$cats 	= $this->category->getRepoAll();
+		$cats 	= $this->category->getRepoAllCache();
 		$data 	= array(
 			'cats'	=> $cats,
 		);
@@ -45,7 +45,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function show($widgetSlug, $catSlug)
 	{
-		$cat 	= $this->category->requireBySlug($catSlug);
+		$cat 	= $this->category->requireBySlugCache($catSlug);
 		$items 	= $this->item->getItemByWidgetId($cat['id']);
 		$data 	= array(
 			'cat'	=> $cat,
@@ -72,7 +72,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function edit($widgetSlug, $catSlug)
 	{
-		$cat 	= $this->category->requireBySlug($catSlug);
+		$cat 	= $this->category->requireBySlugCache($catSlug);
 		$data 	= [
 			'cat' => $cat,
 		];
@@ -103,7 +103,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 	 */
 	public function itemIndex($widgetSlug, $catSlug)
 	{
-		$cat 	= $this->category->requireBySlug($catSlug);
+		$cat 	= $this->category->requireBySlugCache($catSlug);
 		$items 	= $this->item->getItemByWidgetId($cat['id']);
 		$data 	= [
 			'cat'	=> $cat,
@@ -119,7 +119,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function itemCreate($widgetSlug, $catSlug)
 	{
-		$cat 	= $this->category->requireBySlug($catSlug);
+		$cat 	= $this->category->requireBySlugCache($catSlug);
 		$data 	= [
 			'cat' => $cat,
 		];
@@ -138,7 +138,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function itemEdit($widgetSlug, $catSlug, $itemId)
 	{
-		$cat 	= $this->category->requireBySlug($catSlug);
+		$cat 	= $this->category->requireBySlugCache($catSlug);
 		$item 	= $this->item->requireById($itemId);
 		$data 	= [
 			'cat' 	=> $cat,

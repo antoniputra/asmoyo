@@ -28,6 +28,10 @@ class ItemRepo extends Repository {
 
 	public function getItemByWidgetId($widget_id)
 	{
-		return $this->queryRepo()->where('category_id', $widget_id)->get();
+		$key = $this->getCacheKey(__FUNCTION__.$widget_id);
+        return $this->cache()->rememberForever($key, function() use($widget_id)
+        {
+			return $this->queryRepo()->where('category_id', $widget_id)->get();
+		});
 	}
 }

@@ -1,54 +1,53 @@
 <?php
 
-use Antoniputra\Asmoyo\Widgets\WgItemRepo;
-use Antoniputra\Asmoyo\Widgets\WgCategoryRepo;
+use Antoniputra\Asmoyo\Widgets\WidgetRepo;
 
 class Admin_WidgetItemController extends AsmoyoController {
 	
 	protected $collumn 	= 'three_collumn';
 
 	/**
-	 * contain widget name by uri segment 3
-	 */
-	protected $wg_uri;
-
-	/**
-	 * contain widget information
+	 * contain widget repository
 	 */
 	protected $widget;
 
 	/**
+	 * contain widget information
+	 */
+	protected $widget_info;
+
+	/**
 	 * Contain Widget Category
 	 */
-	protected $wgCategory;
+	protected $category;
 
 	/**
 	 * Contain Widget Item
 	 */
-	protected $wgItem;
+	protected $item;
 
-	public function __construct(WgCategoryRepo $wgCategory, WgItemRepo $wgItem)
+	public function __construct(WidgetRepo $widget)
 	{
-		$this->wg_uri 		= Request::segment(3);
-		$this->widget		= app('asmoyo.option.widget')[$this->wg_uri];
-		$this->wgCategory 	= $wgCategory->prepare($this->wg_uri);
-		$this->wgItem 		= $wgItem->prepare($this->wg_uri, $this->widget['fields']);
+		$this->widget	= $widget->init( Request::segment(3) );
+		$this->category = $this->widget->category();
+		$this->item 	= $this->widget->item();
+		$this->widget_info = $this->widget->getWidget();
 	}
 
 	public function index($widgetSlug)
 	{
-		$widgets = $this->wgCategory->getRepoAll();
+		$cats = $this->category->getRepoAll();
 		$data = array(
-			'widgets'	=> $widgets,
+			'cats'	=> $cats,
 		);
-		return $this->adminView('content.widget.'. $this->wg_uri .'.index', $data);
+		return $this->adminViewWidget('index', $data);
 	}
 
 	public function show($widgetSlug, $catSlug)
 	{
-		$widget = $this->wgCategory->requireBySlug($catSlug);
+		$widget = $this->category->requireBySlug($catSlug);
 
-		$items 	= $this->wgItem->getItemByWidgetId($widget['id']);
+		$items 	= $this->item->getItemByWidgetId($widget['id']);
 		$data 	= array(
 			'widget'	=> $widget,
 			'items'		=> $items,
@@ -66,8 +65,8 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function store($widgetSlug)
 	{
-		$wgCat = $this->wgCategory->getNewInstance();
-		if ( $this->wgCategory->save($wgCat) )
+		$wgCat = $this->category->getNewInstance();
+		if ( $this->category->save($wgCat) )
 		{
 			return $this->redirectWithAlert(admin_route('widget.cat.index', [$widgetSlug]), 'success', 'Berhasil dibuat !!');
 		}
@@ -76,7 +75,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function edit($widgetSlug, $catSlug)
 	{
-		$wgCat = $this->wgCategory->requireBySlug($catSlug);
+		$wgCat = $this->category->requireBySlug($catSlug);
 		$data = array(
 			'wgCat' => $wgCat,
 		);
@@ -85,9 +84,9 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function update($widgetSlug, $catSlug)
 	{
-		$wgCat = $this->wgCategory->requireBySlug($catSlug);
-		$wgCat->fill( $this->wgCategory->getInputOnlyFillable() );
-		if ( $this->wgCategory->save($wgCat) )
+		$wgCat = $this->category->requireBySlug($catSlug);
+		$wgCat->fill( $this->category->getInputOnlyFillable() );
+		if ( $this->category->save($wgCat) )
 		{
 			return $this->redirectWithAlert(admin_route('widget.cat.index', [$widgetSlug]), 'success', 'Berhasil diperbarui !!');
 		}
@@ -96,8 +95,8 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function forceDestroy($widgetSlug, $catSlug)
 	{
-		$wgCat = $this->wgCategory->getRepoBySlug($catSlug);
-		$this->wgCategory->delete($wgCat, true);
+		$wgCat = $this->category->getRepoBySlug($catSlug);
+		$this->category->delete($wgCat, true);
 		return $this->redirectWithAlert(admin_route('widget.cat.index', [$widgetSlug]), 'success', 'Berhasil dihapus permanent !!');
 	}
 
@@ -107,9 +106,9 @@ class Admin_WidgetItemController extends AsmoyoController {
 	 */
 	public function itemIndex($widgetSlug, $catSlug)
 	{
-		$widget = $this->wgCategory->requireBySlug($catSlug);
+		$widget = $this->category->requireBySlug($catSlug);
 
-		$items 	= $this->wgItem->getItemByWidgetId($widget['id']);
+		$items 	= $this->item->getItemByWidgetId($widget['id']);
 		$data 	= array(
 			'widget'	=> $widget,
 			'items'		=> $items,
@@ -124,7 +123,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function itemCreate($widgetSlug, $catSlug)
 	{
-		$wgCat = $this->wgCategory->requireBySlug($catSlug);
+		$wgCat = $this->category->requireBySlug($catSlug);
 		$data = array(
 			'wgCat' => $wgCat,
 		);
@@ -133,20 +132,20 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function itemStore($widgetSlug, $catSlug)
 	{
-		$wgItem = $this->wgItem->getNewInstance();
-		if ( $this->wgItem->save($wgItem) )
+		$item = $this->item->getNewInstance();
+		if ( $this->item->save($item) )
 		{
 			return $this->redirectWithAlert(admin_route('widget.item.index', [$widgetSlug, $catSlug]), 'success', 'Item Berhasil dibuat !!');
 		}
-		return $this->redirectWithAlert(false, 'danger', 'Item Gagal dibuat !!', $wgItem->getErrors());
+		return $this->redirectWithAlert(false, 'danger', 'Item Gagal dibuat !!', $item->getErrors());
 	}
 
 	public function itemEdit($widgetSlug, $catSlug, $itemId)
 	{
-		$wgCat 	= $this->wgCategory->requireBySlug($catSlug);
-		$wgItem = $this->wgItem->requireById($itemId);
+		$wgCat 	= $this->category->requireBySlug($catSlug);
+		$item = $this->item->requireById($itemId);
 		$data = array(
-			'wgItem' 	=> $wgItem,
+			'item' 	=> $item,
 			'wgCat' 	=> $wgCat,
 		);
 		return $this->adminView('content.widget.'. $this->wg_uri .'.item_form', $data);
@@ -154,29 +153,35 @@ class Admin_WidgetItemController extends AsmoyoController {
 
 	public function itemUpdate($widgetSlug, $catSlug, $itemId)
 	{
-		$wgItem = $this->wgItem->requireById($itemId);
-		$wgItem->fill( Input::only($this->widget['fields']) );
-		if ( $this->wgItem->save($wgItem) )
+		$item = $this->item->requireById($itemId);
+		$item->fill( Input::only($this->widget['fields']) );
+		if ( $this->item->save($item) )
 		{
 			return $this->redirectWithAlert(admin_route('widget.item.index', [$widgetSlug, $catSlug]), 'success', 'Berhasil diperbarui !!');
 		}
-		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $wgItem->getErrors());
+		return $this->redirectWithAlert(false, 'danger', 'Gagal diperbarui !!', $item->getErrors());
 	}
 
 	public function itemForceDestroy($widgetSlug, $catSlug, $itemId)
 	{
-		$wgItem = $this->wgItem->requireById($itemId);
-		$this->wgItem->delete($wgItem, true);
+		$item = $this->item->requireById($itemId);
+		$this->item->delete($item, true);
 		return $this->redirectWithAlert(admin_route('widget.item.index', [$widgetSlug, $catSlug]), 'success', 'Berhasil diperbarui !!');
+	}
+
+	protected function adminViewWidget($content, $data = [])
+	{
+		$widget_path = 'content.widget.'. $this->widget_info['name'] .'.';
+		return $this->adminView($widget_path . $content, $data);
 	}
 
 	protected function adminViewShare()
 	{
 		parent::adminViewShare();
+
 		View::share(array(
-			'wg'		=> $this->widget,
-			'wg_uri'	=> $this->wg_uri,
-        	'wg_path'	=> 'asmoyo::admin.content.widget.'. $this->wg_uri .'.',
+			'widget'		=> $this->widget_info,
+        	'widget_path'	=> 'asmoyo::admin.content.widget.'. $this->widget_info['name'] .'.',
     	));
 	}
 }

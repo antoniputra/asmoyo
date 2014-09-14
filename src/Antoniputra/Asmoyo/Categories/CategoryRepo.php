@@ -38,7 +38,7 @@ class CategoryRepo extends Repository {
 	public function getBySlugWithBlog($slug, $limit = null)
 	{
 		$key = __FUNCTION__.$slug;
-		return $this->cache()->rememberForever($key, function() use($slug)
+		return $this->cache()->rememberForever($key, function() use($slug, $limit)
 		{
 			return $this->queryRepo()->with(['posts' => function($query) use($limit)
 			{
@@ -53,7 +53,7 @@ class CategoryRepo extends Repository {
 	public function getBySlugWithMedia($slug, $limit = null)
 	{
 		$key = __FUNCTION__.$slug;
-		return $this->cache()->rememberForever($key, function() use($slug)
+		return $this->cache()->rememberForever($key, function() use($slug, $limit)
 		{
 			return $this->queryRepo()->with(['medias' => function($query) use($limit)
 			{

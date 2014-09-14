@@ -1,7 +1,5 @@
 <?php namespace Antoniputra\Asmoyo\Posts\Medias;
 
-/* NOTE : STATUS FOR MEDIA IS PUBLISH (can be accessed as page) AND VISIBLE just image */
-
 use Antoniputra\Asmoyo\Cores\Repository;
 use Antoniputra\Asmoyo\Lib\ImageLib;
 use Input;

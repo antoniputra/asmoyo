@@ -3,9 +3,6 @@
 use Input, Config, File;
 use Intervention\Image\ImageManagerStatic as InterventionImage;
 
-/**
-* 
-*/
 class ImageLib
 {
 	/**
@@ -42,7 +39,7 @@ class ImageLib
 	/**
 	 * Contain errors message
 	 */
-	protected $errors = 'something went wrong when upload process, be sure the extension is jpg, jpeg, png, gif';
+	protected $errors = 'something went wrong when upload process';
 
 	public function __construct($file, $fileName = null)
 	{

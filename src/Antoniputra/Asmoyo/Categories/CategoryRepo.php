@@ -33,14 +33,32 @@ class CategoryRepo extends Repository {
 	}
 
 	/**
-	 * Get category with all relations
+	 * Get category with related blog
 	 */
-	public function getDetailBySlugCache($slug)
+	public function getBySlugWithBlog($slug, $limit = null)
 	{
 		$key = __FUNCTION__.$slug;
 		return $this->cache()->rememberForever($key, function() use($slug)
 		{
-			return $this->queryRepo()->with('posts')->where('slug', $slug)->first();
+			return $this->queryRepo()->with(['posts' => function($query) use($limit)
+			{
+				return $query->where('type', 'blog')->get($limit);
+			}])->where('slug', $slug)->first();
+		});
+	}
+
+	/**
+	 * Get category with related media
+	 */
+	public function getBySlugWithMedia($slug, $limit = null)
+	{
+		$key = __FUNCTION__.$slug;
+		return $this->cache()->rememberForever($key, function() use($slug)
+		{
+			return $this->queryRepo()->with(['medias' => function($query) use($limit)
+			{
+				return $query->where('type', 'media')->get($limit);
+			}])->where('slug', $slug)->first();
 		});
 	}
 

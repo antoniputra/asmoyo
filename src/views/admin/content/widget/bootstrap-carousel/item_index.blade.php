@@ -10,10 +10,6 @@
 		<i class="fa fa-th-large"></i>
 		Daftar - {{$cat['title']}}
 		&nbsp;
-		<a href="{{admin_route( 'widget.cat.show', [$widget['name'], $cat['slug']] )}}" class="btn btn-primary btn-sm">
-			<i class="fa fa-search"></i>
-			Preview
-		</a>
 		<a href="{{admin_route( 'widget.item.create', [$widget['name'], $cat['slug']] )}}" class="btn btn-primary btn-sm">
 			<i class="fa fa-plus"></i>
 			Tambah Item

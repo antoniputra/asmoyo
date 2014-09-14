@@ -37,6 +37,13 @@
 			</div>
 
 			<div class="form-group">
+				<label for="order" class="control-group col-md-2">Urutan</label>
+				<div class="col-md-9">
+					{{ Form::input('number', 'order', null, ['class' => 'form-control', 'min' => 0, 'max' => 10]) }}
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label class="control-group col-md-2">Description</label>
 				<div class="col-md-9">
 					{{ Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4]) }}

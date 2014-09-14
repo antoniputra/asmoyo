@@ -150,13 +150,13 @@ class Widget {
 	 * @param array option
 	 * @return View with pseudo query data
 	 */
-	public function translatePseudo($pseudo, $type, $additional_prop = [])
+	public function translatePseudo($pseudo, $type = null, $newProp = [])
 	{
 		$pseudo = trim(str_replace([$this->pseudo_tag[0], $this->pseudo_tag[1]], "", $pseudo));
 		$pseudo = str_replace(" ", "&", $pseudo);
 		parse_str($pseudo, $property);
 
-		$property = array_unique(array_merge($property, $additional_prop));
+		$property = array_unique(array_merge($property, $newProp));
 
 		$data = [
 			'property'	=> $property,
@@ -165,7 +165,7 @@ class Widget {
 		
 		if ( isset($property['category']) ) {
 			$data += [
-				'wgCat' 	=> $this->category->getByCategorySlug($property['category']),
+				'cat' 	=> $this->category->getByCategorySlug($property['category']),
 			];
 		}
 
@@ -174,6 +174,12 @@ class Widget {
 				'item' 	=> $this->item->getById($property['item']),
 			];
 		}
-		return View::make('asmoyo-widget::'. $type .'.'. $property['name'], $data)->render();
+
+		$widget_view = $type .'/'. $property['name'] .'.blade.php';
+		if ( check_widget_view($widget_view) )
+		{
+			return View::make('asmoyo-widget::'. $type .'.'. $property['name'], $data)->render();
+		}
+		return View::make('asmoyo-widget::default.'. $property['name'], $data)->render();
 	}
 }

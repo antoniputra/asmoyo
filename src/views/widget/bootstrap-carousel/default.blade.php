@@ -1,10 +1,10 @@
-@if( count($wgCat['items']) )
+@if( count($cat['items']) )
 	<div id="bootstrap-banner" class="carousel slide" data-ride="carousel">
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner">
-			@foreach($wgCat['items'] as $key => $item)
+			@foreach($cat['items'] as $key => $item)
 				<div class="item @if($key == 0) active @endif ">
-					<img src="{{$item['image']}}" >
+					<img src="{{$item['image']}}" style="width:100%; height:300px;" >
 					<div class="carousel-caption">
 						<h3>{{$item['title']}}</h3>
 						<p>{{$item['description']}}</p>

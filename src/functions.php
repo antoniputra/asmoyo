@@ -179,17 +179,31 @@ Form::macro('link', function($text, $method, $action, $attr = array(), $confirm_
     return $output;
 });
 
-\View::addNamespace('asmoyo-widget', app_path('views/asmoyo-theme/'. asmoyo_option('web_theme.name') .'/widget'));
+function widget_path()
+{
+    return app_path('views/'. $GLOBALS['theme_dir'] .'/'. asmoyo_option('web_theme.name') .'/widget');
+}
+
+function check_widget_view($view)
+{
+    if( file_exists( widget_path() .'/'. $view ) )
+    {
+        return true;
+    }
+    return false;
+}
+
+\View::addNamespace('asmoyo-widget', widget_path());
 
 /**
 * @param string pseudo {asmoyo name=bootstrap-carousel category=banner-utama asmoyo}
 */
-HTML::macro('translatePseudo', function($pseudo, $newProperty = [])
+HTML::macro('translatePseudo', function($pseudo, $type, $newProperty = [])
 {
-    return app('asmoyo.widget')->translatePseudo($pseudo, $newProperty);
+    return app('asmoyo.widget')->translatePseudo($pseudo, $type, $newProperty);
 });
 
-function translate_pseudo($pseudo, $type, $newProperty = [])
+function trans_pseudo($pseudo, $type, $newProperty = [])
 {
     return HTML::translatePseudo($pseudo, $type, $newProperty);
 }

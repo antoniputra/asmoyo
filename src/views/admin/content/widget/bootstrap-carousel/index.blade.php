@@ -29,9 +29,6 @@
 							<p>{{$cat['description']}}</p>
 						</td>
 						<td style="vertical-align:middle;">
-							<a href="{{ admin_route('widget.cat.show', array($widget['name'], $cat['slug'])) }}" class="btn btn-default btn-sm">
-								<i class="fa fa-search"></i> Lihat
-							</a>
 							<a href="{{ admin_route('widget.item.index', array($widget['name'], $cat['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-gear"></i> Manage
 							</a>

@@ -48,12 +48,12 @@ class OptionRepo extends Repository
         	$result = array();
 			foreach( $this->model->where('name', 'like', '%widget_%')->get() as $opt )
 			{
-				$name 	= str_replace('widget_', '', $opt['name']);
-				$result[$name]	= $opt['value'];
-				
-				if ( ! isset($opt['value']['description']) ) {
-					$result[$name]['description']= $opt['description'];
-				}
+				$name = str_replace('widget_', '', $opt['name']);
+				$result[$name] = array(
+					'name' 			=> $name,
+					'description' 	=> $opt['description']
+				);
+				$result[$name] += $opt['value'];
 			}
 			return $result;
 		});

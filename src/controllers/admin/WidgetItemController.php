@@ -1,6 +1,6 @@
 <?php
 
-use Antoniputra\Asmoyo\Widgets\WidgetRepo;
+use Antoniputra\Asmoyo\Widgets\Widget;
 
 class Admin_WidgetItemController extends AsmoyoController {
 
@@ -26,7 +26,7 @@ class Admin_WidgetItemController extends AsmoyoController {
 	 */
 	protected $item;
 
-	public function __construct(WidgetRepo $widget)
+	public function __construct(Widget $widget)
 	{
 		$this->widget	= $widget->init( Request::segment(3) );
 		$this->category = $this->widget->category();

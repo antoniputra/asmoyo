@@ -107,12 +107,12 @@ class AsmoyoServiceProvider extends ServiceProvider {
 		 */
 		$this->app->bindShared('asmoyo.widget', function($app)
 		{
-			return new \Antoniputra\Asmoyo\Widgets\Wg(
-				new \Antoniputra\Asmoyo\Widgets\WgCategoryRepo(
-					new \Antoniputra\Asmoyo\Widgets\WgCategory
+			return new \Antoniputra\Asmoyo\Widgets\Widget(
+				new \Antoniputra\Asmoyo\Widgets\CategoryRepo(
+					new \Antoniputra\Asmoyo\Widgets\Category
 				),
-				new \Antoniputra\Asmoyo\Widgets\WgItemRepo(
-					new \Antoniputra\Asmoyo\Widgets\WgItem
+				new \Antoniputra\Asmoyo\Widgets\ItemRepo(
+					new \Antoniputra\Asmoyo\Widgets\Item
 				)
 			);
 		});

@@ -3,7 +3,7 @@
 use Antoniputra\Asmoyo\Cores\Repository;
 use View;
 
-class WidgetRepo {
+class Widget {
 
 	/**
 	 * Contain Widget Lists

@@ -42,6 +42,12 @@ abstract class Repository
     protected $repo_where;
 
     /**
+    * set repo sortir
+    * @var string
+    */
+    protected $repo_sortir;
+
+    /**
      * Create cache key by given parameter query setting
      * @var string
      */
@@ -81,6 +87,12 @@ abstract class Repository
         return $this;
     }
 
+    public function setRepoSortir($sortir)
+    {
+        $this->repo_sortir = $sortir;
+        return $this;
+    }
+
     /**
      * make query by repo_type
      * @param \Model query
@@ -89,6 +101,7 @@ abstract class Repository
     public function queryRepo()
     {
         $query = $this->model;
+        $this->repo_cache_key = '';
         if ( $repo_fields = $this->repo_fields AND is_array($this->repo_fields) )
         {
             $repo_fields = array_unique($repo_fields);
@@ -114,11 +127,31 @@ abstract class Repository
             $query = $query->where($repo_where[0], $repo_where[1], $repo_where[2]);
         }
 
+        if ( $repo_sortir = $this->repo_sortir )
+        {
+            $this->repo_cache_key .= $repo_sortir;
+            switch ($repo_sortir) {
+                case 'new':
+                    $query = $query->orderBy('id', 'desc');
+                break;
+                case 'old':
+                    $query = $query->orderBy('id', 'asc');
+                break;
+                case 'title-ascending':
+                    $query = $query->orderBy('title', 'asc');
+                break;
+                case 'title-descending':
+                    $query = $query->orderBy('title', 'desc');
+                break;
+            }
+        }
+
         return $query;
     }
 
-    public function getRepoAll($limit = null)
+    public function getRepoAll($limit = null, $sortir = 'new')
     {
+        $this->setRepoSortir($sortir);
         $query = $this->queryRepo();
         if ($limit AND is_numeric($limit))
         {
@@ -127,11 +160,13 @@ abstract class Repository
         return $query->get();
     }
 
-	public function getRepoAllCache($limit = null)
+	public function getRepoAllCache($limit = null, $sortir = 'new')
     {
         $key = $this->getCacheKey(__FUNCTION__ . $limit);
-        return $this->cache()->rememberForever($key, function() use($limit)
+        return $this->cache()->rememberForever($key, function() use($limit, $sortir)
         {
+            $this->setRepoSortir($sortir);
+
             $query = $this->queryRepo();
             if ($limit AND is_numeric($limit))
             {
@@ -143,6 +178,7 @@ abstract class Repository
 
     public function getRepoAllPaginated($limit = null, $sortir = null)
     {
+        $this->setRepoSortir($sortir);
         return $this->queryRepo()->paginate($limit);
     }
 
@@ -167,22 +203,11 @@ abstract class Repository
         $cache_key  = $this->getCacheKey(__FUNCTION__ . implode($data));
         if( $cached = $this->getCache($cache_key) ) return $cached;
 
-        $query  = $this->queryRepo();
+        // set sortir
+        $this->setRepoSortir($data['sortir']);
 
-        switch ($data['sortir']) {
-            case 'new':
-                $query = $query->orderBy('id', 'desc');
-            break;
-            case 'old':
-                $query = $query->orderBy('id', 'asc');
-            break;
-            case 'title-ascending':
-                $query = $query->orderBy('title', 'asc');
-            break;
-            case 'title-descending':
-                $query = $query->orderBy('title', 'desc');
-            break;
-        }
+        // start query
+        $query  = $this->queryRepo();
 
         if ( $data['status'] AND $data['status'] != 'all' ) {
             $query = $query->where('status', $data['status']);

@@ -10,10 +10,19 @@ class ItemRepo extends Repository {
 		$this->model 	= $model;
 	}
 
-	public function prepare($widget_name, $widget_fields)
+	public function init($widget_name = null, $widget_fields = null)
 	{
-		$this->repo_fields 	= array_merge(['id'], $widget_fields);
-		$this->repo_type 	= 'widget_'. $widget_name;
+		if ($widget_name) {
+			$this->repo_type 	= 'widget_'. $widget_name;
+		} else {
+			$this->repo_where 	= ['type', 'like', '%widget_%'];
+		}
+
+		if( $widget_fields )
+		{
+			$this->repo_fields 	= array_merge(['id'], $widget_fields);
+		}
+
 		return $this;
 	}
 

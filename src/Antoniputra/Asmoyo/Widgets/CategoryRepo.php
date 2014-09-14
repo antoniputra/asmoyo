@@ -5,23 +5,24 @@ use Input;
 
 class CategoryRepo extends Repository {
 
-    /**
-     * contain widget name
-     */
-    protected $widget_name;
-
 	public function __construct(Category $model)
 	{
 		$this->model 	= $model;
 	}
 
-	/**
-	 * set repo by requested widget
-	 */
-	public function prepare($widget_name)
+	public function init($widget_name = null, $widget_fields = null)
 	{
-		$this->widget_name 	= $widget_name;
-		$this->repo_type 	= 'widget_'. $widget_name;
+		if ($widget_name) {
+			$this->repo_type 	= 'widget_'. $widget_name;
+		} else {
+			$this->repo_where 	= ['type', 'like', '%widget_%'];
+		}
+
+		if( $widget_fields )
+		{
+			$this->repo_fields 	= array_merge(['id'], $widget_fields);
+		}
+
 		return $this;
 	}
 

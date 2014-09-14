@@ -23,7 +23,6 @@ class Item extends Entity {
         static::saving(function($model)
         {
             $model->type    	= 'widget_'. \Request::segment(3);
-            // $model->category_id = \Request::segment(4);
         });
     }
 

@@ -43,7 +43,7 @@ class Widget {
 	}
 
 	/**
-	 * initialize widget
+	 * initialize the widget to determine which ones should be processed 
 	 * @param $widget_name
 	 */
 	public function init($widget_name)
@@ -52,23 +52,50 @@ class Widget {
 		return $this;
 	}
 
+	/**
+	 * get initialized widget
+	 */
 	public function getWidget()
 	{
 		return $this->widget;
 	}
 
+	/**
+	 * get all widgets
+	 */
 	public function getWidgets()
 	{
 		return $this->widgets;
 	}
 
+	/**
+	 * get widget category
+	 * @return \Antoniputra\Asmoyo\Widgets\CategoryRepo
+	 */
+	public function category($widget_name = null)
+	{
+		return $this->category->init($this->widget['name']);
+	}
+
+	/**
+	 * get widget item
+	 * @return \Antoniputra\Asmoyo\Widgets\ItemRepo
+	 */
+	public function item($widget_name = null)
+	{
+		return $this->item->init(
+			$this->widget['name'],
+			$this->widget['fields']
+		);
+	}
+
 	public function getAllDetail()
 	{
 		$results = [];
-		if ($this->widget) {
-			foreach ($this->widget as $name => $value)
+		if ($this->widgets) {
+			foreach ($this->widgets as $name => $value)
 			{
-				foreach ($this->category->prepare($name)->getRepoAllCache() as $catValue)
+				foreach ($this->category()->getRepoAllCache() as $catValue)
 				{
 					$results[$name][] = $catValue;
 				}
@@ -92,27 +119,6 @@ class Widget {
 			}
 		}
 		return $results;
-	}
-
-	/**
-	 * get widget category
-	 * @return \Antoniputra\Asmoyo\Widgets\CategoryRepo
-	 */
-	public function category()
-	{
-		return $this->category->prepare($this->widget['name']);
-	}
-
-	/**
-	 * get widget item
-	 * @return \Antoniputra\Asmoyo\Widgets\ItemRepo
-	 */
-	public function item()
-	{
-		return $this->item->prepare(
-			$this->widget['name'],
-			$this->widget['fields']
-		);
 	}
 	
 	/**

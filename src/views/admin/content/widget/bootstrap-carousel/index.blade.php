@@ -3,13 +3,13 @@
 @section('before_content')
 	@parent
 	@include($theme_path .'content.widget._menu')
-	@include($wg_path .'_menu')
+	@include($widget_path .'_menu')
 @stop
 
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-th-large"></i>
-		Daftar - {{$wg['title']}}
+		Daftar - {{$widget['title']}}
 	</h3>
 	<div class="box-content">
 
@@ -21,24 +21,24 @@
 				</tr>
 			</thead>
 			<tbody>
-				@if( count($widgets) )
-				@foreach($widgets as $widget)
+				@if( count($cats) )
+				@foreach($cats as $cat)
 					<tr>
 						<td>
-							<h4>{{$widget['title']}}</h4>
-							<p>{{$widget['description']}}</p>
+							<h4>{{$cat['title']}}</h4>
+							<p>{{$cat['description']}}</p>
 						</td>
 						<td style="vertical-align:middle;">
-							<a href="{{ admin_route('widget.cat.show', array($wg_uri, $widget['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('widget.cat.show', array($widget['name'], $cat['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-search"></i> Lihat
 							</a>
-							<a href="{{ admin_route('widget.item.index', array($wg_uri, $widget['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('widget.item.index', array($widget['name'], $cat['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-gear"></i> Manage
 							</a>
-							<a href="{{ admin_route('widget.cat.edit', array($wg_uri, $widget['slug'])) }}" class="btn btn-default btn-sm">
+							<a href="{{ admin_route('widget.cat.edit', array($widget['name'], $cat['slug'])) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-pencil"></i> Edit
 							</a>
-							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('widget.cat.forceDestroy', array($wg_uri, $widget['slug'])),
+							{{ Form::link('Hapus Permanent', 'DELETE', admin_route('widget.cat.forceDestroy', array($widget['name'], $cat['slug'])),
 								array(
 									'icon'	=> 'fa fa-trash-o',
 									'class'	=> 'btn btn-danger btn-sm'

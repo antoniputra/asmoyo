@@ -1,16 +1,16 @@
-@section('title') {{$widget['title']}} @stop
+@section('title') {{$cat['title']}} @stop
 
 @section('before_content')
 	@include($theme_path .'content.widget._menu')
-	@include($wg_path .'_menu')
+	@include($widget_path .'_menu')
 @stop
 
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-th-large"></i>
-		Preview - {{$widget['title']}}
+		Preview - {{$cat['title']}}
 		&nbsp;
-		<a href="{{admin_route( 'widget.item.index', [$wg_uri, $widget['slug']] )}}" class="btn btn-primary btn-sm">
+		<a href="{{admin_route( 'widget.item.index', [$widget['name'], $cat['slug']] )}}" class="btn btn-primary btn-sm">
 			<i class="fa fa-gear"></i>
 			Manage Item
 		</a>

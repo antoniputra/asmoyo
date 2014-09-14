@@ -1,26 +1,26 @@
 @section('title')
-	{{ !isset($wgItem) ? "Tambah Item : $wgCat[title]" : "Edit Item $wgItem[title]" }}
+	{{ !isset($item) ? "Tambah Item : $cat[title]" : "Edit Item $item[title]" }}
 @stop
 
 @section('before_content')
 	@include($theme_path .'content.widget._menu')
-	@include($wg_path .'_menu')
+	@include($widget_path .'_menu')
 @stop
 
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-th-large"></i>
-		{{ !isset($wgItem) ? "Tambah Item : $wgCat[title]" : "Edit Item $wgItem[title]" }}
+		{{ !isset($item) ? "Tambah Item : $cat[title]" : "Edit Item $item[title]" }}
 	</h3>
 	<div class="box-content">
 
-		@if( ! isset($wgItem) )
-			{{ Form::open(['url' => admin_route('widget.item.store', [$wg_uri, $wgCat['slug']]), 'class' => 'form-horizontal']) }}
+		@if( ! isset($item) )
+			{{ Form::open(['url' => admin_route('widget.item.store', [$widget['name'], $cat['slug']]), 'class' => 'form-horizontal']) }}
 		@else
-			{{ Form::model($wgItem, ['url' => admin_route('widget.item.update', [$wg_uri, $wgCat['slug'], $wgItem['id']]), 'method' => 'PUT', 'class' => 'form-horizontal']) }}
+			{{ Form::model($item, ['url' => admin_route('widget.item.update', [$widget['name'], $cat['slug'], $item['id']]), 'method' => 'PUT', 'class' => 'form-horizontal']) }}
 		@endif
 
-			{{ Form::hidden('category_id', $wgCat['id']) }}
+			{{ Form::hidden('category_id', $cat['id']) }}
 
 			<div class="form-group">
 				<label class="control-group col-md-2">Image</label>

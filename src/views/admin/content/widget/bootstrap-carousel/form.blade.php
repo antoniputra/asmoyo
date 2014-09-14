@@ -1,23 +1,23 @@
 @section('title')
-	{{ !isset($wgCat) ? 'Buat Kategori' : "Edit $wgCat[title]" }} 
+	{{ !isset($cat) ? 'Buat Kategori' : "Edit $cat[title]" }} 
 @stop
 
 @section('before_content')
 	@include($theme_path .'content.widget._menu')
-	@include($wg_path .'_menu')
+	@include($widget_path .'_menu')
 @stop
 
 <div class="asmoyo-box">
 	<h3 class="box-header">
 		<i class="fa fa-th-large"></i>
-		{{ !isset($wgCat) ? 'Buat Kategori' : "Edit $wgCat[title]" }}
+		{{ !isset($cat) ? 'Buat Kategori' : "Edit $cat[title]" }}
 	</h3>
 	<div class="box-content">
 
-		@if( ! isset($wgCat) )
-			{{ Form::open(['url' => admin_route('widget.cat.store', [$wg_uri]), 'class' => 'form-horizontal']) }}
+		@if( ! isset($cat) )
+			{{ Form::open(['url' => admin_route('widget.cat.store', [$widget['name']]), 'class' => 'form-horizontal']) }}
 		@else
-			{{ Form::model($wgCat, ['url' => admin_route('widget.cat.update', [$wg_uri, $wgCat['slug']]), 'method' => 'PUT', 'class' => 'form-horizontal']) }}
+			{{ Form::model($cat, ['url' => admin_route('widget.cat.update', [$widget['name'], $cat['slug']]), 'method' => 'PUT', 'class' => 'form-horizontal']) }}
 		@endif
 
 			<div class="form-group">

@@ -59,8 +59,13 @@ class Category extends Entity {
         return json_decode($value, true);
     }
 
-    public function posts()
+    public function blogs()
     {
-        return $this->hasMany('Antoniputra\Asmoyo\Posts\Post');
+        return $this->hasMany('Antoniputra\Asmoyo\Posts\Post')->where('type', 'blog');
+    }
+
+    public function medias()
+    {
+        return $this->hasMany('Antoniputra\Asmoyo\Posts\Post')->where('type', 'media');
     }
 }

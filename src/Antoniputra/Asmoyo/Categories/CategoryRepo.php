@@ -40,9 +40,9 @@ class CategoryRepo extends Repository {
 		$key = __FUNCTION__.$slug;
 		return $this->cache()->rememberForever($key, function() use($slug, $limit)
 		{
-			return $this->queryRepo()->with(['posts' => function($query) use($limit)
+			return $this->queryRepo()->with(['blogs' => function($query) use($limit)
 			{
-				return $query->where('type', 'blog')->get($limit);
+				return $query->get($limit);
 			}])->where('slug', $slug)->first();
 		});
 	}
@@ -57,7 +57,7 @@ class CategoryRepo extends Repository {
 		{
 			return $this->queryRepo()->with(['medias' => function($query) use($limit)
 			{
-				return $query->where('type', 'media')->get($limit);
+				return $query->get($limit);
 			}])->where('slug', $slug)->first();
 		});
 	}
